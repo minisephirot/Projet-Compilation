@@ -1,5 +1,6 @@
 package yal.arbre;
 
+
 /**
  * 3 déc. 2015
  *
@@ -22,5 +23,15 @@ public class BlocDInstructions extends ArbreAbstrait {
     public String toString() {
         return expr.toString() ;
     }
+
+	@Override
+	public void verifier() {
+		expr.verifier();
+	}
+
+	@Override
+	public String toMIPS() {
+		return expr.toString();
+	}
 
 }
