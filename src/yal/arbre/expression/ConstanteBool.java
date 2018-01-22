@@ -1,7 +1,7 @@
 package yal.arbre.expression;
 
 /**
- * 3 déc. 2015
+ * 3 dÃ©c. 2015
  *
  * @author brigitte wrobel-dautcourt
  */
@@ -26,5 +26,4 @@ public class ConstanteBool extends Constante {
 			sb.append("li $v0, 0\n");
 		return sb.toString();
 	}
-
 }
