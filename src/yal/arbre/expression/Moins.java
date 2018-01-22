@@ -17,4 +17,17 @@ public class Moins extends BinaireArithmetique {
         return " - ";
     }
     
+	@Override
+	public void verifier() {
+		// Test si gauche et droite sont des entiers
+	}
+
+	@Override
+	public String toMIPS() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(evluationExpressions());
+		sb.append("# différence gauche droite\n");
+		sb.append("sub $v0, $t8, $v0");
+		return sb.toString();
+	}
 }

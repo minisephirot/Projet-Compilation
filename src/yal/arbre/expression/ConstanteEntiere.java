@@ -12,4 +12,18 @@ public class ConstanteEntiere extends Constante {
         super(texte, n) ;
     }
 
+	@Override
+	public void verifier() {
+	}
+
+	@Override
+	public String toMIPS() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("# constante entière\n");
+		sb.append("li $v0, ");
+		sb.append(this.cste);
+		sb.append("\n");
+		return sb.toString();
+	}
+
 }

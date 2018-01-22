@@ -17,4 +17,18 @@ public class Plus extends BinaireArithmetique {
         return " + " ;
     }
 
+	@Override
+	public void verifier() {
+		// Test si gauche et droite sont des entiers
+	}
+
+	@Override
+	public String toMIPS() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(evluationExpressions());
+		sb.append("# addition gauche droite\n");
+		sb.append("add $v0, $v0, $t8");
+		return sb.toString();
+	}
+
 }

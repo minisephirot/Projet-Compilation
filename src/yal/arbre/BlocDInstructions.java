@@ -23,4 +23,20 @@ public class BlocDInstructions extends ArbreAbstrait {
         return expr.toString() ;
     }
 
+	@Override
+	public void verifier() {
+		expr.verifier();		
+	}
+
+	@Override
+	public String toMIPS() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("main:\n");
+		sb.append("# init variable repérer la zone des variables\n");
+		sb.append("move $s7, $sp\n");
+		sb.append(expr.toMIPS());
+		sb.append("\n");
+		return sb.toString();
+	}
+
 }
