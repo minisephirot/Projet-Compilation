@@ -40,5 +40,14 @@ public class OuLogique extends BinaireLogique {
 		)){}
 		else{throw new AnalyseSemantiqueException("Ligne "+this.noLigne+" : Ou Logique doit être Bool|Bool");}
 	}
+	
+	@Override
+	public String toMIPS() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(super.toMIPS());
+		sb.append("# ou logique gauche droite\n");
+		sb.append("or $v0, $t8, $v0");
+		return sb.toString();
+	}
     
 }

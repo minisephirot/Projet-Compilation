@@ -40,4 +40,13 @@ public class EtLogique extends BinaireLogique {
 		)){}
 		else{throw new AnalyseSemantiqueException("Ligne "+this.noLigne+" : Et Logique doit être Bool|Bool");}
 	}
+	
+	@Override
+	public String toMIPS() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(super.toMIPS());
+		sb.append("# et logique gauche droite\n");
+		sb.append("and $v0, $t8, $v0");
+		return sb.toString();
+	}
 }
