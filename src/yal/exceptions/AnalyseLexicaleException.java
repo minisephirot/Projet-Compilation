@@ -6,6 +6,7 @@ package yal.exceptions;
  * @author brigitte wrobel-dautcourt
  */
 
+@SuppressWarnings("serial")
 public class AnalyseLexicaleException extends AnalyseException {
  
     public AnalyseLexicaleException(int ligne, int colonne, String m) {

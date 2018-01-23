@@ -30,7 +30,16 @@ public class NonLogique extends Unaire {
 			this.expression instanceof NonLogique ||
 			this.expression instanceof OuLogique
 		){}
-		else{throw new AnalyseSemantiqueException("Ligne "+this.noLigne+" : Non Logique doit être appliqué sur un Bool");}
+		else{throw new AnalyseSemantiqueException("Ligne " + this.noLigne + " : Non Logique doit être appliqué sur un Bool");}
+	}
+	
+	@Override
+	public String toMIPS() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(super.toMIPS());
+		sb.append("# non logique\n");
+		sb.append("nor $v0, $v0, $v0\n");
+		return sb.toString();
 	}
     
 }

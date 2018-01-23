@@ -21,5 +21,17 @@ public abstract class Unaire extends Expression {
     public String toString() {
         return "(" + operateur() + expression + ")" ;
     }
+    
+    @Override
+    public String toMIPS() {
+    	StringBuilder sb = new StringBuilder();
+    	sb.append("# opération ");
+    	sb.append(operateur());
+
+    	sb.append(", calcul de l'expression\n");
+    	sb.append(expression.toMIPS());
+
+    	return sb.toString();
+    }
 
 }

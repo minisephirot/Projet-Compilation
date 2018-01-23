@@ -25,7 +25,7 @@ public class Moins extends BinaireArithmetique {
 	@Override
 	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(evluationExpressions());
+		sb.append(super.toMIPS());
 		sb.append("# différence gauche droite\n");
 		sb.append("sub $v0, $t8, $v0");
 		return sb.toString();

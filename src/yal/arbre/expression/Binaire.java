@@ -24,7 +24,8 @@ public abstract class Binaire extends Expression {
         return "(" + gauche + operateur() + droite + ")" ;
     }
     
-    protected String evluationExpressions() {
+    @Override
+    public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("# opération ");
 		sb.append(operateur());
