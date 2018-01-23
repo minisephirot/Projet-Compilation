@@ -17,4 +17,18 @@ public class Mult extends BinaireArithmetique {
         return " * ";
     }
 
+	@Override
+	public void verifier() {
+		// TODO Auto-generated method stub
+		
+	}
+    
+	@Override
+	public String toMIPS() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(super.toMIPS());
+		sb.append("# multiplication gauche droite\n");
+		sb.append("mul $v0, $t8, $v0");
+		return sb.toString();
+	}
 }

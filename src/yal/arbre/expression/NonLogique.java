@@ -37,8 +37,9 @@ public class NonLogique extends Unaire {
 	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(super.toMIPS());
-		sb.append("# non logique\n");
-		sb.append("nor $v0, $v0, $v0\n");
+		sb.append("#non logique\n");
+		//Impossible d'utiliser not qui est une macro inversant tout les bits, on utilise un non exclusif avec 1
+		sb.append("xori $v0, $v0, 1\n");
 		return sb.toString();
 	}
     
