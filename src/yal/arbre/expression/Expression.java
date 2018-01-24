@@ -10,6 +10,8 @@ import yal.arbre.ArbreAbstrait;
 
 public abstract class Expression extends ArbreAbstrait {
     
+	protected String returntype;
+	
     protected Expression(int n) {
         super(n) ;
     }

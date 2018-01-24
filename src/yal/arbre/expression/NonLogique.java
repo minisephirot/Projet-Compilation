@@ -12,6 +12,7 @@ public class NonLogique extends Unaire {
     
     public NonLogique(Expression expr) {
         super(expr);
+        this.returntype = "bool";
     }
 
     @Override

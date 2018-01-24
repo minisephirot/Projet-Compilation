@@ -10,6 +10,7 @@ public abstract class BinaireLogique extends Binaire {
 
     protected BinaireLogique(Expression gauche, Expression droite) {
         super(gauche, droite) ;
+        this.returntype = "bool";
     }
     
 }

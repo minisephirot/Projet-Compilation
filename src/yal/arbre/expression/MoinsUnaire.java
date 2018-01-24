@@ -10,6 +10,7 @@ public class MoinsUnaire extends Unaire {
     
     public MoinsUnaire(Expression expr) {
         super(expr);
+        this.returntype = "int";
     }
 
     @Override
