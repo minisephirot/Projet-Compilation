@@ -17,6 +17,8 @@ public abstract class BinaireArithmetique extends Binaire {
     
 	@Override
 	public void verifier() {
+		this.gauche.verifier();
+		this.droite.verifier();
 		if (!(this.gauche.returntype.equals("int") && this.droite.returntype.equals("int"))){
 			throw new AnalyseSemantiqueException("Ligne " + this.noLigne + " : Opération arithmetique "+ this.operateur() +" doit être appliqué sur des entiers");
 		}

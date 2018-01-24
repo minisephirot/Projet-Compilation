@@ -17,6 +17,8 @@ public abstract class BinaireLogique extends Binaire {
     
 	@Override
 	public void verifier() {
+		this.gauche.verifier();
+		this.droite.verifier();
 		if (!(this.gauche.returntype.equals("bool") && this.droite.returntype.equals("bool"))){
 			throw new AnalyseSemantiqueException("Ligne " + this.noLigne + " : Opération arithmetique "+ this.operateur() +" doit être appliqué sur des booléens");
 		}
