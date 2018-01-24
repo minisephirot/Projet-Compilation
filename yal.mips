@@ -1,20 +1,23 @@
 main:
 # init variable repérer la zone des variables
 move $s7, $sp
-# opération  + , calcul de gauche
-# constante entière
-li $v0, 3
+# opération  ou , calcul de gauche
+# opération  non , calcul de l'expression
+# constante bool
+li $v0, 1
+#non logique
+xori $v0, $v0, 1
 # empiler gauche
 sw $v0, ($sp)
 addi $sp, $sp, -4
 # calcul de droite
-# constante entière
-li $v0, 2
+# constante bool
+li $v0, 1
 # dépile droite dans $t8
 addi $sp, $sp, 4
 lw $t8, ($sp)
-# addition gauche droite
-add $v0, $v0, $t8
+# ou logique gauche droite
+or $v0, $t8, $v0
 end:
 move $v1, $v0      # copie de v0 dans v1 pour permettre les tests de plic0
 li $v0, 10         # retour au système

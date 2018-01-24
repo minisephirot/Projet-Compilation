@@ -22,7 +22,7 @@ public class Moins extends BinaireArithmetique {
 		StringBuilder sb = new StringBuilder();
 		sb.append(super.toMIPS());
 		sb.append("# différence gauche droite\n");
-		sb.append("sub $v0, $t8, $v0");
+		sb.append("sub $v0, $t8, $v0\n");
 		return sb.toString();
 	}
 }

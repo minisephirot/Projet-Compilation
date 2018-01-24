@@ -22,7 +22,7 @@ public class OuLogique extends BinaireLogique {
 		StringBuilder sb = new StringBuilder();
 		sb.append(super.toMIPS());
 		sb.append("# ou logique gauche droite\n");
-		sb.append("or $v0, $t8, $v0");
+		sb.append("or $v0, $t8, $v0\n");
 		return sb.toString();
 	}
     

@@ -28,7 +28,7 @@ public class Div extends BinaireArithmetique {
 		StringBuilder sb = new StringBuilder();
 		sb.append(super.toMIPS());
 		sb.append("# division gauche droite\n");
-		sb.append("div $v0, $t8, $v0");
+		sb.append("div $v0, $t8, $v0\n");
 		return sb.toString();
 	}
 }
