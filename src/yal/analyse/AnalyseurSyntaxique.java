@@ -6,11 +6,26 @@
 
 package yal.analyse;
 
-import java.util.*;
-import yal.arbre.*;
-import yal.arbre.expression.*;
+import java.util.HashMap;
+
+import yal.arbre.ArbreAbstrait;
+import yal.arbre.BlocDInstructions;
+import yal.arbre.expression.ConstanteBool;
+import yal.arbre.expression.ConstanteEntiere;
+import yal.arbre.expression.Different;
+import yal.arbre.expression.Div;
+import yal.arbre.expression.Egal;
+import yal.arbre.expression.EtLogique;
+import yal.arbre.expression.Expression;
+import yal.arbre.expression.Inferieur;
+import yal.arbre.expression.Moins;
+import yal.arbre.expression.MoinsUnaire;
+import yal.arbre.expression.Mult;
+import yal.arbre.expression.NonLogique;
+import yal.arbre.expression.OuLogique;
+import yal.arbre.expression.Plus;
+import yal.arbre.expression.Superieur;
 import yal.exceptions.AnalyseSyntaxiqueException;
-import java_cup.runtime.*;
 
 /** CUP v0.11a beta 20060608 generated parser.
   * @version Wed Jan 17 10:18:05 CET 2018

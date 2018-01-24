@@ -23,7 +23,7 @@ public class Superieur extends Comparaison {
 		int indexEtiquette = 1;
 		sb.append(super.toMIPS());
 		
-		sb.append("Début comparaison/n");
+		sb.append("# Début comparaison\n");
 		sb.append("Si"+ indexEtiquette +":\n");
 		sb.append("# Soustraction des 2 variables comparées\n");
 		sb.append("sub $v0, $t8, $v0\n");
