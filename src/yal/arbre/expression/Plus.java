@@ -18,11 +18,6 @@ public class Plus extends BinaireArithmetique {
     }
 
 	@Override
-	public void verifier() {
-		// Test si gauche et droite sont des entiers
-	}
-
-	@Override
 	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(super.toMIPS());

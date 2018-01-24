@@ -14,10 +14,6 @@ public class ConstanteBool extends Constante {
     }
 
 	@Override
-	public void verifier() {		
-	}
-
-	@Override
 	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("# constante bool\n");

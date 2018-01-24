@@ -14,10 +14,6 @@ public class ConstanteEntiere extends Constante {
     }
 
 	@Override
-	public void verifier() {
-	}
-
-	@Override
 	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("# constante entière\n");

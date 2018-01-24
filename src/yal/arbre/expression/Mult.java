@@ -16,12 +16,6 @@ public class Mult extends BinaireArithmetique {
     public String operateur() {
         return " * ";
     }
-
-	@Override
-	public void verifier() {
-		// TODO Auto-generated method stub
-		
-	}
     
 	@Override
 	public String toMIPS() {

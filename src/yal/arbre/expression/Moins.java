@@ -16,11 +16,6 @@ public class Moins extends BinaireArithmetique {
     public String operateur() {
         return " - ";
     }
-    
-	@Override
-	public void verifier() {
-		// Test si gauche et droite sont des entiers
-	}
 
 	@Override
 	public String toMIPS() {

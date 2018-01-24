@@ -1,0 +1,4 @@
+TODO LIST DU TOP DU TOP :
+
+-> Changer la verification de toMIPS() de la division d'entiers pour ajouter un branchement
+qui print une erreur division par zero en mips. (au début du fichier, a la fin ? etc )

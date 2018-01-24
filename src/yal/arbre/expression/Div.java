@@ -18,17 +18,17 @@ public class Div extends BinaireArithmetique {
     }
     
 	@Override
+	public void verifier() {
+		super.verifier();
+		// TODO Pas oublier le mips pour tester la division par zero
+	}
+    
+	@Override
 	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(super.toMIPS());
 		sb.append("# division gauche droite\n");
 		sb.append("div $v0, $t8, $v0");
 		return sb.toString();
-	}
-
-	@Override
-	public void verifier() {
-		// TODO Auto-generated method stub
-		
 	}
 }

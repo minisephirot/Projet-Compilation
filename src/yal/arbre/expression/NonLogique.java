@@ -22,16 +22,9 @@ public class NonLogique extends Unaire {
 
 	@Override
 	public void verifier() {
-		this.expression.verifier();
-		if (
-			this.expression instanceof ConstanteBool ||
-			this.expression instanceof Different ||
-			this.expression instanceof Egal ||
-			this.expression instanceof EtLogique ||
-			this.expression instanceof NonLogique ||
-			this.expression instanceof OuLogique
-		){}
-		else{throw new AnalyseSemantiqueException("Ligne " + this.noLigne + " : Non Logique doit être appliqué sur un Bool");}
+		if (!this.expression.returntype.equals("bool")){
+			throw new AnalyseSemantiqueException("Ligne " + this.noLigne + " : Non Logique doit être appliqué sur un booléen");
+		}
 	}
 	
 	@Override
