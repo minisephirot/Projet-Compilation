@@ -1,9 +1,13 @@
 package yal ;
 
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import yal.analyse.AnalyseurLexical;
 import yal.analyse.AnalyseurSyntaxique;
 import yal.arbre.ArbreAbstrait;
@@ -26,6 +30,11 @@ public class Yal {
             // à écrire pour yal0
             arbre.verifier() ; 
             System.out.println(arbre.toMIPS());
+            
+            // Ecriture du code mips dans le fichier yal.mips
+            BufferedWriter buff = new BufferedWriter(new FileWriter(new File("yal.mips")));
+            buff.write(arbre.toMIPS());
+            buff.close();
         } 
         catch (FileNotFoundException ex) {
             System.err.println("Fichier " + fichier + " inexistant") ;

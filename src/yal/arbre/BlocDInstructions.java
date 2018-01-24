@@ -21,7 +21,7 @@ public class BlocDInstructions extends ArbreAbstrait {
     
     @Override
     public String toString() {
-        return expr.toString() ;
+    	return expr.toString() ;
     }
 
 	@Override
@@ -36,7 +36,10 @@ public class BlocDInstructions extends ArbreAbstrait {
 		sb.append("# init variable repérer la zone des variables\n");
 		sb.append("move $s7, $sp\n");
 		sb.append(expr.toMIPS());
-		sb.append("\n");
+		sb.append("end:\n");
+		sb.append("move $v1, $v0      # copie de v0 dans v1 pour permettre les tests de plic0\n");
+		sb.append("li $v0, 10         # retour au système\n");
+		sb.append("syscall");
 		return sb.toString();
 	}
 
