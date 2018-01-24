@@ -1,5 +1,7 @@
 package yal.arbre.expression;
 
+import yal.exceptions.AnalyseSemantiqueException;
+
 /**
  * 3 déc. 2015
  *

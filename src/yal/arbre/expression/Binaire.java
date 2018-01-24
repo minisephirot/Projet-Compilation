@@ -40,7 +40,7 @@ public abstract class Binaire extends Expression {
 		sb.append("# calcul de droite\n");
 		sb.append(droite.toMIPS());
 		
-		sb.append("# dépile droite dans $t8\n");
+		sb.append("# dépile gauche dans $t8\n");
 		sb.append("addi $sp, $sp, 4\n");
 		sb.append("lw $t8, ($sp)\n");
 		return sb.toString();
