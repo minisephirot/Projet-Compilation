@@ -32,7 +32,7 @@ public class Superieur extends Comparaison {
     @Override
 	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
-		int indexEtiquette = 1;
+		int indexEtiquette = getEtiquette();
 		sb.append(super.toMIPS());
 		
 		sb.append("# Début comparaison\n");
