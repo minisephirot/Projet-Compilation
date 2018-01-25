@@ -34,8 +34,6 @@ public class BlocDInstructions extends ArbreAbstrait {
 	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
 		// Les data du début
-		sb.append(".data\n");
-		sb.append("errDiv0:     .asciiz \"Division par 0 interdite\\n\"\n");
 		sb.append(".text\n");
 		sb.append("main:\n");
 		sb.append("# init variable repérer la zone des variables\n");
@@ -55,6 +53,9 @@ public class BlocDInstructions extends ArbreAbstrait {
 			sb.append("la $a0, errDiv0\n");
 			sb.append("syscall\n");
 			sb.append("b end\n");
+			
+			sb.insert(0, "errDiv0:     .asciiz \"Division par 0 interdite\\n\"\n");
+			sb.insert(0, ".data\n");
 		}
 		return sb.toString();
 	}
