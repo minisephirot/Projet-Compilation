@@ -1,1 +1,1 @@
-vrai == 3
+3 < 4 != vrai == faux

@@ -2,7 +2,7 @@ package yal.outlis;
 
 public class FabriqueAEtiquette {
 
-	private FabriqueAEtiquette instance = new FabriqueAEtiquette();
+	private static FabriqueAEtiquette instance = new FabriqueAEtiquette();
 	private int indexSi;
 	private int indexDiv0;
 	
@@ -11,7 +11,7 @@ public class FabriqueAEtiquette {
 		indexDiv0 = 0;
 	};
 	
-	public FabriqueAEtiquette getInstance() {
+	public static FabriqueAEtiquette getInstance() {
 		return instance;
 	}
 
