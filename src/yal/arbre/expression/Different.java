@@ -1,5 +1,6 @@
 package yal.arbre.expression;
 
+import yal.exceptions.AnalyseSemantiqueException;
 
 /**
  * 3 déc. 2015
@@ -16,6 +17,15 @@ public class Different extends Comparaison {
 	@Override
 	public String operateur() {
 		return " != ";
+	}
+	
+	@Override
+	public void verifier() {
+		this.gauche.verifier();
+		this.droite.verifier();
+		if (!this.droite.returnType.equals(this.gauche.returnType)){
+			throw new AnalyseSemantiqueException("Ligne "+this.noLigne+" : Comparaison "+ this.operateur() +" doit être Bool avec Bool ou Int avec Int mais pas mixte");
+		}
 	}
 	
 	@Override
@@ -41,13 +51,5 @@ public class Different extends Comparaison {
 				
 		return sb.toString();
 	}
-
-	@Override
-	public void verifier() {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	
 
 }

@@ -12,14 +12,14 @@ public abstract class BinaireLogique extends Binaire {
 
     protected BinaireLogique(Expression gauche, Expression droite) {
         super(gauche, droite) ;
-        this.returntype = "bool";
+        this.returnType = "bool";
     }
     
 	@Override
 	public void verifier() {
 		this.gauche.verifier();
 		this.droite.verifier();
-		if (!(this.gauche.returntype.equals("bool") && this.droite.returntype.equals("bool"))){
+		if (!(this.gauche.returnType.equals("bool") && this.droite.returnType.equals("bool"))){
 			throw new AnalyseSemantiqueException("Ligne " + this.noLigne + " : Opération arithmetique "+ this.operateur() +" doit être appliqué sur des booléens");
 		}
 	}

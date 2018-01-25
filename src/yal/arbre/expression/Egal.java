@@ -1,5 +1,6 @@
 package yal.arbre.expression;
 
+import yal.exceptions.AnalyseSemantiqueException;
 
 /**
  * 3 déc. 2015
@@ -22,22 +23,9 @@ public class Egal extends Comparaison {
 	public void verifier() {
 		this.gauche.verifier();
 		this.droite.verifier();
-		if ((
-			this.gauche instanceof ConstanteBool ||
-			this.gauche instanceof Different ||
-			this.gauche instanceof Egal ||
-			this.gauche instanceof EtLogique ||
-			this.gauche instanceof NonLogique ||
-			this.gauche instanceof OuLogique
-			)&&(
-			this.droite instanceof ConstanteBool ||
-			this.droite instanceof Different ||
-			this.droite instanceof Egal ||
-			this.droite instanceof EtLogique ||
-			this.droite instanceof NonLogique ||
-			this.droite instanceof OuLogique
-		)){}
-		//else{throw new AnalyseSemantiqueException("Ligne "+this.noLigne+" : Comparaison doit être Bool|Bool");}
+		if (!this.droite.returnType.equals(this.gauche.returnType)){
+			throw new AnalyseSemantiqueException("Ligne "+this.noLigne+" : Comparaison "+ this.operateur() +" doit être Bool avec Bool ou Int avec Int mais pas mixte");
+		}
 	}
 	
 	public String toMIPS() {

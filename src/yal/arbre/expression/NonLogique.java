@@ -12,7 +12,7 @@ public class NonLogique extends Unaire {
     
     public NonLogique(Expression expr) {
         super(expr);
-        this.returntype = "bool";
+        this.returnType = "bool";
     }
 
     @Override
@@ -22,7 +22,7 @@ public class NonLogique extends Unaire {
 
 	@Override
 	public void verifier() {
-		if (!this.expression.returntype.equals("bool")){
+		if (!this.expression.returnType.equals("bool")){
 			throw new AnalyseSemantiqueException("Ligne " + this.noLigne + " : Non Logique doit être appliqué sur un booléen");
 		}
 	}
