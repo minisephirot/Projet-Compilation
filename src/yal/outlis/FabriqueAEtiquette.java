@@ -2,16 +2,16 @@ package yal.outlis;
 
 public class FabriqueAEtiquette {
 
-	private FabriqueAEtiquette instance = new FabriqueAEtiquette();
+	private static FabriqueAEtiquette instance = new FabriqueAEtiquette();
 	private int indexSi;
-	private int indexDiv0;
+	private boolean indexDiv0;
 	
 	private FabriqueAEtiquette() {
 		indexSi = 0;
-		indexDiv0 = 0;
+		indexDiv0 = false;
 	};
 	
-	public FabriqueAEtiquette getInstance() {
+	public static FabriqueAEtiquette getInstance() {
 		return instance;
 	}
 
@@ -19,25 +19,15 @@ public class FabriqueAEtiquette {
 		return indexSi;
 	}
 
-	public void setIndexSi(int indexSi) {
-		this.indexSi = indexSi;
-	}
-
-	public int getIndexDiv0() {
+	public boolean getIndexDiv0() {
 		return indexDiv0;
 	}
 
-	public void setIndexDiv0(int indexDiv0) {
-		this.indexDiv0 = indexDiv0;
+	public void setIndexDiv0() {
+		this.indexDiv0 = true;
 	}
 	
 	public void addIndexSi() {
 		indexSi++;
 	}
-	
-	public void addIndexDiv0() {
-		indexDiv0++;
-	}
-	
-	
 }

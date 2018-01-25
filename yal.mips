@@ -1,33 +1,32 @@
+.data
+errDiv0:     .asciiz "Division par 0 interdite\n"
+.text
 main:
 # init variable repérer la zone des variables
 move $s7, $sp
-# opération  == , calcul de gauche
-# constante bool
-li $v0, 1
+# opération  / , calcul de gauche
+# constante entière
+li $v0, 14
 # empiler gauche
 sw $v0, ($sp)
 addi $sp, $sp, -4
 # calcul de droite
-# constante bool
-li $v0, 1
+# constante entière
+li $v0, 0
 # dépile gauche dans $t8
 addi $sp, $sp, 4
 lw $t8, ($sp)
-# Début comparaison
-Si1:
-# Soustraction des 2 variables comparées
-sub $v0, $t8, $v0
-# Comparaison à 0 du résultat
-beqz $v0, Sinon1
-# Si différent de 0 renvoie false
-Alors1:
-li $v0, 0
-b Fin1
-# Sinon égal à 0 renvoie true
-Sinon1:
-li $v0, 1
-Fin1:
+# test si on divise par 0
+beqz $v0, divByZero
+# division gauche droite
+div $v0, $t8, $v0
 end:
 move $v1, $v0      # copie de v0 dans v1 pour permettre les tests de plic0
 li $v0, 10         # retour au système
 syscall
+# La gestion d'une division par 0
+divByZero:
+li $v0, 4
+la $a0, errDiv0
+syscall
+b end

@@ -1,5 +1,6 @@
 package yal.arbre;
 
+import yal.outlis.FabriqueAEtiquette;
 
 /**
  * 3 déc. 2015
@@ -32,14 +33,29 @@ public class BlocDInstructions extends ArbreAbstrait {
 	@Override
 	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
+		// Les data du début
+		sb.append(".data\n");
+		sb.append("errDiv0:     .asciiz \"Division par 0 interdite\\n\"\n");
+		sb.append(".text\n");
 		sb.append("main:\n");
 		sb.append("# init variable repérer la zone des variables\n");
 		sb.append("move $s7, $sp\n");
+		// Génération de l'arbre en MIPS
 		sb.append(expr.toMIPS());
+		// La fin pour quitter proprement le programme
 		sb.append("end:\n");
 		sb.append("move $v1, $v0      # copie de v0 dans v1 pour permettre les tests de plic0\n");
 		sb.append("li $v0, 10         # retour au système\n");
-		sb.append("syscall");
+		sb.append("syscall\n");
+		// Génère le code qui affiche une erreur si on divise par zéro
+		if (FabriqueAEtiquette.getInstance().getIndexDiv0()) {
+			sb.append("# La gestion d'une division par 0\n");
+			sb.append("divByZero:\n");
+			sb.append("li $v0, 4\n");
+			sb.append("la $a0, errDiv0\n");
+			sb.append("syscall\n");
+			sb.append("b end\n");
+		}
 		return sb.toString();
 	}
 
