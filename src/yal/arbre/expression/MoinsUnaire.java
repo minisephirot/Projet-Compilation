@@ -12,7 +12,7 @@ public class MoinsUnaire extends Unaire {
     
     public MoinsUnaire(Expression expr) {
         super(expr);
-        this.returntype = "int";
+        this.returnType = "int";
     }
 
     @Override
@@ -22,7 +22,7 @@ public class MoinsUnaire extends Unaire {
 
 	@Override
 	public void verifier() {
-		if (!this.expression.returntype.equals("int")){
+		if (!this.expression.returnType.equals("int")){
 			throw new AnalyseSemantiqueException("Ligne " + this.noLigne + " : Moins Unaire doit être appliqué sur un entier");
 		}
 	}

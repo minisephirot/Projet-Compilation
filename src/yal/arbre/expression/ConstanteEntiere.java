@@ -10,7 +10,7 @@ public class ConstanteEntiere extends Constante {
     
     public ConstanteEntiere(String texte, int n) {
         super(texte, n) ;
-        this.returntype = "int";
+        this.returnType = "int";
     }
 
 	@Override

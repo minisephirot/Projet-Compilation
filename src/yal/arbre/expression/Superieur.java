@@ -1,5 +1,7 @@
 package yal.arbre.expression;
 
+import yal.exceptions.AnalyseSemantiqueException;
+
 /**
  * 3 déc. 2015
  *
@@ -16,6 +18,16 @@ public class Superieur extends Comparaison {
     public String operateur() {
         return " > ";
     }
+    
+	@Override
+	public void verifier() {
+		this.gauche.verifier();
+		this.droite.verifier();
+		if (!(this.gauche.returnType.equals("int") && this.droite.returnType.equals("int"))){
+			throw new AnalyseSemantiqueException("Ligne " + this.noLigne + " : Opération arithmetique "+ this.operateur() +" doit être appliqué sur des entiers");
+		}
+	}
+    
     
     @Override
 	public String toMIPS() {
@@ -40,11 +52,4 @@ public class Superieur extends Comparaison {
 				
 		return sb.toString();
 	}
-
-	@Override
-	public void verifier() {
-		// TODO Auto-generated method stub
-		
-	}
-    
 }

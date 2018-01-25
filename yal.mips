@@ -1,15 +1,15 @@
 main:
 # init variable repérer la zone des variables
 move $s7, $sp
-# opération  < , calcul de gauche
-# constante entière
-li $v0, 3
+# opération  == , calcul de gauche
+# constante bool
+li $v0, 1
 # empiler gauche
 sw $v0, ($sp)
 addi $sp, $sp, -4
 # calcul de droite
-# constante entière
-li $v0, 2
+# constante bool
+li $v0, 1
 # dépile gauche dans $t8
 addi $sp, $sp, 4
 lw $t8, ($sp)
@@ -18,13 +18,13 @@ Si1:
 # Soustraction des 2 variables comparées
 sub $v0, $t8, $v0
 # Comparaison à 0 du résultat
-bltz $v0, Alors1
-# Sinon supérieur ou égal à 0 renvoie false
-Sinon1:
+beqz $v0, Sinon1
+# Si différent de 0 renvoie false
+Alors1:
 li $v0, 0
 b Fin1
-# Si inférieur à 0 renvoie true
-Alors1:
+# Sinon égal à 0 renvoie true
+Sinon1:
 li $v0, 1
 Fin1:
 end:

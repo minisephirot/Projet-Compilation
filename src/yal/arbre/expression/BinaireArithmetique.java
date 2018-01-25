@@ -12,14 +12,14 @@ public abstract class BinaireArithmetique extends Binaire {
 
     protected BinaireArithmetique(Expression gauche, Expression droite) {
         super(gauche, droite) ;
-        this.returntype = "int";
+        this.returnType = "int";
     }
     
 	@Override
 	public void verifier() {
 		this.gauche.verifier();
 		this.droite.verifier();
-		if (!(this.gauche.returntype.equals("int") && this.droite.returntype.equals("int"))){
+		if (!(this.gauche.returnType.equals("int") && this.droite.returnType.equals("int"))){
 			throw new AnalyseSemantiqueException("Ligne " + this.noLigne + " : Opération arithmetique "+ this.operateur() +" doit être appliqué sur des entiers");
 		}
 	}
