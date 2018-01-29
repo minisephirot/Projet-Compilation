@@ -1,6 +1,6 @@
 package yal.arbre.expression;
 
-import yal.exceptions.AnalyseSemantiqueException;
+import yal.exceptions.ListeErreursSemantiques;
 
 /**
  * 3 déc. 2015
@@ -23,7 +23,7 @@ public class MoinsUnaire extends Unaire {
 	@Override
 	public void verifier() {
 		if (!this.expression.returnType.equals("int")){
-			throw new AnalyseSemantiqueException("Ligne " + this.noLigne + " : Moins Unaire doit être appliqué sur un entier");
+			ListeErreursSemantiques.getInstance().addErreur("Ligne " + this.noLigne + " : Moins Unaire doit être appliqué sur un entier");
 		}
 	}
 	

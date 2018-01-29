@@ -1,6 +1,6 @@
 package yal.arbre.expression;
 
-import yal.exceptions.AnalyseSemantiqueException;
+import yal.exceptions.ListeErreursSemantiques;
 
 /**
  * 3 déc. 2015
@@ -24,7 +24,7 @@ public class Different extends Comparaison {
 		this.gauche.verifier();
 		this.droite.verifier();
 		if (!this.droite.returnType.equals(this.gauche.returnType)){
-			throw new AnalyseSemantiqueException("Ligne "+this.noLigne+" : Comparaison "+ this.operateur() +" doit être Bool avec Bool ou Int avec Int mais pas mixte");
+			ListeErreursSemantiques.getInstance().addErreur("Ligne "+this.noLigne+" : Comparaison "+ this.operateur() +" doit être Bool avec Bool ou Int avec Int mais pas mixte");
 		}
 	}
 	

@@ -1,6 +1,6 @@
 package yal.arbre.expression;
 
-import yal.exceptions.AnalyseSemantiqueException;
+import yal.exceptions.ListeErreursSemantiques;
 
 /**
  * 3 déc. 2015
@@ -23,7 +23,7 @@ public class NonLogique extends Unaire {
 	@Override
 	public void verifier() {
 		if (!this.expression.returnType.equals("bool")){
-			throw new AnalyseSemantiqueException("Ligne " + this.noLigne + " : Non Logique doit être appliqué sur un booléen");
+			ListeErreursSemantiques.getInstance().addErreur("Ligne " + this.noLigne + " : Non Logique doit être appliqué sur un booléen");
 		}
 	}
 	

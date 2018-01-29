@@ -1,6 +1,6 @@
 package yal.arbre.expression;
 
-import yal.exceptions.AnalyseSemantiqueException;
+import yal.exceptions.ListeErreursSemantiques;
 
 /**
  * 3 déc. 2015
@@ -20,7 +20,7 @@ public abstract class BinaireLogique extends Binaire {
 		this.gauche.verifier();
 		this.droite.verifier();
 		if (!(this.gauche.returnType.equals("bool") && this.droite.returnType.equals("bool"))){
-			throw new AnalyseSemantiqueException("Ligne " + this.noLigne + " : Opération arithmetique "+ this.operateur() +" doit être appliqué sur des booléens");
+			ListeErreursSemantiques.getInstance().addErreur("Ligne " + this.noLigne + " : Opération arithmetique "+ this.operateur() +" doit être appliqué sur des booléens");
 		}
 	}
 }

@@ -2,7 +2,7 @@
 
 package yal.analyse ;
 
-import java_cup.runtime.*;
+import java_cup.runtime.Symbol;
 import yal.exceptions.AnalyseLexicaleException;
       
 

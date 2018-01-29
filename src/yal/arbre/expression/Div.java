@@ -22,7 +22,6 @@ public class Div extends BinaireArithmetique {
 	@Override
 	public void verifier() {
 		super.verifier();
-		// TODO Pas oublier le mips pour tester la division par zero
 	}
     
 	@Override
