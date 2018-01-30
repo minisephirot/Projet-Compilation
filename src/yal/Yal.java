@@ -26,22 +26,24 @@ public class Yal {
         try {
             AnalyseurSyntaxique analyseur = new AnalyseurSyntaxique(new AnalyseurLexical(new FileReader(fichier)));
             ArbreAbstrait arbre = (ArbreAbstrait) analyseur.parse().value;
-            //System.err.println("expression stockée dans l'arbre : " + arbre);
+            System.err.println("expression stockée dans l'arbre : " + arbre);
             
             // à écrire pour yal0
             arbre.verifier() ; 
-            //System.out.println(arbre.toMIPS());
+            System.out.println(arbre.toMIPS());
             
             // Appelle le singleton qui déclanche une erreur contentnant la liste de toutes les erreurs
             // sémantiques
             ListeErreursSemantiques.getInstance().throwAll();
             
-            // Ecriture du code mips dans le fichier yal.mips
-            BufferedWriter buff = new BufferedWriter(new FileWriter(new File("yal.mips")));
+            // Ecriture du code mips dans le fichier [nomEntrée].mips
+            String fichierSortie = fichier.substring(0, fichier.length() - 3);
+            fichierSortie = fichierSortie + "mips";
+            BufferedWriter buff = new BufferedWriter(new FileWriter(new File(fichierSortie)));
             buff.write(arbre.toMIPS());
             buff.close();
             
-            System.out.println("COMPILATION OK");
+            //System.out.println("COMPILATION OK");
         } 
         catch (FileNotFoundException ex) {
             System.err.println("Fichier " + fichier + " inexistant") ;

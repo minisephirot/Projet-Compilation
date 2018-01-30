@@ -54,7 +54,7 @@ public class BlocDInstructions extends ArbreAbstrait {
 			sb.append("syscall\n");
 			sb.append("b end\n");
 			
-			sb.insert(0, "errDiv0:     .asciiz \"Division par 0 interdite\\n\"\n");
+			sb.insert(0, "errDiv0:     .asciiz \" ERREUR EXECUTION : Division par 0 interdite\\n\"\n");
 			sb.insert(0, ".data\n");
 		}
 		return sb.toString();
