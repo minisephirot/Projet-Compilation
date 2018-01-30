@@ -26,11 +26,11 @@ public class Yal {
         try {
             AnalyseurSyntaxique analyseur = new AnalyseurSyntaxique(new AnalyseurLexical(new FileReader(fichier)));
             ArbreAbstrait arbre = (ArbreAbstrait) analyseur.parse().value;
-            System.err.println("expression stockée dans l'arbre : " + arbre);
+            //System.err.println("expression stockée dans l'arbre : " + arbre);
             
             // à écrire pour yal0
             arbre.verifier() ; 
-            System.out.println(arbre.toMIPS());
+            //System.out.println(arbre.toMIPS());
             
             // Appelle le singleton qui déclanche une erreur contentnant la liste de toutes les erreurs
             // sémantiques
@@ -43,7 +43,7 @@ public class Yal {
             buff.write(arbre.toMIPS());
             buff.close();
             
-            //System.out.println("COMPILATION OK");
+            System.out.println("COMPILATION OK");
         } 
         catch (FileNotFoundException ex) {
             System.err.println("Fichier " + fichier + " inexistant") ;
