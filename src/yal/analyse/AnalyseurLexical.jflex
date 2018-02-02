@@ -28,8 +28,20 @@ import yal.exceptions.AnalyseLexicaleException;
   }
 %}
 
+%state string
+
 csteE = [0-9]+
 csteB = "vrai" | "faux"
+csteC = \"([^\"]+|(\"\"))((\"\")*[^\"]*)*\"
+
+prog = "programme"
+entier = "entier"
+debut = "debut"
+fin = "fin"
+
+stringCircon = ["]
+stringCirconCircon = ["]["]
+
 
 finDeLigne = \r|\n
 espace = {finDeLigne}  | [ \t\f]
@@ -41,6 +53,8 @@ espace = {finDeLigne}  | [ \t\f]
 "*"                	{ return symbol(CodesLexicaux.MULT); }
 "/"                	{ return symbol(CodesLexicaux.DIV); }
 
+";"						{ return symbol(CodesLexicaux.POINTVIRGULE); }
+"="						{ return symbol(CodesLexicaux.EGAL); }
 "=="                    { return symbol(CodesLexicaux.EGALEGAL); }
 "!="                    { return symbol(CodesLexicaux.DIFF); }
 "<"                	{ return symbol(CodesLexicaux.INF); }
@@ -55,6 +69,13 @@ espace = {finDeLigne}  | [ \t\f]
 
 {csteE}      	        { return symbol(CodesLexicaux.CONSTANTEINT, yytext()); }
 {csteB}      	        { return symbol(CodesLexicaux.CONSTANTEBOOL, yytext()); }
+{csteC}					{ return symbol(CodesLexicaux.CONSTANTECHAINE, yytext()); }
+
+{prog} 					{ return symbol(CodesLexicaux.PROG, yytext());}
+{entier} 				{ return symbol(CodesLexicaux.ENTIER, yytext());}
+{debut} 				{ return symbol(CodesLexicaux.DEBUT, yytext());}
+{fin}	 				{ return symbol(CodesLexicaux.FIN, yytext());}
+{prog}					{ return symbol(CodesLexicaux.PROGRAMME, yytext()); }
 
 {espace}                { }
 
