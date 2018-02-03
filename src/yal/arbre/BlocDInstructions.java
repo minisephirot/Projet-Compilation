@@ -1,6 +1,6 @@
 package yal.arbre;
 
-import yal.outlis.FabriqueAEtiquette;
+import yal.outils.FabriqueAEtiquette;
 
 /**
  * 3 déc. 2015
