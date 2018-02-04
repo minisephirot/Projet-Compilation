@@ -10,21 +10,21 @@ import java.util.HashMap;
 
 import yal.arbre.ArbreAbstrait;
 import yal.arbre.BlocDInstructions;
-import yal.arbre.expression.ConstanteBool;
-import yal.arbre.expression.ConstanteEntiere;
-import yal.arbre.expression.Different;
-import yal.arbre.expression.Div;
-import yal.arbre.expression.Egal;
-import yal.arbre.expression.EtLogique;
 import yal.arbre.expression.Expression;
-import yal.arbre.expression.Inferieur;
-import yal.arbre.expression.Moins;
-import yal.arbre.expression.MoinsUnaire;
-import yal.arbre.expression.Mult;
-import yal.arbre.expression.NonLogique;
-import yal.arbre.expression.OuLogique;
-import yal.arbre.expression.Plus;
-import yal.arbre.expression.Superieur;
+import yal.arbre.expression.binaire.arithmetique.Div;
+import yal.arbre.expression.binaire.arithmetique.Moins;
+import yal.arbre.expression.binaire.arithmetique.Mult;
+import yal.arbre.expression.binaire.arithmetique.Plus;
+import yal.arbre.expression.binaire.comparaison.Different;
+import yal.arbre.expression.binaire.comparaison.Egal;
+import yal.arbre.expression.binaire.comparaison.Inferieur;
+import yal.arbre.expression.binaire.comparaison.Superieur;
+import yal.arbre.expression.binaire.logique.EtLogique;
+import yal.arbre.expression.binaire.logique.OuLogique;
+import yal.arbre.expression.constante.ConstanteBool;
+import yal.arbre.expression.constante.ConstanteEntiere;
+import yal.arbre.expression.unaire.MoinsUnaire;
+import yal.arbre.expression.unaire.NonLogique;
 import yal.exceptions.AnalyseSyntaxiqueException;
 
 /** CUP v0.11a beta 20060608 generated parser.

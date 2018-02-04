@@ -1,5 +1,6 @@
-package yal.arbre.expression;
+package yal.arbre.expression.binaire.comparaison;
 
+import yal.arbre.expression.Expression;
 import yal.exceptions.ListeErreursSemantiques;
 
 /**
@@ -23,7 +24,7 @@ public class Egal extends Comparaison {
 	public void verifier() {
 		this.gauche.verifier();
 		this.droite.verifier();
-		if (!this.droite.returnType.equals(this.gauche.returnType)){
+		if (!this.droite.getReturnType().equals(this.gauche.getReturnType())){
 			ListeErreursSemantiques.getInstance().addErreur("Ligne "+this.noLigne+" : Comparaison "+ this.operateur() +" doit être Bool avec Bool ou Int avec Int mais pas mixte");
 		}
 	}

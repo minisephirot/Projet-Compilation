@@ -1,5 +1,6 @@
-package yal.arbre.expression;
+package yal.arbre.expression.unaire;
 
+import yal.arbre.expression.Expression;
 import yal.exceptions.ListeErreursSemantiques;
 
 /**
@@ -12,7 +13,7 @@ public class NonLogique extends Unaire {
     
     public NonLogique(Expression expr) {
         super(expr);
-        this.returnType = "bool";
+        this.setReturnType("bool");
     }
 
     @Override
@@ -22,7 +23,7 @@ public class NonLogique extends Unaire {
 
 	@Override
 	public void verifier() {
-		if (!this.expression.returnType.equals("bool")){
+		if (!this.expression.getReturnType().equals("bool")){
 			ListeErreursSemantiques.getInstance().addErreur("Ligne " + this.noLigne + " : Non Logique doit être appliqué sur un booléen");
 		}
 	}

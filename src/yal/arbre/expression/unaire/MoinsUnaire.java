@@ -1,5 +1,6 @@
-package yal.arbre.expression;
+package yal.arbre.expression.unaire;
 
+import yal.arbre.expression.Expression;
 import yal.exceptions.ListeErreursSemantiques;
 
 /**
@@ -12,7 +13,7 @@ public class MoinsUnaire extends Unaire {
     
     public MoinsUnaire(Expression expr) {
         super(expr);
-        this.returnType = "int";
+        this.setReturnType("int");
     }
 
     @Override
@@ -22,7 +23,7 @@ public class MoinsUnaire extends Unaire {
 
 	@Override
 	public void verifier() {
-		if (!this.expression.returnType.equals("int")){
+		if (!this.expression.getReturnType().equals("int")){
 			ListeErreursSemantiques.getInstance().addErreur("Ligne " + this.noLigne + " : Moins Unaire doit être appliqué sur un entier");
 		}
 	}

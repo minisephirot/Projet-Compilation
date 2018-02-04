@@ -29,6 +29,11 @@ import yal.exceptions.AnalyseLexicaleException;
 %}
 
 %state string
+%state commentaire
+
+commentaireSlashSlash = [/][/].*
+commentaireSlashEtoile = [/][*]
+commentaireEtoileSlash = [*][/]
 
 csteE = [0-9]+
 csteB = "vrai" | "faux"
@@ -76,6 +81,10 @@ espace = {finDeLigne}  | [ \t\f]
 {debut} 				{ return symbol(CodesLexicaux.DEBUT, yytext());}
 {fin}	 				{ return symbol(CodesLexicaux.FIN, yytext());}
 {prog}					{ return symbol(CodesLexicaux.PROGRAMME, yytext()); }
+
+<YYINITIAL>{commentaireSlashEtoile} { yybegin(commentaire); }
+<YYINITIAL>{commentaireSlashSlash} {}
+<commentaire> {commentaireEtoileSlash} { yybegin(YYINITIAL); }
 
 {espace}                { }
 

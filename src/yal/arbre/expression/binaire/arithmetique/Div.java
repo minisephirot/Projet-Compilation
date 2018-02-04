@@ -1,6 +1,7 @@
-package yal.arbre.expression;
+package yal.arbre.expression.binaire.arithmetique;
 
-import yal.outils.FabriqueAEtiquette;
+import yal.arbre.expression.Expression;
+import yal.outils.EtiquetteFactory;
 
 /**
  * 3 déc. 2015
@@ -31,7 +32,7 @@ public class Div extends BinaireArithmetique {
 		sb.append("# test si on divise par 0\n");
 		sb.append("beqz $v0, divByZero\n");
 		// Appelle la fabrique à étiquette pour générer le code d'affichage d'erreur en MIPS
-		FabriqueAEtiquette.getInstance().setIndexDiv0();
+		EtiquetteFactory.getInstance().setIndexDiv0();
 		sb.append("# division gauche droite\n");
 		sb.append("div $v0, $t8, $v0\n");
 		return sb.toString();

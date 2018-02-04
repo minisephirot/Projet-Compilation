@@ -1,5 +1,7 @@
-package yal.arbre.expression;
+package yal.arbre.expression.binaire.arithmetique;
 
+import yal.arbre.expression.Expression;
+import yal.arbre.expression.binaire.Binaire;
 import yal.exceptions.ListeErreursSemantiques;
 
 /**
@@ -12,14 +14,14 @@ public abstract class BinaireArithmetique extends Binaire {
 
 	protected BinaireArithmetique(Expression gauche, Expression droite) {
 		super(gauche, droite) ;
-		this.returnType = "int";
+		this.setReturnType("int");
 	}
 
 	@Override
 	public void verifier() {
 		this.gauche.verifier();
 		this.droite.verifier();
-		if (!(this.gauche.returnType.equals("int") && this.droite.returnType.equals("int"))){
+		if (!(this.gauche.getReturnType().equals("int") && this.droite.getReturnType().equals("int"))){
 			ListeErreursSemantiques.getInstance().addErreur("Ligne " + this.noLigne + " : Opération arithmetique "+ this.operateur() +" doit être appliqué sur des entiers");
 		}
 	}

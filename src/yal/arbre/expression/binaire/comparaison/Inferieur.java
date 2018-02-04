@@ -1,5 +1,6 @@
-package yal.arbre.expression;
+package yal.arbre.expression.binaire.comparaison;
 
+import yal.arbre.expression.Expression;
 import yal.exceptions.ListeErreursSemantiques;
 
 /**
@@ -8,26 +9,25 @@ import yal.exceptions.ListeErreursSemantiques;
  * @author brigitte wrobel-dautcourt
  */
 
-public class Superieur extends Comparaison {
+public class Inferieur extends Comparaison {
 
-    public Superieur(Expression gauche, Expression droite) {
+    public Inferieur(Expression gauche, Expression droite) {
         super(gauche, droite);
     }
 
     @Override
     public String operateur() {
-        return " > ";
+        return " < ";
     }
     
 	@Override
 	public void verifier() {
 		this.gauche.verifier();
 		this.droite.verifier();
-		if (!(this.gauche.returnType.equals("int") && this.droite.returnType.equals("int"))){
+		if (!(this.gauche.getReturnType().equals("int") && this.droite.getReturnType().equals("int"))){
 			ListeErreursSemantiques.getInstance().addErreur("Ligne " + this.noLigne + " : Opération arithmetique "+ this.operateur() +" doit être appliqué sur des entiers");
 		}
 	}
-    
     
     @Override
 	public String toMIPS() {
@@ -40,12 +40,12 @@ public class Superieur extends Comparaison {
 		sb.append("# Soustraction des 2 variables comparées\n");
 		sb.append("sub $v0, $t8, $v0\n");
 		sb.append("# Comparaison à 0 du résultat\n");
-		sb.append("bgtz $v0, Alors" + indexEtiquette +"\n");
-		sb.append("# Sinon inférieur ou égal à 0 renvoie false\n");
+		sb.append("bltz $v0, Alors" + indexEtiquette +"\n");
+		sb.append("# Sinon supérieur ou égal à 0 renvoie false\n");
 		sb.append("Sinon"+ indexEtiquette +":\n");
 		sb.append("li $v0, 0\n");
 		sb.append("b Fin"+ indexEtiquette +"\n");
-		sb.append("# Si supérieur à 0 renvoie true\n");
+		sb.append("# Si inférieur à 0 renvoie true\n");
 		sb.append("Alors"+ indexEtiquette +":\n");
 		sb.append("li $v0, 1\n");
 		sb.append("Fin"+ indexEtiquette +":\n");

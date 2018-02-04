@@ -1,4 +1,6 @@
-package yal.arbre.expression;
+package yal.arbre.expression.constante;
+
+import yal.arbre.expression.Expression;
 
 /**
  * 3 déc. 2015

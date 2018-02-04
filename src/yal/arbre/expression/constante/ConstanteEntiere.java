@@ -1,4 +1,4 @@
-package yal.arbre.expression;
+package yal.arbre.expression.constante;
 
 /**
  * 3 dÃ©c. 2015
@@ -10,7 +10,7 @@ public class ConstanteEntiere extends Constante {
     
     public ConstanteEntiere(String texte, int n) {
         super(texte, n) ;
-        this.returnType = "int";
+        this.setReturnType("int");
     }
 
 	@Override
