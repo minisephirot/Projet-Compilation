@@ -1,6 +1,6 @@
 package yal.arbre;
 
-import yal.outlis.FabriqueAEtiquette;
+import yal.outils.EtiquetteFactory;
 
 /**
  * 3 déc. 2015
@@ -46,7 +46,7 @@ public class BlocDInstructions extends ArbreAbstrait {
 		sb.append("li $v0, 10         # retour au système\n");
 		sb.append("syscall\n");
 		// Génère le code qui affiche une erreur si on divise par zéro
-		if (FabriqueAEtiquette.getInstance().getIndexDiv0()) {
+		if (EtiquetteFactory.getInstance().getIndexDiv0()) {
 			sb.append("# La gestion d'une division par 0\n");
 			sb.append("divByZero:\n");
 			sb.append("li $v0, 4\n");

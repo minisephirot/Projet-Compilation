@@ -28,9 +28,18 @@ import yal.exceptions.AnalyseLexicaleException;
   }
 %}
 
+<<<<<<< HEAD
 %state commentaire
 
 idf = [a-zA-Z_]\w*
+=======
+%state string
+%state commentaire
+
+commentaireSlashSlash = [/][/].*
+commentaireSlashEtoile = [/][*]
+commentaireEtoileSlash = [*][/]
+>>>>>>> db5852b9f7166d1f8f9b693032928d8aba098a35
 
 csteE = [0-9]+
 csteB = "vrai" | "faux"
@@ -85,5 +94,7 @@ espace = {finDeLigne}  | [ \t\f]
 
 <YYINITIAL> {commentaireSlashEtoile}	{ yybegin(commentaire) ; }
 <commentaire> {commentaireEtoileSlash} 	{ yybegin(YYINITIAL) ; }
+
+{espace}                { }
 
 .                       { throw new AnalyseLexicaleException(yyline, yycolumn, yytext()) ; }
