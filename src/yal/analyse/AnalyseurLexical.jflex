@@ -28,55 +28,62 @@ import yal.exceptions.AnalyseLexicaleException;
   }
 %}
 
-%state string
+%state commentaire
+
+idf = [a-zA-Z_]\w*
 
 csteE = [0-9]+
 csteB = "vrai" | "faux"
-csteC = \"([^\"]+|(\"\"))((\"\")*[^\"]*)*\"
+csteC = \"([^"]+|(""))+\"
 
 prog = "programme"
 entier = "entier"
 debut = "debut"
 fin = "fin"
 
-stringCircon = ["]
-stringCirconCircon = ["]["]
-
+commentaireSlashSlash = [/][/].*
+commentaireSlashEtoile = [/][*]
+commentaireEtoileSlash = [*][/]
 
 finDeLigne = \r|\n
 espace = {finDeLigne}  | [ \t\f]
 
 %%
 
-"+"                	{ return symbol(CodesLexicaux.PLUS); }
-"-"                	{ return symbol(CodesLexicaux.MOINS); }
-"*"                	{ return symbol(CodesLexicaux.MULT); }
-"/"                	{ return symbol(CodesLexicaux.DIV); }
+<YYINITIAL> "+"                	{ return symbol(CodesLexicaux.PLUS); }
+<YYINITIAL> "-"                	{ return symbol(CodesLexicaux.MOINS); }
+<YYINITIAL> "*"                	{ return symbol(CodesLexicaux.MULT); }
+<YYINITIAL> "/"                	{ return symbol(CodesLexicaux.DIV); }
 
-";"						{ return symbol(CodesLexicaux.POINTVIRGULE); }
-"="						{ return symbol(CodesLexicaux.EGAL); }
-"=="                    { return symbol(CodesLexicaux.EGALEGAL); }
-"!="                    { return symbol(CodesLexicaux.DIFF); }
-"<"                	{ return symbol(CodesLexicaux.INF); }
-">"                	{ return symbol(CodesLexicaux.SUP); }
+<YYINITIAL> ";"						{ return symbol(CodesLexicaux.POINTVIRGULE); }
+<YYINITIAL> "="						{ return symbol(CodesLexicaux.EGAL); }
+<YYINITIAL> "=="                    { return symbol(CodesLexicaux.EGALEGAL); }
+<YYINITIAL> "!="                    { return symbol(CodesLexicaux.DIFF); }
+<YYINITIAL> "<"                	{ return symbol(CodesLexicaux.INF); }
+<YYINITIAL> ">"                	{ return symbol(CodesLexicaux.SUP); }
 
-"et"                	{ return symbol(CodesLexicaux.ET); }
-"ou"                	{ return symbol(CodesLexicaux.OU); }
-"non"                	{ return symbol(CodesLexicaux.NON); }
+<YYINITIAL> "et"                	{ return symbol(CodesLexicaux.ET); }
+<YYINITIAL> "ou"                	{ return symbol(CodesLexicaux.OU); }
+<YYINITIAL> "non"                	{ return symbol(CodesLexicaux.NON); }
 
-"("                	{ return symbol(CodesLexicaux.PAROUV); }
-")"                	{ return symbol(CodesLexicaux.PARFER); }
+<YYINITIAL> "("                	{ return symbol(CodesLexicaux.PAROUV); }
+<YYINITIAL> ")"                	{ return symbol(CodesLexicaux.PARFER); }
 
-{csteE}      	        { return symbol(CodesLexicaux.CONSTANTEINT, yytext()); }
-{csteB}      	        { return symbol(CodesLexicaux.CONSTANTEBOOL, yytext()); }
-{csteC}					{ return symbol(CodesLexicaux.CONSTANTECHAINE, yytext()); }
+<YYINITIAL> {csteE}      	        { return symbol(CodesLexicaux.CONSTANTEINT, yytext()); }
+<YYINITIAL> {csteB}      	        { return symbol(CodesLexicaux.CONSTANTEBOOL, yytext()); }
+<YYINITIAL> {csteC}					{ return symbol(CodesLexicaux.CONSTANTECHAINE, yytext()); }
 
-{prog} 					{ return symbol(CodesLexicaux.PROG, yytext());}
-{entier} 				{ return symbol(CodesLexicaux.ENTIER, yytext());}
-{debut} 				{ return symbol(CodesLexicaux.DEBUT, yytext());}
-{fin}	 				{ return symbol(CodesLexicaux.FIN, yytext());}
-{prog}					{ return symbol(CodesLexicaux.PROGRAMME, yytext()); }
+<YYINITIAL> {prog} 					{ return symbol(CodesLexicaux.PROG, yytext());}
+<YYINITIAL> {entier} 				{ return symbol(CodesLexicaux.ENTIER, yytext());}
+<YYINITIAL> {debut} 				{ return symbol(CodesLexicaux.DEBUT, yytext());}
+<YYINITIAL> {fin}	 				{ return symbol(CodesLexicaux.FIN, yytext());}
+<YYINITIAL> {prog}					{ return symbol(CodesLexicaux.PROGRAMME, yytext()); }
 
-{espace}                { }
+<YYINITIAL> {espace}                { }
+
+<YYINITIAL> {commentaireSlashSlash}	{}
+
+<YYINITIAL> {commentaireSlashEtoile}	{ yybegin(commentaire) ; }
+<commentaire> {commentaireEtoileSlash} 	{ yybegin(YYINITIAL) ; }
 
 .                       { throw new AnalyseLexicaleException(yyline, yycolumn, yytext()) ; }
