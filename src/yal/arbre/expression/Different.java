@@ -51,5 +51,7 @@ public class Different extends Comparaison {
 				
 		return sb.toString();
 	}
+	
+	
 
 }

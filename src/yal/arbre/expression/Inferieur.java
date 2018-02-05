@@ -18,7 +18,7 @@ public class Inferieur extends Comparaison {
     public String operateur() {
         return " < ";
     }
-    
+
 	@Override
 	public void verifier() {
 		this.gauche.verifier();
