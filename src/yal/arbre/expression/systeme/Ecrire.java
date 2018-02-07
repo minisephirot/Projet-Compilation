@@ -23,8 +23,7 @@ public class Ecrire extends System{
 		
 		
 		//.data de string insérés au mauvais endroit
-		sb.insert(0, printnumber+":     .asciiz \"" +this.s+ "\\n\"\n");
-		sb.insert(0, ".data\n");
+		sb.insert(1, printnumber+":     .asciiz \"" +this.s+ "\"\n");
 		return sb.toString();
 	}
 
