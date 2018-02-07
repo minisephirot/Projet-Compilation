@@ -93,7 +93,7 @@ non terminal ArbreAbstrait PROG ;
 non terminal BlocDInstruction LINSTR;
 non terminal Expression EXPR, CSTE ;
 non terminal Affectation AFFECT;
-non terminal Declaration DECL, DECL_VAR;
+non terminal DECL, DECL_VAR;
 non terminal Instruction INSTR;
 non terminal Ecrire ECRIRE;
 
@@ -109,27 +109,23 @@ precedence left NON ;
  
 start with PROG ;
 
-PROG    ::=    	PROGRAMME IDF DEBUT DECL:d LINSTR:bi FIN
-				{: bi.ajouter(d) ;
-				   RESULT = bi ; :}
+PROG    ::=    	PROGRAMME IDF DEBUT DECL LINSTR:bi FIN
+				{: RESULT = bi ; :}
 		|		PROGRAMME IDF DEBUT INSTR:bi FIN
-				{: RESULT = bi :}
+				{: RESULT = bi; :}
 				;
 
 		
-DECL    ::=     DECL:bi  DECL_VAR:d
-				{: bi.ajouter(d) ;
-				   RESULT = bi ; :}		
-		|		DECL_VAR:d
-				{: BlocDInstructrions bi = new BlocDInstruction(eleft+1) ;
-				   bi.ajouter(d) ;
-				   RESULT = li ; :}
+DECL    ::=     DECL  DECL_VAR
+	
+		|		DECL_VAR
 				;
 		
 DECL_VAR ::=	ENTIER IDF:i POINTVIRGULE
-				{: RESULT = new DeclVar(i) ; :}
-		|		ENTIER IDF EGAL EXPR POINTVIRGULE
-				{: RESULT = new DeclVar(i,e) ; :}
+				{: TableDesSymboles.getInstance().ajouter(new EntreeVar(i), new SymboleVar()) ; :}
+		|		ENTIER IDF:i EGAL EXPR:e POINTVIRGULE
+				{: TableDesSymboles.getInstance().ajouter(new EntreeVar(i), new SymboleVar(e)) ; :}
+
 				;
 LINSTR  ::=     LINSTR:bi INSTR:i
 				{: bi.ajouter(i);
@@ -153,7 +149,7 @@ ECRIRE  ::=     ECR EXPR:e POINTVIRGULE
 				;
 
 AFFECT  ::=     IDF:idf EGAL EXPR:e
-				{: RESULT = new Affectation(idf, e) ; :}
+				{: RESULT = new Affectation(idf, e, eleft +1) ; :}
 				;
     
 EXPR    ::=     EXPR:g  PLUS  EXPR:d
