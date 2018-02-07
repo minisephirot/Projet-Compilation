@@ -1,0 +1,7 @@
+programme essai debut
+entier a;
+entier a = 1 + 3;
+a = 2;
+ecrire "coucou" ;
+ecrire a;
+fin

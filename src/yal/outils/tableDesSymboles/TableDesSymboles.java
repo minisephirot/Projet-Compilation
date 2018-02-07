@@ -2,12 +2,12 @@ package yal.outils.tableDesSymboles;
 
 import java.util.HashMap;
 
-public class TableSymboles {
+public class TableDesSymboles {
 
 	/*
 	 * Instance du singleton
 	 */
-	private static TableSymboles instance = new TableSymboles();
+	private static TableDesSymboles instance = new TableDesSymboles();
 	
 	/*
 	 * Hashmap stoquant nos entrées
@@ -17,7 +17,7 @@ public class TableSymboles {
 	/*
 	 * Initialise la hashmap des entrées -> symboles
 	 */
-	private TableSymboles() {
+	private TableDesSymboles() {
 		this.TDS = new HashMap<Entree,Symbole>();
 	};
 	
@@ -50,9 +50,8 @@ public class TableSymboles {
 		return TDS.size() * -4;
 	}
 	
-	public static TableSymboles getInstance() {
+	public static TableDesSymboles getInstance() {
 		return instance;
 	}
-	
 	
 }

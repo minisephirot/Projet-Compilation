@@ -1,7 +1,11 @@
 package yal.analyse ;
 
+import java.util.HashMap;
+
 import yal.arbre.ArbreAbstrait;
+import yal.arbre.BlocDInstructions;
 import yal.arbre.expression.Expression;
+import yal.arbre.expression.IDF;
 import yal.arbre.expression.binaire.arithmetique.Div;
 import yal.arbre.expression.binaire.arithmetique.Moins;
 import yal.arbre.expression.binaire.arithmetique.Mult;
@@ -14,12 +18,15 @@ import yal.arbre.expression.binaire.logique.EtLogique;
 import yal.arbre.expression.binaire.logique.OuLogique;
 import yal.arbre.expression.constante.ConstanteBool;
 import yal.arbre.expression.constante.ConstanteEntiere;
-import yal.arbre.expression.declaration.DeclVar;
-import yal.arbre.expression.declaration.Declaration;
-import yal.arbre.expression.systeme.Ecrire;
 import yal.arbre.expression.unaire.MoinsUnaire;
 import yal.arbre.expression.unaire.NonLogique;
+import yal.arbre.instruction.Affectation;
+import yal.arbre.instruction.Ecrire;
+import yal.arbre.instruction.Instruction;
 import yal.exceptions.AnalyseSyntaxiqueException;
+import yal.outils.tableDesSymboles.EntreeVar;
+import yal.outils.tableDesSymboles.SymboleVar;
+import yal.outils.tableDesSymboles.TableDesSymboles;
 
 
 import java_cup.runtime.*;
@@ -84,13 +91,13 @@ parser code {:
 /* Terminals (tokens returned by the scanner).  */
 
 terminal Symbol    POINTVIRGULE, PLUS, MOINS, MULT, DIV, PAROUV, PARFER ;
-terminal Symbol    SUP, INF, EGALEGAL, DIFF, ET, OU, NON, EGAL;
-terminal String    CONSTANTECHAINE, CONSTANTEINT, CONSTANTEBOOL, ENTIER, IDF, PROGRAMME, FIN, DEBUT, ECR;
+terminal Symbol    SUP, INF, EGALEGAL, DIFF, ET, OU, NON, EGAL, PROGRAMME, ENTIER, DEBUT, FIN, ECR;
+terminal String    CONSTANTECHAINE, CONSTANTEINT, CONSTANTEBOOL, IDF;
    
 /* Non terminals used in the grammar section.  */
 
 non terminal ArbreAbstrait PROG ;
-non terminal BlocDInstruction LINSTR;
+non terminal BlocDInstructions LINSTR;
 non terminal Expression EXPR, CSTE ;
 non terminal Affectation AFFECT;
 non terminal DECL, DECL_VAR;
@@ -111,7 +118,7 @@ start with PROG ;
 
 PROG    ::=    	PROGRAMME IDF DEBUT DECL LINSTR:bi FIN
 				{: RESULT = bi ; :}
-		|		PROGRAMME IDF DEBUT INSTR:bi FIN
+		|		PROGRAMME IDF DEBUT LINSTR:bi FIN
 				{: RESULT = bi; :}
 				;
 
@@ -121,7 +128,7 @@ DECL    ::=     DECL  DECL_VAR
 		|		DECL_VAR
 				;
 		
-DECL_VAR ::=	ENTIER IDF:i POINTVIRGULE
+DECL_VAR ::=		ENTIER IDF:i POINTVIRGULE
 				{: TableDesSymboles.getInstance().ajouter(new EntreeVar(i), new SymboleVar()) ; :}
 		|		ENTIER IDF:i EGAL EXPR:e POINTVIRGULE
 				{: TableDesSymboles.getInstance().ajouter(new EntreeVar(i), new SymboleVar(e)) ; :}
@@ -131,7 +138,7 @@ LINSTR  ::=     LINSTR:bi INSTR:i
 				{: bi.ajouter(i);
 					RESULT = bi;   :}
 		|		INSTR:i
-				{:  BlocDInstructions bi = new BlocDInstruction(eleft+1);
+				{:  BlocDInstructions bi = new BlocDInstructions(ileft+1);
 					bi.ajouter(i);
 					RESULT = bi; :}
 				;
@@ -143,13 +150,13 @@ INSTR   ::=     AFFECT:a
 				;
 			
 ECRIRE  ::=     ECR EXPR:e POINTVIRGULE
-				{: RESULT = new Ecrire(e) :}
-		|		ECR CONSTANTECHAINE:c
-				{: RESULT = new Ecrire(c) :}
+				{: RESULT = new Ecrire(e, eleft +1); :}
+		|		ECR CONSTANTECHAINE:c POINTVIRGULE
+				{: RESULT = new Ecrire(c, cleft + 1); :}
 				;
 
-AFFECT  ::=     IDF:idf EGAL EXPR:e
-				{: RESULT = new Affectation(idf, e, eleft +1) ; :}
+AFFECT  ::=     IDF:idf EGAL EXPR:e POINTVIRGULE
+				{: RESULT = new Affectation(idf, e, eleft +1); :}
 				;
     
 EXPR    ::=     EXPR:g  PLUS  EXPR:d
@@ -187,6 +194,9 @@ EXPR    ::=     EXPR:g  PLUS  EXPR:d
         |      
                 NON EXPR:e
                 {: RESULT = new NonLogique(e); :}
+        |
+        		    IDF:i
+        		    {: RESULT = new IDF(i, ileft + 1) ;  :}
         |
                 CSTE:c
                 {: RESULT = c ; :}

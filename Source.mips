@@ -1,0 +1,9 @@
+.data
+.text
+main:
+# init variable repérer la zone des variables
+move $s7, $sp
+nullend:
+move $v1, $v0      # copie de v0 dans v1 pour permettre les tests de plic0
+li $v0, 10         # retour au système
+syscall

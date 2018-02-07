@@ -7,7 +7,7 @@ public class Affectation extends Instruction{
 	private String identificateur;
 	private Expression affection;
 	
-	protected Affectation(String idf, Expression aff, int no) {
+	public Affectation(String idf, Expression aff, int no) {
 		super(no);
 		this.identificateur = idf;
 		this.affection = aff;
