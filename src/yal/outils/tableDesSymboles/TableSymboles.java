@@ -47,7 +47,11 @@ public class TableSymboles {
 	 * 				???
 	 */
 	public int getTailleZoneVariable(){
-		return 0;
+		return TDS.size() * -4;
+	}
+	
+	public static TableSymboles getInstance() {
+		return instance;
 	}
 	
 	

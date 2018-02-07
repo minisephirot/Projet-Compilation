@@ -28,27 +28,19 @@ import yal.exceptions.AnalyseLexicaleException;
   }
 %}
 
-<<<<<<< HEAD
 %state commentaire
+
 
 idf = [a-zA-Z_]\w*
-=======
-%state string
-%state commentaire
-
-commentaireSlashSlash = [/][/].*
-commentaireSlashEtoile = [/][*]
-commentaireEtoileSlash = [*][/]
->>>>>>> db5852b9f7166d1f8f9b693032928d8aba098a35
-
 csteE = [0-9]+
 csteB = "vrai" | "faux"
-csteC = \"([^"]+|(""))+\"
+csteC = \"([^\"]+|(\"\"))+\"
 
 prog = "programme"
 entier = "entier"
 debut = "debut"
 fin = "fin"
+ecrire = "ecrire"
 
 commentaireSlashSlash = [/][/].*
 commentaireSlashEtoile = [/][*]
@@ -81,12 +73,13 @@ espace = {finDeLigne}  | [ \t\f]
 <YYINITIAL> {csteE}      	        { return symbol(CodesLexicaux.CONSTANTEINT, yytext()); }
 <YYINITIAL> {csteB}      	        { return symbol(CodesLexicaux.CONSTANTEBOOL, yytext()); }
 <YYINITIAL> {csteC}					{ return symbol(CodesLexicaux.CONSTANTECHAINE, yytext()); }
+<YYINITIAL> {idf}					{ return symbol(CodesLexicaux.IDF, yytext()); }
 
-<YYINITIAL> {prog} 					{ return symbol(CodesLexicaux.PROG, yytext());}
-<YYINITIAL> {entier} 				{ return symbol(CodesLexicaux.ENTIER, yytext());}
-<YYINITIAL> {debut} 				{ return symbol(CodesLexicaux.DEBUT, yytext());}
-<YYINITIAL> {fin}	 				{ return symbol(CodesLexicaux.FIN, yytext());}
 <YYINITIAL> {prog}					{ return symbol(CodesLexicaux.PROGRAMME, yytext()); }
+<YYINITIAL> {entier} 				{ return symbol(CodesLexicaux.ENTIER, yytext()); }
+<YYINITIAL> {debut} 				{ return symbol(CodesLexicaux.DEBUT, yytext()); }
+<YYINITIAL> {fin}	 				{ return symbol(CodesLexicaux.FIN, yytext()); }
+<YYINITIAL> {ecrire}					{ return symbol(CodesLexicaux.ECR, yytext()); }
 
 <YYINITIAL> {espace}                { }
 
