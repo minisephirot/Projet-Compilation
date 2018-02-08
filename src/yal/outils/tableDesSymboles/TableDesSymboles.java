@@ -2,6 +2,8 @@ package yal.outils.tableDesSymboles;
 
 import java.util.HashMap;
 
+import yal.exceptions.ListeErreursSemantiques;
+
 public class TableDesSymboles {
 
 	/*
@@ -25,7 +27,10 @@ public class TableDesSymboles {
 	 * Ajoute à la hashmap la paire (entrées -> symboles) et vérifie si il y a 
 	 * une double declaration ou une incompatibilté type/expression
 	 */
-	public void ajouter(Entree e, Symbole s){
+	public void ajouter(Entree e, Symbole s) {
+		// Vérifie si on ne fait pas une double déclaration
+		if (this.TDS.containsKey(e))
+			ListeErreursSemantiques.getInstance().addErreur("Variable \"" + e.getIdf() + "\" déjà déclarée");
 		this.TDS.put(e, s);
 	}
 	
@@ -39,7 +44,7 @@ public class TableDesSymboles {
 	/*
 	 * Getter du symbole associé à la clef
 	 */
-	public Symbole get(Entree e){
+	public Symbole identifier(Entree e){
 		return this.TDS.get(e);
 	}
 	

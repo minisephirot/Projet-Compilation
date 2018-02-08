@@ -3,7 +3,12 @@
 main:
 # init variable repérer la zone des variables
 move $s7, $sp
-nullend:
+# calcul de la valeur a affecter à d
+# constante entière
+li $v0, 6
+# sw au bon endroit
+sw $v0, -12($sp)
+end:
 move $v1, $v0      # copie de v0 dans v1 pour permettre les tests de plic0
 li $v0, 10         # retour au système
 syscall

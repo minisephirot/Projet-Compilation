@@ -124,7 +124,6 @@ PROG    ::=    	PROGRAMME IDF DEBUT DECL LINSTR:bi FIN
 
 		
 DECL    ::=     DECL  DECL_VAR
-	
 		|		DECL_VAR
 				;
 		
@@ -132,10 +131,10 @@ DECL_VAR ::=		ENTIER IDF:i POINTVIRGULE
 				{: TableDesSymboles.getInstance().ajouter(new EntreeVar(i), new SymboleVar()) ; :}
 		|		ENTIER IDF:i EGAL EXPR:e POINTVIRGULE
 				{: TableDesSymboles.getInstance().ajouter(new EntreeVar(i), new SymboleVar(e)) ; :}
-
 				;
+				
 LINSTR  ::=     LINSTR:bi INSTR:i
-				{: bi.ajouter(i);
+				{:  bi.ajouter(i);
 					RESULT = bi;   :}
 		|		INSTR:i
 				{:  BlocDInstructions bi = new BlocDInstructions(ileft+1);

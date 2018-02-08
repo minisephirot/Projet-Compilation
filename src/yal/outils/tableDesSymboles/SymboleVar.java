@@ -10,6 +10,11 @@ public class SymboleVar extends Symbole {
 		pos = TableDesSymboles.getInstance().getTailleZoneVariable();
 	}
 	
+	public SymboleVar(Expression e) {
+		pos = TableDesSymboles.getInstance().getTailleZoneVariable();
+		exp = e;
+	}
+	
 	public int getPos() {
 		return pos;
 	}
@@ -17,17 +22,10 @@ public class SymboleVar extends Symbole {
 	public void setPos(int pos) {
 		this.pos = pos;
 	}
-
-	public Expression getExp() {
-		return exp;
-	}
-
-	public void setExp(Expression exp) {
-		this.exp = exp;
-	}
-
-	public SymboleVar(Expression e) {
-		pos = TableDesSymboles.getInstance().getTailleZoneVariable();
-		exp = e;
+	
+	public String getType() {
+		if (exp == null)
+			return "int";
+		return exp.getReturnType();
 	}
 }
