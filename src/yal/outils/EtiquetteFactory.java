@@ -1,5 +1,8 @@
 package yal.outils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /*
  * Création du singleton qui gère la création d'étiquette
  */
@@ -23,6 +26,11 @@ public class EtiquetteFactory {
 	private int indexPrint;
 	
 	/*
+	 * ArrayList des strings printés
+	 */
+	private ArrayList<String> stringsPrint;
+	
+	/*
 	 * Vérifie si des divisions sont utilisées
 	 */
 	private boolean indexDiv0;
@@ -34,6 +42,7 @@ public class EtiquetteFactory {
 		indexSi = 0;
 		indexPrint = 0;
 		indexDiv0 = false;
+		stringsPrint = new ArrayList<String>();
 	};
 	
 	public static EtiquetteFactory getInstance() {
@@ -46,6 +55,16 @@ public class EtiquetteFactory {
 	
 	public int getIndexPrint() {
 		return indexPrint;
+	}
+	
+	public ArrayList<String> getPrintArray(){
+		return stringsPrint;
+	}
+	
+	public void addString(String s){
+		stringsPrint.add(s);
+		addIndexPrint();
+		System.out.println(stringsPrint.size());
 	}
 
 	public boolean getIndexDiv0() {

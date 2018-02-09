@@ -1,7 +1,4 @@
 programme essai debut
-entier a;
-entier b;
-entier c;
-entier d;
-d = 6;
+ecrire "coucou" ;
+ecrire "pd" ;
 fin

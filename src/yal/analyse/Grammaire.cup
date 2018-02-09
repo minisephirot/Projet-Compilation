@@ -21,6 +21,8 @@ import yal.arbre.expression.constante.ConstanteEntiere;
 import yal.arbre.expression.unaire.MoinsUnaire;
 import yal.arbre.expression.unaire.NonLogique;
 import yal.arbre.instruction.Affectation;
+import yal.arbre.instruction.EcrireVar;
+import yal.arbre.instruction.EcrireString;
 import yal.arbre.instruction.Ecrire;
 import yal.arbre.instruction.Instruction;
 import yal.exceptions.AnalyseSyntaxiqueException;
@@ -129,8 +131,6 @@ DECL    ::=     DECL  DECL_VAR
 		
 DECL_VAR ::=		ENTIER IDF:i POINTVIRGULE
 				{: TableDesSymboles.getInstance().ajouter(new EntreeVar(i), new SymboleVar()) ; :}
-		|		ENTIER IDF:i EGAL EXPR:e POINTVIRGULE
-				{: TableDesSymboles.getInstance().ajouter(new EntreeVar(i), new SymboleVar(e)) ; :}
 				;
 				
 LINSTR  ::=     LINSTR:bi INSTR:i
@@ -149,9 +149,9 @@ INSTR   ::=     AFFECT:a
 				;
 			
 ECRIRE  ::=     ECR EXPR:e POINTVIRGULE
-				{: RESULT = new Ecrire(e, eleft +1); :}
+				{: RESULT = new EcrireVar(e, eleft +1); :}
 		|		ECR CONSTANTECHAINE:c POINTVIRGULE
-				{: RESULT = new Ecrire(c, cleft + 1); :}
+				{: RESULT = new EcrireString(c, cleft + 1);		System.out.println(c); :}
 				;
 
 AFFECT  ::=     IDF:idf EGAL EXPR:e POINTVIRGULE
