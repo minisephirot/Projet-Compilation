@@ -21,7 +21,7 @@ public class EcrireVar extends Ecrire {
 	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("move $v1, $v0\n");
-		sb.append("# Print d'une string\n");
+		sb.append("# Print d'une expression\n");
 		sb.append(exp.toMIPS());
 		sb.append("add $a0, $v0, $zero\n");
 		sb.append("li $v0, 1\n");

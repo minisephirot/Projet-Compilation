@@ -8,12 +8,12 @@ import yal.outils.tableDesSymboles.TableDesSymboles;
 public class Affectation extends Instruction{
 
 	private EntreeVar identificateur;
-	private Expression affection;
+	private Expression exp;
 	
 	public Affectation(String idf, Expression aff, int no) {
 		super(no);
 		this.identificateur = new EntreeVar(idf);
-		this.affection = aff;
+		this.exp = aff;
 		
 	}
 
@@ -24,8 +24,8 @@ public class Affectation extends Instruction{
 			ListeErreursSemantiques.getInstance().addErreur("Ligne " + this.noLigne + " : Variable \"" + identificateur.getIdf() + "\" non déclarée");
 		}
 		// Vérifie si les types sont compatibles
-		if (!identificateur.getType().equals(affection.getReturnType())) {
-			ListeErreursSemantiques.getInstance().addErreur("Ligne " + this.noLigne + " : Affectation de type \"" + affection.getReturnType() + "\" à la variable \"" + identificateur.getIdf() + "\" de type \"" + identificateur.getType() + "\"");
+		if (!identificateur.getType().equals(exp.getReturnType())) {
+			ListeErreursSemantiques.getInstance().addErreur("Ligne " + this.noLigne + " : Affectation de type \"" + exp.getReturnType() + "\" à la variable \"" + identificateur.getIdf() + "\" de type \"" + identificateur.getType() + "\"");
 		}
 	}
 
@@ -33,7 +33,7 @@ public class Affectation extends Instruction{
 	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("# calcul de la valeur a affecter à " + identificateur.getIdf() + "\n");
-		sb.append(affection.toMIPS());
+		sb.append(exp.toMIPS());
 		
 		int decalage = TableDesSymboles.getInstance().identifier(identificateur).getPos();
 		sb.append("# sw au bon endroit\n");

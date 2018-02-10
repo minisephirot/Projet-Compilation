@@ -1,5 +1,8 @@
 programme essai debut
+entier a;
 ecrire "coucou\n" ;
-ecrire "pd\n" ;
 ecrire 3 + 5;
+ecrire "\n";
+a = 17;
+ecrire a;
 fin

@@ -1,24 +1,34 @@
 package yal.arbre.expression;
 
+import yal.exceptions.ListeErreursSemantiques;
+import yal.outils.tableDesSymboles.EntreeVar;
+import yal.outils.tableDesSymboles.TableDesSymboles;
+
 public class IDF extends Expression{
 
-	private String str;
+	private EntreeVar identificateur;
 	
 	public IDF(String idf, int n) {
 		super(n);
-		str = idf;
+		this.identificateur = new EntreeVar(idf);
 	}
 
 	@Override
 	public void verifier() {
-		// TODO Auto-generated method stub
-		
+		// Vérifie que la variable est déclarée
+		if (!TableDesSymboles.getInstance().contains(identificateur)) {
+			ListeErreursSemantiques.getInstance().addErreur("Ligne " + this.noLigne + " : Variable \"" + identificateur.getIdf() + "\" non déclarée");
+		}
 	}
 
 	@Override
 	public String toMIPS() {
-		// TODO Auto-generated method stub
-		return null;
+		StringBuilder sb = new StringBuilder();
+		
+		int decalage = TableDesSymboles.getInstance().identifier(identificateur).getPos();
+		sb.append("# charge la variable dans $v0\n");
+		sb.append("lw $v0, " + decalage + "($sp)\n");
+		return sb.toString();
 	}
 
 }
