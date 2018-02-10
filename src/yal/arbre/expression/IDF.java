@@ -11,6 +11,7 @@ public class IDF extends Expression{
 	public IDF(String idf, int n) {
 		super(n);
 		this.identificateur = new EntreeVar(idf);
+		this.returnType = "int"; //Tous nos variables sont des entiers
 	}
 
 	@Override

@@ -8,51 +8,55 @@ import java.util.Iterator;
  */
 public class EtiquetteFactory {
 
-	/*
-	 * Instance du singleton
-	 */
-	private static EtiquetteFactory instance = new EtiquetteFactory();
+	private static EtiquetteFactory instance = new EtiquetteFactory();	//Instance du singleton
+	int indexSi; 			// Nombre d'étiquette si alors sinon créé
+	private int indexPrint;	// Nombre d'étiquette print créé
+	private ArrayList<String> stringsPrint; // ArrayList des string a afficher
+	private boolean hasDivBy0;	//Vérifie si des divisions sont utilisées
+	private boolean hasBoolPrint;	//Vérifie si des ecrire de boolean sont utilisés
 	
-	/*
-	 * Nombre d'étiquette si alors sinon créé
-	 */
-	private int indexSi;
-	
-	/*
-	 * Nombre d'étiquette print créé
-	 */
-	private int indexPrint;
-	
-	/*
-	 * ArrayList des strings printés
-	 */
-	private ArrayList<String> stringsPrint;
-	
-	/*
-	 * Vérifie si des divisions sont utilisées
-	 */
-	private boolean hasDivBy0;
-	
-	/*
-	 * Initialise les compteurs à 0 et à false
-	 */
 	private EtiquetteFactory() {
 		indexSi = 0;
 		indexPrint = 0;
 		hasDivBy0 = false;
+		hasBoolPrint = false;
 		stringsPrint = new ArrayList<String>();
 	};
 	
+	/**
+	 * @return L'instance de l'EtiquetteFactory
+	 */
 	public static EtiquetteFactory getInstance() {
 		return instance;
 	}
 
+	/**
+	 * @return Le nombre d'étiquettes Si générées
+	 */
 	public int getIndexSi() {
 		return indexSi;
 	}
 	
+	
+	/**
+	 * Ajoute 1 au nombre d'étiquettes Si générées
+	 */
+	public void addIndexSi() {
+		indexSi++;
+	}
+	
+	/**
+	 * @return Le nombre d'étiquettes chaine générées
+	 */
 	public int getIndexPrint() {
 		return indexPrint;
+	}
+	
+	/**
+	 * Ajoute 1 au nombre d'étiquettes chaine générées
+	 */
+	public void addIndexPrint() {
+		indexPrint++;
 	}
 	
 	/**
@@ -71,6 +75,9 @@ public class EtiquetteFactory {
 		addIndexPrint();
 	}
 
+	/**
+	 * @return True si une division a été détectée
+	 */
 	public boolean hasDivBy0() {
 		return hasDivBy0;
 	}
@@ -83,11 +90,18 @@ public class EtiquetteFactory {
 		this.hasDivBy0 = true;
 	}
 	
-	public void addIndexSi() {
-		indexSi++;
+	/*
+	 * Met la variable à true si un affichage de booleen est effectué et
+	 * ajoute des chaines "vrai", "faux" à la liste de chaines
+	 */
+	public void setHasBoolPrint( ) {
+		// Si c'est la première fois qu'on appelle cette fonction
+		if (!hasBoolPrint) {
+			this.hasBoolPrint = true;
+			addString("chaineVrai: .asciiz \"vrai\"\n");
+			addString("chaineFaux: .asciiz \"faux\"\n");
+		}
 	}
 	
-	public void addIndexPrint() {
-		indexPrint++;
-	}
+
 }
