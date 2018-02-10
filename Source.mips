@@ -1,15 +1,10 @@
 .data
-printnumero0: .asciiz "pd"
+printnumero1: .asciiz "pd"
+printnumero0: .asciiz "coucou"
 .text
 main:
 # init variable repérer la zone des variables
 move $s7, $sp
-# Print d'une string
-move $v1, $v0
-li $v0, 4
-la $a0, printnumero0
-syscall
-move $v0, $v1
 end:
 move $v1, $v0      # copie de v0 dans v1 pour permettre les tests de plic0
 li $v0, 10         # retour au système

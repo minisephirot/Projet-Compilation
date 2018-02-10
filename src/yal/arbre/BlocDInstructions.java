@@ -1,5 +1,7 @@
 package yal.arbre;
 
+import java.util.ArrayList;
+
 import yal.outils.EtiquetteFactory;
 
 /**
@@ -10,24 +12,27 @@ import yal.outils.EtiquetteFactory;
 
 public class BlocDInstructions extends ArbreAbstrait {
     
-    protected ArbreAbstrait expr ;
+    protected ArrayList<ArbreAbstrait> listeExpr ;
     
     public BlocDInstructions(int n) {
         super(n) ;
+        listeExpr = new ArrayList<>();
     }
     
     public void ajouter(ArbreAbstrait a) {
-        expr = a ;
+    	listeExpr.add(a) ;
     }
     
     @Override
     public String toString() {
-    	return expr.toString() ;
+    	return listeExpr.toString() ;
     }
 
 	@Override
 	public void verifier() {
-		expr.verifier();	
+		for (ArbreAbstrait arbreAbstrait : listeExpr) {
+			arbreAbstrait.verifier();
+		}
 	}
 
 	@Override
@@ -39,7 +44,9 @@ public class BlocDInstructions extends ArbreAbstrait {
 		sb.append("# init variable repérer la zone des variables\n");
 		sb.append("move $s7, $sp\n");
 		// Génération de l'arbre en MIPS
-		sb.append(expr.toMIPS());
+		for (ArbreAbstrait arbreAbstrait : listeExpr) {
+			arbreAbstrait.toMIPS();
+		}
 		// La fin pour quitter proprement le programme
 		sb.append("end:\n");
 		sb.append("move $v1, $v0      # copie de v0 dans v1 pour permettre les tests de plic0\n");

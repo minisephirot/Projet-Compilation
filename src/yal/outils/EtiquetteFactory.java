@@ -64,7 +64,6 @@ public class EtiquetteFactory {
 	public void addString(String s){
 		stringsPrint.add(s);
 		addIndexPrint();
-		System.out.println(stringsPrint.size());
 	}
 
 	public boolean getIndexDiv0() {

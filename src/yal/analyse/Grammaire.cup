@@ -151,7 +151,7 @@ INSTR   ::=     AFFECT:a
 ECRIRE  ::=     ECR EXPR:e POINTVIRGULE
 				{: RESULT = new EcrireVar(e, eleft +1); :}
 		|		ECR CONSTANTECHAINE:c POINTVIRGULE
-				{: RESULT = new EcrireString(c, cleft + 1);		System.out.println(c); :}
+				{: RESULT = new EcrireString(c, cleft + 1); :}
 				;
 
 AFFECT  ::=     IDF:idf EGAL EXPR:e POINTVIRGULE

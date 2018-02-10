@@ -26,7 +26,6 @@ public class EcrireString extends Ecrire {
 		sb.append("la $a0, "+ printnumber+"\n");
 		sb.append("syscall\n");
 		sb.append("move $v0, $v1\n");
-		System.out.println("Je m'occupe de tomips une string");
 		EtiquetteFactory.getInstance().addString(printnumber+": .asciiz "+this.str+"\n");
 		return sb.toString();
 	}

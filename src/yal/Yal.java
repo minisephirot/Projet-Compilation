@@ -29,7 +29,7 @@ public class Yal {
             //System.err.println("expression stockée dans l'arbre : " + arbre);
             
             // à écrire pour yal0
-            arbre.verifier() ; 
+            arbre.verifier() ;
             //System.out.println(arbre.toMIPS());
             
             // Appelle le singleton qui déclanche une erreur contentnant la liste de toutes les erreurs
