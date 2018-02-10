@@ -1,13 +1,11 @@
 package yal.outils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Iterator;
 
 /*
  * Création du singleton qui gère la création d'étiquette
  */
-
-
 public class EtiquetteFactory {
 
 	/*
@@ -33,7 +31,7 @@ public class EtiquetteFactory {
 	/*
 	 * Vérifie si des divisions sont utilisées
 	 */
-	private boolean indexDiv0;
+	private boolean hasDivBy0;
 	
 	/*
 	 * Initialise les compteurs à 0 et à false
@@ -41,7 +39,7 @@ public class EtiquetteFactory {
 	private EtiquetteFactory() {
 		indexSi = 0;
 		indexPrint = 0;
-		indexDiv0 = false;
+		hasDivBy0 = false;
 		stringsPrint = new ArrayList<String>();
 	};
 	
@@ -57,17 +55,24 @@ public class EtiquetteFactory {
 		return indexPrint;
 	}
 	
-	public ArrayList<String> getPrintArray(){
-		return stringsPrint;
+	/**
+	 * @return Un iterateur sur les string que l'utilisateur veux afficher
+	 */
+	public Iterator<String> getStrings() {
+		return stringsPrint.iterator();
 	}
 	
+	/**
+	 * Ajoute une nouvelle string que l'uilisateur veut affichier
+	 * @param s La string à afficher
+	 */
 	public void addString(String s){
 		stringsPrint.add(s);
 		addIndexPrint();
 	}
 
-	public boolean getIndexDiv0() {
-		return indexDiv0;
+	public boolean hasDivBy0() {
+		return hasDivBy0;
 	}
 
 	/*
@@ -75,7 +80,7 @@ public class EtiquetteFactory {
 	 * être remis à false après coup
 	 */
 	public void setIndexDiv0() {
-		this.indexDiv0 = true;
+		this.hasDivBy0 = true;
 	}
 	
 	public void addIndexSi() {

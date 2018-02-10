@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import yal.arbre.ArbreAbstrait;
 import yal.arbre.BlocDInstructions;
+import yal.arbre.Programme;
 import yal.arbre.expression.Expression;
 import yal.arbre.expression.IDF;
 import yal.arbre.expression.binaire.arithmetique.Div;
@@ -21,9 +22,9 @@ import yal.arbre.expression.constante.ConstanteEntiere;
 import yal.arbre.expression.unaire.MoinsUnaire;
 import yal.arbre.expression.unaire.NonLogique;
 import yal.arbre.instruction.Affectation;
-import yal.arbre.instruction.EcrireVar;
-import yal.arbre.instruction.EcrireString;
 import yal.arbre.instruction.Ecrire;
+import yal.arbre.instruction.EcrireString;
+import yal.arbre.instruction.EcrireVar;
 import yal.arbre.instruction.Instruction;
 import yal.exceptions.AnalyseSyntaxiqueException;
 import yal.outils.tableDesSymboles.EntreeVar;
@@ -119,9 +120,13 @@ precedence left NON ;
 start with PROG ;
 
 PROG    ::=    	PROGRAMME IDF DEBUT DECL LINSTR:bi FIN
-				{: RESULT = bi ; :}
+				{:	Programme p = new Programme(bileft+1);
+					p.ajouter(bi);
+					RESULT = p; :}
 		|		PROGRAMME IDF DEBUT LINSTR:bi FIN
-				{: RESULT = bi; :}
+				{:	Programme p = new Programme(bileft+1);
+					p.ajouter(bi);
+					RESULT = p; :}
 				;
 
 		
@@ -129,7 +134,7 @@ DECL    ::=     DECL  DECL_VAR
 		|		DECL_VAR
 				;
 		
-DECL_VAR ::=		ENTIER IDF:i POINTVIRGULE
+DECL_VAR ::=	ENTIER IDF:i POINTVIRGULE
 				{: TableDesSymboles.getInstance().ajouter(new EntreeVar(i), new SymboleVar()) ; :}
 				;
 				

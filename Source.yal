@@ -1,4 +1,5 @@
 programme essai debut
-ecrire "coucou" ;
-ecrire "pd" ;
+ecrire "coucou\n" ;
+ecrire "pd\n" ;
+ecrire 3 + 5;
 fin

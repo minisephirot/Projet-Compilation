@@ -5,6 +5,7 @@ import yal.outils.EtiquetteFactory;
 public class EcrireString extends Ecrire {
 
 	private String str;
+	private int printNumber;
 	
 	public EcrireString(String ch, int no) {
 		super(no);
@@ -13,20 +14,20 @@ public class EcrireString extends Ecrire {
 
 	@Override
 	public void verifier() {
-		
+		// Enregistre la string a afficher dans EtiquetteFactory
+		printNumber = EtiquetteFactory.getInstance().getIndexPrint();
+		EtiquetteFactory.getInstance().addString("chaine" + printNumber + ": .asciiz " + this.str + "\n");
 	}
 
 	@Override
 	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
-		String printnumber = "printnumero"+EtiquetteFactory.getInstance().getIndexPrint();
 		sb.append("# Print d'une string\n");
 		sb.append("move $v1, $v0\n");
 		sb.append("li $v0, 4\n");
-		sb.append("la $a0, "+ printnumber+"\n");
+		sb.append("la $a0, chaine"+ printNumber + "\n");
 		sb.append("syscall\n");
 		sb.append("move $v0, $v1\n");
-		EtiquetteFactory.getInstance().addString(printnumber+": .asciiz "+this.str+"\n");
 		return sb.toString();
 	}
 
