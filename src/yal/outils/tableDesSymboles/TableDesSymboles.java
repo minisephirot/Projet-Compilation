@@ -49,7 +49,7 @@ public class TableDesSymboles {
 	}
 	
 	/*
-	 * 				???
+	 *  return l'empilement max de la pile de variables
 	 */
 	public int getTailleZoneVariable(){
 		return TDS.size() * -4;

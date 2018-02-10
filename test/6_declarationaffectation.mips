@@ -1,0 +1,14 @@
+.data
+.text
+main:
+# init variable repérer la zone des variables
+move $s7, $sp
+# calcul de la valeur a affecter à abc
+# constante entière
+li $v0, 42
+# sw au bon endroit
+sw $v0, 0($sp)
+end:
+move $v1, $v0      # copie de v0 dans v1 pour permettre les tests de plic0
+li $v0, 10         # retour au système
+syscall

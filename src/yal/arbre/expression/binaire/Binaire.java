@@ -1,6 +1,7 @@
 package yal.arbre.expression.binaire;
 
 import yal.arbre.expression.Expression;
+import yal.outils.tableDesSymboles.TableDesSymboles;
 
 /**
  * 3 déc. 2015
@@ -29,6 +30,7 @@ public abstract class Binaire extends Expression {
     @Override
     public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
+		int decalage = TableDesSymboles.getInstance().getTailleZoneVariable()-4;
 		sb.append("# opération ");
 		sb.append(operateur());
 		
@@ -36,7 +38,8 @@ public abstract class Binaire extends Expression {
 		sb.append(gauche.toMIPS());
 		
 		sb.append("# empiler gauche\n");
-		sb.append("sw $v0, ($sp)\n");
+		
+		sb.append("sw $v0, "+decalage+"($sp)\n");
 		sb.append("addi $sp, $sp, -4\n");
 		
 		sb.append("# calcul de droite\n");
@@ -44,7 +47,7 @@ public abstract class Binaire extends Expression {
 		
 		sb.append("# dépile gauche dans $t8\n");
 		sb.append("addi $sp, $sp, 4\n");
-		sb.append("lw $t8, ($sp)\n");
+		sb.append("lw $t8, "+decalage+"($sp)\n");
 		return sb.toString();
     }
 
