@@ -37,7 +37,7 @@ public class Affectation extends Instruction{
 		
 		int decalage = TableDesSymboles.getInstance().identifier(identificateur).getPos();
 		sb.append("# sw au bon endroit\n");
-		sb.append("sw $v0, " + decalage + "($sp)\n");
+		sb.append("sw $v0, " + decalage + "($s7)\n");
 		return sb.toString();
 	}
 

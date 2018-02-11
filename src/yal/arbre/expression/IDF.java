@@ -28,7 +28,7 @@ public class IDF extends Expression{
 		
 		int decalage = TableDesSymboles.getInstance().identifier(identificateur).getPos();
 		sb.append("# charge la variable dans $v0\n");
-		sb.append("lw $v0, " + decalage + "($sp)\n");
+		sb.append("lw $v0, " + decalage + "($s7)\n");
 		return sb.toString();
 	}
 

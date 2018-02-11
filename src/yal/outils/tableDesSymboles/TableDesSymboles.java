@@ -30,7 +30,7 @@ public class TableDesSymboles {
 	 * Ajoute à la hashmap la paire (entrées -> symboles) et vérifie si il y a 
 	 * une double declaration ou une incompatibilté type/expression
 	 */
-	public void ajouter(Entree e, Symbole s,int noligne) {
+	public void ajouter(Entree e, Symbole s, int noligne) {
 		// Vérifie si on ne fait pas une double déclaration
 		if (this.TDS.containsKey(e))
 			ListeErreursSemantiques.getInstance().addErreur("Ligne "+noligne+" : Variable \"" + e.getIdf() + "\" déjà déclarée.");
@@ -67,10 +67,10 @@ public class TableDesSymboles {
 	 * @param bi Le bloc a decorer
 	 */
 	public void decorerArbre(BlocDInstructions bi) {
-		// Ajoute le déclage dans $sp
-		bi.ajouterDebut(new AllocationVar(0, getTailleZoneVariable()));
 		// Initialise toutes les variables à 0
 		TDS.forEach((e,s) -> bi.ajouterDebut(new InitialisationVar(0, e)));
+		// Ajoute le déclage dans $sp
+		bi.ajouterDebut(new AllocationVar(0, getTailleZoneVariable()));
 	}
 	
 }

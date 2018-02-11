@@ -39,7 +39,7 @@ public abstract class Binaire extends Expression {
 		
 		sb.append("# empiler gauche\n");
 		
-		sb.append("sw $v0, "+decalage+"($sp)\n");
+		sb.append("sw $v0, 0($sp)\n");
 		sb.append("addi $sp, $sp, -4\n");
 		
 		sb.append("# calcul de droite\n");
@@ -47,7 +47,7 @@ public abstract class Binaire extends Expression {
 		
 		sb.append("# dépile gauche dans $t8\n");
 		sb.append("addi $sp, $sp, 4\n");
-		sb.append("lw $t8, "+decalage+"($sp)\n");
+		sb.append("lw $t8, 0($sp)\n");
 		return sb.toString();
     }
 
