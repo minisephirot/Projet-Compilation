@@ -18,7 +18,7 @@ public class IDF extends Expression{
 	public void verifier() {
 		// Vérifie que la variable est déclarée
 		if (!TableDesSymboles.getInstance().contains(identificateur)) {
-			ListeErreursSemantiques.getInstance().addErreur("Ligne " + this.noLigne + " : Variable \"" + identificateur.getIdf() + "\" non déclarée");
+			ListeErreursSemantiques.getInstance().addErreur("Ligne " + this.noLigne + " : Variable \"" + identificateur.getIdf() + "\" non déclarée.");
 		}
 	}
 

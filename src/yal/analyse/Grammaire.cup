@@ -135,7 +135,7 @@ DECL    ::=     DECL  DECL_VAR
 				;
 		
 DECL_VAR ::=	ENTIER IDF:i POINTVIRGULE
-				{: TableDesSymboles.getInstance().ajouter(new EntreeVar(i), new SymboleVar()) ; :}
+				{: TableDesSymboles.getInstance().ajouter(new EntreeVar(i), new SymboleVar(),ileft+1) ; :}
 				;
 				
 LINSTR  ::=     LINSTR:bi INSTR:i

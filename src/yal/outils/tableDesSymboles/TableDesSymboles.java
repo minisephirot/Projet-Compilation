@@ -27,10 +27,10 @@ public class TableDesSymboles {
 	 * Ajoute à la hashmap la paire (entrées -> symboles) et vérifie si il y a 
 	 * une double declaration ou une incompatibilté type/expression
 	 */
-	public void ajouter(Entree e, Symbole s) {
+	public void ajouter(Entree e, Symbole s,int noligne) {
 		// Vérifie si on ne fait pas une double déclaration
 		if (this.TDS.containsKey(e))
-			ListeErreursSemantiques.getInstance().addErreur("Variable \"" + e.getIdf() + "\" déjà déclarée");
+			ListeErreursSemantiques.getInstance().addErreur("Ligne "+noligne+" : Variable \"" + e.getIdf() + "\" déjà déclarée.");
 		this.TDS.put(e, s);
 	}
 	
