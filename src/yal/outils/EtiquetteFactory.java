@@ -1,7 +1,6 @@
 package yal.outils;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /*
  * Création du singleton qui gère la création d'étiquette
@@ -37,7 +36,6 @@ public class EtiquetteFactory {
 		return indexSi;
 	}
 	
-	
 	/**
 	 * Ajoute 1 au nombre d'étiquettes Si générées
 	 */
@@ -60,13 +58,6 @@ public class EtiquetteFactory {
 	}
 	
 	/**
-	 * @return Un iterateur sur les string que l'utilisateur veux afficher
-	 */
-	public Iterator<String> getStrings() {
-		return stringsPrint.iterator();
-	}
-	
-	/**
 	 * Ajoute une nouvelle string que l'uilisateur veut affichier
 	 * @param s La string à afficher
 	 */
@@ -76,21 +67,17 @@ public class EtiquetteFactory {
 	}
 
 	/**
-	 * @return True si une division a été détectée
-	 */
-	public boolean hasDivBy0() {
-		return hasDivBy0;
-	}
-
-	/*
 	 * Met la variable à true si une division est utilisée mais ne peut pas
 	 * être remis à false après coup
 	 */
 	public void setIndexDiv0() {
-		this.hasDivBy0 = true;
+		if (!hasDivBy0) {
+			this.hasDivBy0 = true;
+			addString("errDiv0: .asciiz \" ERREUR EXECUTION : Division par 0 interdite\\n\"\n");
+		}
 	}
 	
-	/*
+	/**
 	 * Met la variable à true si un affichage de booleen est effectué et
 	 * ajoute des chaines "vrai", "faux" à la liste de chaines
 	 */
@@ -103,5 +90,38 @@ public class EtiquetteFactory {
 		}
 	}
 	
-
+	/**
+	 * Ecrit les chaines de caractères à afficher
+	 * @return les chaines a écrire
+	 */
+	public String ecrireChaines() {
+		if (stringsPrint.isEmpty())
+			return "";
+		else {
+			StringBuilder sb = new StringBuilder();
+			sb.append(".data\n");
+			for (String string : stringsPrint) {
+				sb.append(string);
+			}
+			return sb.toString();
+		}
+	}
+	
+	/**
+	 * Ecrit le test de div par 0 si besoin
+	 * @return Le test ou rien si inutile
+	 */
+	public String ecrireTestDiv0() {
+		if (hasDivBy0) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("# La gestion d'une division par 0\n");
+			sb.append("divByZero:\n");
+			sb.append("li $v0, 4\n");
+			sb.append("la $a0, errDiv0\n");
+			sb.append("syscall\n");
+			sb.append("b end\n");
+			return sb.toString();
+		} else
+			return "";
+	}
 }

@@ -121,11 +121,11 @@ start with PROG ;
 
 PROG    ::=    	PROGRAMME IDF DEBUT DECL LINSTR:bi FIN
 				{:	Programme p = new Programme(bileft+1);
-					p.ajouter(bi);
+					p.ajouterBloc(bi);
 					RESULT = p; :}
 		|		PROGRAMME IDF DEBUT LINSTR:bi FIN
 				{:	Programme p = new Programme(bileft+1);
-					p.ajouter(bi);
+					p.ajouterBloc(bi);
 					RESULT = p; :}
 				;
 

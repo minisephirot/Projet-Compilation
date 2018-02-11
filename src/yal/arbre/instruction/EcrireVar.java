@@ -27,7 +27,6 @@ public class EcrireVar extends Ecrire {
 	@Override
 	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("move $v1, $v0\n");
 		sb.append("# Print d'une expression\n");
 		sb.append(exp.toMIPS());
 		
@@ -52,7 +51,6 @@ public class EcrireVar extends Ecrire {
 		}
 		
 		sb.append("syscall\n");
-		sb.append("move $v0, $v1\n");
 		return sb.toString();
 	}
 

@@ -2,6 +2,9 @@ package yal.outils.tableDesSymboles;
 
 import java.util.HashMap;
 
+import yal.arbre.BlocDInstructions;
+import yal.arbre.decoration.AllocationVar;
+import yal.arbre.decoration.InitialisationVar;
 import yal.exceptions.ListeErreursSemantiques;
 
 public class TableDesSymboles {
@@ -57,6 +60,17 @@ public class TableDesSymboles {
 	
 	public static TableDesSymboles getInstance() {
 		return instance;
+	}
+	
+	/**
+	 * Ajoute le décalage et les initialisations des variables
+	 * @param bi Le bloc a decorer
+	 */
+	public void decorerArbre(BlocDInstructions bi) {
+		// Ajoute le déclage dans $sp
+		bi.ajouterDebut(new AllocationVar(0, getTailleZoneVariable()));
+		// Initialise toutes les variables à 0
+		TDS.forEach((e,s) -> bi.ajouterDebut(new InitialisationVar(0, e)));
 	}
 	
 }

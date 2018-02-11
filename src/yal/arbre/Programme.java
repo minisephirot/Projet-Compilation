@@ -1,9 +1,9 @@
 package yal.arbre;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import yal.outils.EtiquetteFactory;
+import yal.outils.tableDesSymboles.TableDesSymboles;
 
 public class Programme extends ArbreAbstrait {
 	
@@ -14,61 +14,48 @@ public class Programme extends ArbreAbstrait {
 		listeBlocs = new ArrayList<>();
 	}
 	
-	public void ajouter(BlocDInstructions b) {
-		listeBlocs.add(b);
+	public void ajouterBloc(BlocDInstructions a) {
+		listeBlocs.add(a);
 	}
 
 	@Override
 	public void verifier() {
+		
+		// Décore les bloc avec la gestion des variables
+		// Appelle Verifier sur tous les blocs
 		for (BlocDInstructions blocDInstructions : listeBlocs) {
+			TableDesSymboles.getInstance().decorerArbre(blocDInstructions);
 			blocDInstructions.verifier();
 		}
+		
 	}
 
 	@Override
 	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
-		
-		// Les data du début
-		sb.append(".data\n");
-		// On ajoute la chaine d'erreur d'une division par 0 si besoin
-		boolean hasDivBy0 = EtiquetteFactory.getInstance().hasDivBy0();
-		if (hasDivBy0) {
-			sb.append("errDiv0:     .asciiz \" ERREUR EXECUTION : Division par 0 interdite\\n\"\n");
-		}
 		// Ajoute les chaines à afficher
-		Iterator<String> it = EtiquetteFactory.getInstance().getStrings();
-		while (it.hasNext()) {
-			sb.append(it.next());
-		}
+		sb.append(EtiquetteFactory.getInstance().ecrireChaines());
 		
-		// Le début du programme avec la sauvegarde de $sp
-		sb.append(".text\n");
-		sb.append("main:\n");
-		sb.append("# init variable repérer la zone des variables\n");
-		sb.append("move $s7, $sp\n");
+	    // Le début du programme avec la sauvegarde de $sp
+	    sb.append(".text\n");
+	    sb.append("main:\n");
+	    sb.append("# init variable repérer la zone des variables\n");
+	    sb.append("move $s7, $sp\n");	 
 
 		// Ajoute le toMips de tous les blocs d'instruction
-		for (BlocDInstructions blocDInstructions : listeBlocs) {
-			sb.append(blocDInstructions.toMIPS());
+		for (ArbreAbstrait ArbreAbstrait : listeBlocs) {
+			sb.append(ArbreAbstrait.toMIPS());
 		}
 		
-		// La fin pour quitter proprement le programme
-		sb.append("end:\n");
-		sb.append("move $v1, $v0      # copie de v0 dans v1 pour permettre les tests de plic0\n");
-		sb.append("li $v0, 10         # retour au système\n");
-		sb.append("syscall\n");
-		
-		// Génère le code qui affiche une erreur si on divise par zéro
-		if (hasDivBy0) {
-			sb.append("# La gestion d'une division par 0\n");
-			sb.append("divByZero:\n");
-			sb.append("li $v0, 4\n");
-			sb.append("la $a0, errDiv0\n");
-			sb.append("syscall\n");
-			sb.append("b end\n");
-		}
-				
+	    // La fin pour quitter proprement le programme
+	    sb.append("end:\n");	 
+	    sb.append("move $v1, $v0      # copie de v0 dans v1 pour permettre les tests de plic0\n");	 
+	    sb.append("li $v0, 10         # retour au système\n");	 
+	    sb.append("syscall\n");
+	    
+	    // Affiche le test de div par zéro
+	    sb.append(EtiquetteFactory.getInstance().ecrireTestDiv0());
+
 		return sb.toString();
 	}
 

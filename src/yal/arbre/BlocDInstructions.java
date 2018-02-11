@@ -18,7 +18,15 @@ public class BlocDInstructions extends ArbreAbstrait {
     }
     
     public void ajouter(ArbreAbstrait a) {
-    	listeExpr.add(a) ;
+    		listeExpr.add(a) ;
+    }
+    
+    public void ajouterDebut(ArbreAbstrait a) {
+		listeExpr.add(0, a);	
+    }
+    
+    public int nb() {
+    		return listeExpr.size();
     }
     
     @Override
