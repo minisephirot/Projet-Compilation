@@ -1,0 +1,11 @@
+programme essai debut
+entier a;
+a = 42;
+ecrire a;
+ecrire "\n";
+a = a + 2;
+ecrire a;
+ecrire "\n";
+ecrire a*2;
+ecrire "\n";
+fin

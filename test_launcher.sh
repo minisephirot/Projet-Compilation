@@ -1,5 +1,6 @@
 #!/bin/bash
 > restest.txt
+rm test/*.mips 
 for fichier in `ls test -a | cut -d "." -f 1 | grep -v /`
 do
 	echo Doing $fichier ...
