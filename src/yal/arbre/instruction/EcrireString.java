@@ -9,7 +9,10 @@ public class EcrireString extends Ecrire {
 	
 	public EcrireString(String ch, int no) {
 		super(no);
-		str = ch;
+		if(ch.contains("\"\"")) { 
+			ch = ch.replace("\"\"", "\\\"");
+		}
+		str = ch ;
 	}
 
 	@Override
