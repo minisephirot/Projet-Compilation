@@ -27,6 +27,7 @@ public class Affectation extends Instruction{
 		if (!identificateur.getType().equals(exp.getReturnType())) {
 			ListeErreursSemantiques.getInstance().addErreur("Ligne " + this.noLigne + " : Affectation de type \"" + exp.getReturnType() + "\" à la variable \"" + identificateur.getIdf() + "\" de type \"" + identificateur.getType() + "\"");
 		}
+		exp.verifier();
 	}
 
 	@Override
