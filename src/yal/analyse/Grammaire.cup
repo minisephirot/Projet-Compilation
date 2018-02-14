@@ -2,6 +2,8 @@ package yal.analyse ;
 
 import java.util.HashMap;
 
+import java.util.HashMap;
+
 import yal.arbre.ArbreAbstrait;
 import yal.arbre.BlocDInstructions;
 import yal.arbre.Programme;
@@ -22,10 +24,13 @@ import yal.arbre.expression.constante.ConstanteEntiere;
 import yal.arbre.expression.unaire.MoinsUnaire;
 import yal.arbre.expression.unaire.NonLogique;
 import yal.arbre.instruction.Affectation;
+import yal.arbre.instruction.Boucle;
+import yal.arbre.instruction.Condition;
 import yal.arbre.instruction.Ecrire;
 import yal.arbre.instruction.EcrireString;
 import yal.arbre.instruction.EcrireVar;
 import yal.arbre.instruction.Instruction;
+import yal.arbre.instruction.Lire;
 import yal.exceptions.AnalyseSyntaxiqueException;
 import yal.outils.tableDesSymboles.EntreeVar;
 import yal.outils.tableDesSymboles.SymboleVar;
@@ -95,6 +100,7 @@ parser code {:
 
 terminal Symbol    POINTVIRGULE, PLUS, MOINS, MULT, DIV, PAROUV, PARFER ;
 terminal Symbol    SUP, INF, EGALEGAL, DIFF, ET, OU, NON, EGAL, PROGRAMME, ENTIER, DEBUT, FIN, ECR;
+terminal Symbol    TANTQUE, REPETER, FINTANTQUE, SI, ALORS, SINON, FSI, LIRE;
 terminal String    CONSTANTECHAINE, CONSTANTEINT, CONSTANTEBOOL, IDF;
    
 /* Non terminals used in the grammar section.  */
@@ -106,6 +112,9 @@ non terminal Affectation AFFECT;
 non terminal DECL, DECL_VAR;
 non terminal Instruction INSTR;
 non terminal Ecrire ECRIRE;
+non terminal Lire LECTURE;
+non terminal Boucle BOUCLE;
+non terminal Condition CONDITION;
 
 precedence left OU ;
 precedence left ET ;
@@ -148,10 +157,20 @@ LINSTR  ::=     LINSTR:bi INSTR:i
 				;
 		
 INSTR   ::=     AFFECT:a 
-				{: RESULT = a ; :}
-		|		ECRIRE:e
-				{: RESULT = e ; :}
-				;
+                {: RESULT = a ; :}
+        |        ECRIRE:e
+                {: RESULT = e ; :}               
+        |       BOUCLE:b       
+                {: RESULT = b ; :}              
+        |       LECTURE:l
+                {: RESULT = l ; :}                
+        |       CONDITION:c       
+                {: RESULT = c ; :}
+                ;
+
+LECTURE ::=     LIRE IDF:i POINTVIRGULE
+                {: RESULT = new Lire(i, ileft + 1); :}
+                ;     
 			
 ECRIRE  ::=     ECR EXPR:e POINTVIRGULE
 				{: RESULT = new EcrireVar(e, eleft +1); :}
@@ -162,6 +181,23 @@ ECRIRE  ::=     ECR EXPR:e POINTVIRGULE
 AFFECT  ::=     IDF:idf EGAL EXPR:e POINTVIRGULE
 				{: RESULT = new Affectation(idf, e, eleft +1); :}
 				;
+				
+BOUCLE  ::=     TANTQUE EXPR:e REPETER LINSTR:li FINTANTQUE
+                {: Boucle b = new Boucle(e, eleft + 1) ; 
+                   b.ajouter(li) ;
+                   RESULT = b ; :}
+                ;
+                
+CONDITION ::=   SI EXPR:e ALORS LINSTR:li FSI
+                {: Condition c = new Condition(e, eleft + 1) ;
+                   c.ajouterSi(li);
+                   RESULT = c ; :}                  
+          |     SI EXPR:e ALORS LINSTR:li1 SINON LINSTR:li2 FSI
+                {: Condition c = new Condition(e, eleft + 1) ;
+                   c.ajouterSi(li1) ;
+                   c.ajouterSinon(li2) ;
+                   RESULT = c ; :}
+                ;
     
 EXPR    ::=     EXPR:g  PLUS  EXPR:d
                 {: RESULT = new Plus(g, d) ; :}

@@ -60,6 +60,14 @@ espace = {finDeLigne}  | [ \t\f]
 "debut"				{ return symbol(CodesLexicaux.DEBUT); }
 "fin"				{ return symbol(CodesLexicaux.FIN); }
 "ecrire"				{ return symbol(CodesLexicaux.ECR); }
+"tantque"                 { return symbol(CodesLexicaux.TANTQUE); }
+"repeter"                 { return symbol(CodesLexicaux.REPETER); }
+"fintantque"             { return symbol(CodesLexicaux.FINTANTQUE); }
+"si"                      { return symbol(CodesLexicaux.SI); }
+"alors"                  { return symbol(CodesLexicaux.ALORS); }
+"sinon"                  { return symbol(CodesLexicaux.SINON); }
+"fsi"                    { return symbol(CodesLexicaux.FSI); }
+"lire"                   { return symbol(CodesLexicaux.LIRE); }
 
 "("                	{ return symbol(CodesLexicaux.PAROUV); }
 ")"                	{ return symbol(CodesLexicaux.PARFER); }
