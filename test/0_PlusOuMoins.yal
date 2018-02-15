@@ -1,0 +1,27 @@
+programme PlusOuMoins debut
+//init var
+entier test;
+entier juste;
+entier score;
+ecrire "Entrez un sel :\n"; // <- petition pour ajouter rand dans yal 
+lire juste;
+juste = juste*666/120+42;
+//Boucle de jeu
+tantque test != juste repeter
+	ecrire "\nEntrez votre prix :\n";
+	lire test;
+	ecrire test;
+	si test == juste alors 
+		ecrire " ? C'est gagne en ";
+		ecrire score;
+		ecrire " coups !\n";
+	fsi
+	si test > juste alors
+		ecrire " ? C'est Moins !\n";
+	fsi
+	si test < juste alors
+			ecrire " ? C'est Plus !\n";
+	fsi
+	score = score+1;
+fintantque
+fin
