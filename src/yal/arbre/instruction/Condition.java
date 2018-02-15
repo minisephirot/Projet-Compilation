@@ -2,6 +2,7 @@ package yal.arbre.instruction;
 
 import yal.arbre.BlocDInstructions;
 import yal.arbre.expression.Expression;
+import yal.outils.EtiquetteFactory;
 
 public class Condition extends Instruction {
 	
@@ -24,12 +25,34 @@ public class Condition extends Instruction {
 	
 	@Override
 	public void verifier() {
-		
+		expr.verifier();
+		blocSi.verifier();
+		blocSinon.verifier();
 	}
 
 	@Override
 	public String toMIPS() {
-		return null;
+		// Demande une étiquette
+		int indexEtiquette = EtiquetteFactory.getInstance().getIndexSi();
+		EtiquetteFactory.getInstance().addIndexSi();
+		StringBuilder sb = new StringBuilder();
+		sb.append("# Début du Si " + indexEtiquette + ": évaluation de expr\n");
+		sb.append(expr.toMIPS());
+		sb.append("beqz $v0, Sinon" + indexEtiquette + "\n");
+		
+		sb.append("#Si " + indexEtiquette + " bloc si\n");
+		sb.append(blocSi.toMIPS());
+		sb.append("b FinSi" + indexEtiquette + "\n");
+		
+		sb.append("#Si " + indexEtiquette + " bloc sinon\n");
+		sb.append("Sinon" + indexEtiquette + ":\n");
+		if (blocSinon != null) {
+			sb.append(blocSinon.toMIPS());
+		}
+		
+		sb.append("FinSi" + indexEtiquette + ":\n");
+		
+		return sb.toString();
 	}
 
 }
