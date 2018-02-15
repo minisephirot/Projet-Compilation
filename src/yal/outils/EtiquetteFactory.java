@@ -8,7 +8,8 @@ import java.util.ArrayList;
 public class EtiquetteFactory {
 
 	private static EtiquetteFactory instance = new EtiquetteFactory();	//Instance du singleton
-	int indexSi; 			// Nombre d'étiquette si alors sinon créé
+	private int indexSi; 			// Nombre d'étiquette si alors sinon créé
+	private int indexTant; 			// Nombre d'étiquette tantque créé
 	private int indexPrint;	// Nombre d'étiquette print créé
 	private ArrayList<String> stringsPrint; // ArrayList des string a afficher
 	private boolean hasDivBy0;	//Vérifie si des divisions sont utilisées
@@ -42,6 +43,21 @@ public class EtiquetteFactory {
 	public void addIndexSi() {
 		indexSi++;
 	}
+	
+	/**
+	 * @return Le nombre d'étiquettes Tantque générées
+	 */
+	public int getIndexTant() {
+		return indexTant;
+	}
+	
+	/**
+	 * Ajoute 1 au nombre d'étiquettes Tantque générées
+	 */
+	public void addIndexTant() {
+		indexTant++;
+	}
+	
 	
 	/**
 	 * @return Le nombre d'étiquettes chaine générées
