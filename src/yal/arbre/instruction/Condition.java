@@ -2,6 +2,7 @@ package yal.arbre.instruction;
 
 import yal.arbre.BlocDInstructions;
 import yal.arbre.expression.Expression;
+import yal.exceptions.ListeErreursSemantiques;
 import yal.outils.EtiquetteFactory;
 
 public class Condition extends Instruction {
@@ -25,9 +26,14 @@ public class Condition extends Instruction {
 	
 	@Override
 	public void verifier() {
+		if (!expr.getReturnType().equals("bool")){
+			ListeErreursSemantiques.getInstance().addErreur("Ligne " + this.noLigne + " : L'expression \"" + expr.toString() + "\" doit renvoyer un booléen.");
+		}
 		expr.verifier();
 		blocSi.verifier();
-		blocSinon.verifier();
+		if (blocSinon != null) {
+			blocSinon.verifier();
+		}
 	}
 
 	@Override
