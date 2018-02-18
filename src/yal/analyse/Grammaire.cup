@@ -191,10 +191,17 @@ BOUCLE  ::=     TANTQUE EXPR:e REPETER LINSTR:li FINTANTQUE
 CONDITION ::=   SI EXPR:e ALORS LINSTR:li FSI
                 {: Condition c = new Condition(e, eleft + 1) ;
                    c.ajouterSi(li);
-                   RESULT = c ; :}                  
+                   RESULT = c ; :} 
+          |     SI EXPR:e ALORS FSI
+                {: Condition c = new Condition(e, eleft + 1) ;
+                   RESULT = c ; :}            
           |     SI EXPR:e ALORS LINSTR:li1 SINON LINSTR:li2 FSI
                 {: Condition c = new Condition(e, eleft + 1) ;
                    c.ajouterSi(li1) ;
+                   c.ajouterSinon(li2) ;
+                   RESULT = c ; :}
+          |     SI EXPR:e ALORS SINON LINSTR:li2 FSI
+                {: Condition c = new Condition(e, eleft + 1) ;
                    c.ajouterSinon(li2) ;
                    RESULT = c ; :}
                 ;

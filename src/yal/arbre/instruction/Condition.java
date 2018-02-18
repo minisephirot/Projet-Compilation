@@ -30,7 +30,9 @@ public class Condition extends Instruction {
 			ListeErreursSemantiques.getInstance().addErreur("Ligne " + this.noLigne + " : L'expression \"" + expr.toString() + "\" doit renvoyer un booléen.");
 		}
 		expr.verifier();
-		blocSi.verifier();
+		if (blocSi != null) {
+			blocSi.verifier();
+		}
 		if (blocSinon != null) {
 			blocSinon.verifier();
 		}
@@ -47,7 +49,9 @@ public class Condition extends Instruction {
 		sb.append("beqz $v0, Sinon" + indexEtiquette + "\n");
 		
 		sb.append("#Si " + indexEtiquette + " bloc si\n");
-		sb.append(blocSi.toMIPS());
+		if (blocSi != null) {
+			sb.append(blocSi.toMIPS());
+		}
 		sb.append("b FinSi" + indexEtiquette + "\n");
 		
 		sb.append("#Si " + indexEtiquette + " bloc sinon\n");
