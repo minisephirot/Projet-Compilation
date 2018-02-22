@@ -1,0 +1,10 @@
+programme testLire debut
+entier a;
+
+si a alors
+    a = a + 2; 
+fsi
+
+fin
+
+//Erreur "a" n'est pas un booléen

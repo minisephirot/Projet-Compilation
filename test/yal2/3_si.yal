@@ -1,0 +1,17 @@
+programme testLire debut
+entier a;
+
+si a == 0 alors
+   a = a + 2; 
+fsi
+si a > 0 alors
+
+fsi
+si a == 0 alors
+
+sinon
+	a = 4;
+fsi
+fin
+
+//Succés a = 4

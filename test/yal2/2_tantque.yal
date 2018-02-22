@@ -1,0 +1,12 @@
+programme testLire debut
+entier a;
+
+tantque a != 5 repeter
+	a = a + 1;
+fintantque
+
+ecrire a;
+
+fin
+
+//Succés a = 5

@@ -1,0 +1,15 @@
+programme testLire debut
+entier a;
+entier b;
+
+a = 5;
+tantque a != -5 repeter
+	b = 5/a;
+	a = a - 1;
+fintantque
+
+ecrire a;
+
+fin
+
+//Erreur division par 0

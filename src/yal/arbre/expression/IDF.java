@@ -40,5 +40,10 @@ public class IDF extends Expression{
 		sb.append("lw $v0, " + decalage + "($s7)\n");
 		return sb.toString();
 	}
+	
+	@Override
+	public String toString() {
+		return getNom();
+	}
 
 }

@@ -1,0 +1,8 @@
+programme testLire debut
+entier a;
+
+lire a;
+
+ecrire a;
+
+fin
