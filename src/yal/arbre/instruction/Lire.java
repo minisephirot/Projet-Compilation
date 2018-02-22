@@ -1,31 +1,30 @@
 package yal.arbre.instruction;
 
+import yal.arbre.expression.IDF;
 import yal.exceptions.ListeErreursSemantiques;
 import yal.outils.tableDesSymboles.EntreeVar;
 import yal.outils.tableDesSymboles.TableDesSymboles;
 
 public class Lire extends Instruction {
 
-	private String idf;
+	private IDF idf;
 	private EntreeVar identificateur;
 	
-	public Lire(String i, int no) {
+	public Lire(IDF i, int no) {
 		super(no);
 		idf = i;
-		this.identificateur = new EntreeVar(idf);
 	}
 
 	@Override
 	public void verifier() {
-		// Vérifie que la variable est déclarée
-		if (!TableDesSymboles.getInstance().contains(identificateur)) {
-			ListeErreursSemantiques.getInstance().addErreur("Ligne " + this.noLigne + " : Variable \"" + identificateur.getIdf() + "\" non déclarée");
-		}
+		
+		idf.verifier();
 	}
 
 	@Override
 	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
+		//Décallage avec appel méthode getDécalage de idf
 		int decalage = TableDesSymboles.getInstance().identifier(identificateur).getPos();
 		sb.append("# Ecrire dans une variable \n");
 		sb.append("li $v0 , 5\n");

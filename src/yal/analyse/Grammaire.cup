@@ -169,7 +169,7 @@ INSTR   ::=     AFFECT:a
                 ;
 
 LECTURE ::=     LIRE IDF:i POINTVIRGULE
-                {: RESULT = new Lire(i, ileft + 1); :}
+                {: RESULT = new Lire(new IDF(i,ileft), ileft); :}
                 ;     
 			
 ECRIRE  ::=     ECR EXPR:e POINTVIRGULE

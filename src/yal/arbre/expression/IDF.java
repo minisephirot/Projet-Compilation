@@ -7,6 +7,8 @@ import yal.outils.tableDesSymboles.TableDesSymboles;
 public class IDF extends Expression{
 
 	private EntreeVar identificateur;
+	private String nom;
+	private int decalage;
 	
 	public IDF(String idf, int n) {
 		super(n);
@@ -20,6 +22,16 @@ public class IDF extends Expression{
 		if (!TableDesSymboles.getInstance().contains(identificateur)) {
 			ListeErreursSemantiques.getInstance().addErreur("Ligne " + this.noLigne + " : Variable \"" + identificateur.getIdf() + "\" non déclarée.");
 		}
+		// Changer en utilisant identifier de la TDS
+		// Remplir déclage avec la TDS
+	}
+	
+	public String getNom() {
+		return nom;
+	}
+	
+	public int getDecalage() {
+		return decalage;
 	}
 
 	@Override
