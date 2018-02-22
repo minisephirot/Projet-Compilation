@@ -3,9 +3,11 @@ package yal.outils.tableDesSymboles;
 public abstract class Entree {
 	
 	private String idf;
+	private int noLigne;
 	
-	public Entree(String i) {
+	public Entree(String i, int noLigne) {
 		idf = i;
+		this.noLigne = noLigne;
 	}
 
 	public String getIdf() {
@@ -14,6 +16,10 @@ public abstract class Entree {
 
 	public void setIdf(String idf) {
 		this.idf = idf;
+	}
+	
+	public int getNoLigne() {
+		return noLigne;
 	}
 	
 	/**

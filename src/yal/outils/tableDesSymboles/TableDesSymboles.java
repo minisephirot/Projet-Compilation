@@ -1,6 +1,7 @@
 package yal.outils.tableDesSymboles;
 
 import java.util.HashMap;
+import java.util.Iterator;
 
 import yal.arbre.BlocDInstructions;
 import yal.arbre.decoration.AllocationVar;
@@ -48,6 +49,10 @@ public class TableDesSymboles {
 	 * Getter du symbole associé à la clef
 	 */
 	public Symbole identifier(Entree e){
+		if (!TableDesSymboles.getInstance().contains(e)) {
+			ListeErreursSemantiques.getInstance().addErreur("Ligne " + e.getNoLigne() + " : Variable \"" + e.getIdf() + "\" non déclarée.");
+			return null;
+		}
 		return this.TDS.get(e);
 	}
 	
@@ -68,7 +73,10 @@ public class TableDesSymboles {
 	 */
 	public void decorerArbre(BlocDInstructions bi) {
 		// Initialise toutes les variables à 0
-		TDS.forEach((e,s) -> bi.ajouterDebut(new InitialisationVar(0, e)));
+		Iterator<Entree> it = TDS.keySet().iterator();
+		while (it.hasNext()) {
+			bi.ajouterDebut(new InitialisationVar(0, it.next()));
+		}
 		// Ajoute le déclage dans $sp
 		bi.ajouterDebut(new AllocationVar(0, getTailleZoneVariable()));
 	}

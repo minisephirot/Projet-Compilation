@@ -1,8 +1,5 @@
 TODO LIST DU TOP DU TOP :
 
-- Changer la grammaire de SI ALORS SINON
-- modifier TDS.identifier
-
 
 COMMANDE POUR AVOIR LE RESULTAT DIRECTEMENT
 java -jar Mars4_5.jar dec v1 yal.mips
