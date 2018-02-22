@@ -75,7 +75,7 @@ espace = {finDeLigne}  | [ \t\f]
 {csteE}      	        { return symbol(CodesLexicaux.CONSTANTEINT, yytext()); }
 {csteB}      	        { return symbol(CodesLexicaux.CONSTANTEBOOL, yytext()); }
 {csteC}					{ return symbol(CodesLexicaux.CONSTANTECHAINE, yytext()); }
-{idf}					{ return symbol(CodesLexicaux.IDF, yytext()); }
+{idf}					{ return IDF(idf); }
 
 {espace}                { }
 

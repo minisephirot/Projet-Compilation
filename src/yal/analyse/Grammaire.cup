@@ -179,7 +179,7 @@ ECRIRE  ::=     ECR EXPR:e POINTVIRGULE
 				;
 
 AFFECT  ::=     IDF:idf EGAL EXPR:e POINTVIRGULE
-				{: RESULT = new Affectation(idf, e, eleft +1); :}
+				{: RESULT = new Affectation(new IDF(idf, eleft + 1), e, eleft +1); :}
 				;
 				
 BOUCLE  ::=     TANTQUE EXPR:e REPETER LINSTR:li FINTANTQUE
@@ -242,8 +242,8 @@ EXPR    ::=     EXPR:g  PLUS  EXPR:d
                 NON EXPR:e
                 {: RESULT = new NonLogique(e); :}
         |
-        		    IDF:i
-        		    {: RESULT = new IDF(i, ileft + 1) ;  :}
+        		IDF:i
+        		{: RESULT = new IDF(i, ileft + 1) ;  :}
         |
                 CSTE:c
                 {: RESULT = c ; :}

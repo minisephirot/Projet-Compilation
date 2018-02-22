@@ -3,8 +3,6 @@ package yal.arbre.instruction;
 import yal.arbre.expression.Expression;
 import yal.arbre.expression.IDF;
 import yal.exceptions.ListeErreursSemantiques;
-import yal.outils.tableDesSymboles.EntreeVar;
-import yal.outils.tableDesSymboles.TableDesSymboles;
 
 public class Affectation extends Instruction{
 
