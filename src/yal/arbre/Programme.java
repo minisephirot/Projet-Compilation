@@ -49,7 +49,6 @@ public class Programme extends ArbreAbstrait {
 		
 	    // La fin pour quitter proprement le programme
 	    sb.append("end:\n");	 
-	    sb.append("move $v1, $v0      # copie de v0 dans v1 pour permettre les tests de plic0\n");	 
 	    sb.append("li $v0, 10         # retour au système\n");	 
 	    sb.append("syscall\n");
 	    
