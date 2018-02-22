@@ -1,0 +1,21 @@
+//fonctionnel
+programme test debut
+si 1>0 alors fsi
+
+ecrire "1er ""si"" ok\n";
+
+si 1>0 alors
+	ecrire "2eme ""si"" ok\n";
+fsi
+
+si 1>0 alors 
+	ecrire "3eme ""si"" (dans si) ok\n";
+sinon
+	ecrire "3eme ""si"" (dans sinon) ok\n";
+fsi
+
+si 1<0 alors sinon 
+	ecrire "4eme ""si"" ok\n";
+fsi
+
+fin

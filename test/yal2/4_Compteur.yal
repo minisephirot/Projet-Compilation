@@ -1,0 +1,14 @@
+//fonctionnel
+programme test debut
+entier compte;
+entier i;
+ecrire "Entrez un chiffre:\n";
+lire compte;
+tantque i != compte repeter
+	ecrire i;
+	ecrire "\n";
+	i = i+1;
+fintantque 
+ecrire i;
+ecrire "\n";
+fin

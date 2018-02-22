@@ -1,0 +1,10 @@
+//fonctionnel
+programme test debut
+si 1>0 alors 
+	si 1>0 alors
+		si 1>0 alors
+		fsi
+	fsi
+fsi
+
+fin
