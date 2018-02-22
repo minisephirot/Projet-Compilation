@@ -39,7 +39,7 @@ public class TableDesSymboles {
 	}
 	
 	/*
-	 * Booleen pour throw des erreurs de double déclaration
+	 * Booleen pour throw des erreurs de double déclaration ou de non déclaration
 	 */
 	public boolean contains(Entree e){
 		return this.TDS.containsKey(e);
@@ -49,7 +49,7 @@ public class TableDesSymboles {
 	 * Getter du symbole associé à la clef
 	 */
 	public Symbole identifier(Entree e){
-		if (!TableDesSymboles.getInstance().contains(e)) {
+		if (!contains(e)) {
 			ListeErreursSemantiques.getInstance().addErreur("Ligne " + e.getNoLigne() + " : Variable \"" + e.getIdf() + "\" non déclarée.");
 			return null;
 		}

@@ -12,6 +12,7 @@ public class IDF extends Expression{
 	public IDF(String idf, int n) {
 		super(n);
 		this.returnType = "int"; //Tous nos variables sont des entiers
+		nom = idf;
 	}
 
 	@Override
