@@ -99,7 +99,7 @@ parser code {:
 /* Terminals (tokens returned by the scanner).  */
 
 terminal Symbol    POINTVIRGULE, PLUS, MOINS, MULT, DIV, PAROUV, PARFER ;
-terminal Symbol    SUP, INF, EGALEGAL, DIFF, ET, OU, NON, EGAL, PROGRAMME, ENTIER, DEBUT, FIN, ECR;
+terminal Symbol    SUP, INF, EGALEGAL, DIFF, ET, OU, NON, EGAL, PROGRAMME, ENTIER, FONCTION, DEBUT, FIN, ECR, RETOURNE;
 terminal Symbol    TANTQUE, REPETER, FINTANTQUE, SI, ALORS, SINON, FSI, LIRE;
 terminal String    CONSTANTECHAINE, CONSTANTEINT, CONSTANTEBOOL, IDF;
    
@@ -109,12 +109,15 @@ non terminal ArbreAbstrait PROG ;
 non terminal BlocDInstructions LINSTR;
 non terminal Expression EXPR, CSTE ;
 non terminal Affectation AFFECT;
-non terminal DECL, DECL_VAR;
+non terminal DECL, DECL_VAR, DECL_FONC;
 non terminal Instruction INSTR;
 non terminal Ecrire ECRIRE;
 non terminal Lire LECTURE;
 non terminal Boucle BOUCLE;
 non terminal Condition CONDITION;
+non terminal Parametre PARAMETRE;
+non terminal ParametreList PARAMETRE_LIST;
+non terminal Retour RETOURNER;
 
 precedence left OU ;
 precedence left ET ;
@@ -140,11 +143,32 @@ PROG    ::=    	PROGRAMME IDF DEBUT DECL LINSTR:bi FIN
 
 		
 DECL    ::=     DECL  DECL_VAR
+		|       DECL  DECL_FONC
+		|		DECL_FONC
 		|		DECL_VAR
 				;
+
+PARAMETRE ::=	PAROUV PARFER 
+				{:  :}
+		|		PAROUV ENTIER IDF POINTVIRGULE PARAMETRE_LIST PARFER
+				{:  :}	
+				;
+				
+PARAMETRE_LIST    ::=     PARAMETRE_LIST POINTVIRGULE ENTIER IDF
+						  {:  :}
+					|
+						  POINTVIRGULE ENTIER IDF
+						  {:  :}
+						  ;
 		
 DECL_VAR ::=	ENTIER IDF:i POINTVIRGULE
 				{: TableDesSymboles.getInstance().ajouter(new EntreeVar(i, ileft+1), new SymboleVar(),ileft+1) ; :}
+				;
+
+DECL_FONC ::=	FONCTION IDF PARAMETRE DEBUT DECL LINSTR:bi FIN
+				{:	 :}
+		|		FONCTION IDF PARAMETRE DEBUT LINSTR:bi FIN
+				{:	:}
 				;
 				
 LINSTR  ::=     LINSTR:bi INSTR:i
@@ -166,6 +190,8 @@ INSTR   ::=     AFFECT:a
                 {: RESULT = l ; :}                
         |       CONDITION:c       
                 {: RESULT = c ; :}
+        |        RETOURNER:r
+                {: RESULT = r ; :}                 
                 ;
 
 LECTURE ::=     LIRE IDF:i POINTVIRGULE
@@ -180,6 +206,10 @@ ECRIRE  ::=     ECR EXPR:e POINTVIRGULE
 
 AFFECT  ::=     IDF:idf EGAL EXPR:e POINTVIRGULE
 				{: RESULT = new Affectation(new IDF(idf, eleft + 1), e, eleft +1); :}
+				;
+
+RETOURNER  ::=     RETOURNE EXPR
+				{:  :}
 				;
 				
 BOUCLE  ::=     TANTQUE EXPR:e REPETER LINSTR:li FINTANTQUE
