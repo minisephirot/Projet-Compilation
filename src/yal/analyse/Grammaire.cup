@@ -109,14 +109,12 @@ non terminal ArbreAbstrait PROG ;
 non terminal BlocDInstructions LINSTR;
 non terminal Expression EXPR, CSTE ;
 non terminal Affectation AFFECT;
-non terminal DECL, DECL_VAR, DECL_FONC;
+non terminal DECL, DECL_VAR, DECL_VARS, DECL_FONC, PARAMETRE, PARAMETRE_LIST;
 non terminal Instruction INSTR;
 non terminal Ecrire ECRIRE;
 non terminal Lire LECTURE;
 non terminal Boucle BOUCLE;
 non terminal Condition CONDITION;
-non terminal Parametre PARAMETRE;
-non terminal ParametreList PARAMETRE_LIST;
 non terminal Retour RETOURNER;
 
 precedence left OU ;
@@ -142,11 +140,14 @@ PROG    ::=    	PROGRAMME IDF DEBUT DECL LINSTR:bi FIN
 				;
 
 		
-DECL    ::=     DECL  DECL_VAR
+DECL    ::=     DECL_VARS
 		|       DECL  DECL_FONC
 		|		DECL_FONC
-		|		DECL_VAR
 				;
+
+DECL_VARS ::= DECL_VARS DECL_VAR 
+		  | 	DECL_VAR
+		  		;
 
 PARAMETRE ::=	PAROUV PARFER 
 				{:  :}
@@ -165,7 +166,7 @@ DECL_VAR ::=	ENTIER IDF:i POINTVIRGULE
 				{: TableDesSymboles.getInstance().ajouter(new EntreeVar(i, ileft+1), new SymboleVar(),ileft+1) ; :}
 				;
 
-DECL_FONC ::=	FONCTION IDF PARAMETRE DEBUT DECL LINSTR:bi FIN
+DECL_FONC ::=	FONCTION IDF PARAMETRE DEBUT DECL_VARS LINSTR:bi FIN
 				{:	 :}
 		|		FONCTION IDF PARAMETRE DEBUT LINSTR:bi FIN
 				{:	:}
