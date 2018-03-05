@@ -1,0 +1,15 @@
+//Erreur double declaration de fonction
+
+programme essai debut
+
+fonction test() debut
+	retourne 3;
+fin 
+
+fonction test() debut
+	retourne 3;
+fin 
+
+ecrire "encore";
+
+fin

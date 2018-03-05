@@ -1,0 +1,11 @@
+//Erreur sur le type de retour
+
+programme essai debut
+
+fonction test() debut
+	retourne vrai;
+fin
+
+ecrire "encore";
+
+fin

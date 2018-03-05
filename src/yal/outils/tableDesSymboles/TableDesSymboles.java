@@ -33,8 +33,12 @@ public class TableDesSymboles {
 	 */
 	public void ajouter(Entree e, Symbole s, int noligne) {
 		// Vérifie si on ne fait pas une double déclaration
-		if (this.TDS.containsKey(e))
-			ListeErreursSemantiques.getInstance().addErreur("Ligne "+noligne+" : Variable \"" + e.getIdf() + "\" déjà déclarée.");
+		if (this.TDS.containsKey(e)) {
+			String type = "Variable";
+			if(e instanceof EntreeProg)
+				type = "Fonction";
+			ListeErreursSemantiques.getInstance().addErreur("Ligne "+noligne+" : " + type + " \"" + e.getIdf() + "\" déjà déclarée.");
+		}
 		this.TDS.put(e, s);
 	}
 	
@@ -75,7 +79,9 @@ public class TableDesSymboles {
 		// Initialise toutes les variables à 0
 		Iterator<Entree> it = TDS.keySet().iterator();
 		while (it.hasNext()) {
-			bi.ajouterDebut(new InitialisationVar(0, it.next()));
+			Entree tmp = it.next();
+			tmp.verifier();
+			bi.ajouterDebut(new InitialisationVar(0, tmp));
 		}
 		// Ajoute le déclage dans $sp
 		bi.ajouterDebut(new AllocationVar(0, getTailleZoneVariable()));

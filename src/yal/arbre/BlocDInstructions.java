@@ -1,6 +1,7 @@
 package yal.arbre;
 
 import java.util.ArrayList;
+import java.util.concurrent.locks.Condition;
 
 /**
  * 3 déc. 2015
@@ -41,6 +42,16 @@ public class BlocDInstructions extends ArbreAbstrait {
 		}
 	}
 
+	public boolean verifierRetourne() {
+		boolean retourne = false;
+		for(ArbreAbstrait arbreAbstrait : listeExpr) {
+			if(arbreAbstrait.isRetourne())
+			retourne = true;
+		}
+		
+		return retourne;
+	}
+	
 	@Override
 	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();

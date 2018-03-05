@@ -31,10 +31,15 @@ public abstract class Entree {
 		return "int";
 	}
 	
+	public abstract void verifierRetourne();
+	public abstract void verifier();
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == this) return true;
-		if (obj instanceof Entree && ((Entree) obj).getIdf().equals(idf)) {
+		
+		//Vérifie que les entrées sont de type var ou prog avant comparaison des idf
+		if (getClass() == obj.getClass() && ((Entree) obj).getIdf().equals(idf)) {
 			return true;
 		} else
 			return false;

@@ -1,0 +1,20 @@
+//Succés pour declaration variable et fonction avec idf test
+
+programme essai debut
+
+fonction test() debut
+	ecrire "salut";
+	si a == vrai alors
+		ecrire "2";
+		retourne 3;
+	sinon
+		ecrire "4";
+		retourne 2;
+	fsi
+fin 
+
+entier test;
+
+ecrire "encore";
+
+fin

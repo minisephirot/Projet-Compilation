@@ -39,6 +39,16 @@ public class Condition extends Instruction {
 	}
 
 	@Override
+	public boolean isRetourne() {
+		if(blocSi != null && blocSinon != null) {
+			if(blocSi.verifierRetourne() == blocSinon.verifierRetourne())
+				return blocSi.verifierRetourne();
+		}
+		
+		return false;
+	}
+	
+	@Override
 	public String toMIPS() {
 		// Demande une étiquette
 		int indexEtiquette = EtiquetteFactory.getInstance().getIndexSi();

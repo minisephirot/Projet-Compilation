@@ -1,0 +1,13 @@
+//Succes
+
+programme essai debut
+
+fonction test() debut
+	retourne 3;
+fin 
+
+entier test;
+
+ecrire "encore";
+
+fin

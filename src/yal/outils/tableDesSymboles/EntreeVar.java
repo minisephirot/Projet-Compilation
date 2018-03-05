@@ -6,4 +6,12 @@ public class EntreeVar extends Entree {
 		super(idf, noLigne);
 	}
 
+	@Override
+	public void verifierRetourne() {
+	}
+
+	@Override
+	public void verifier() {	
+	}
+
 }

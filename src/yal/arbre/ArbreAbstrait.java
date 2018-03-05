@@ -18,7 +18,11 @@ public abstract class ArbreAbstrait {
     public int getNoLigne() {
             return noLigne ;
     }
-
+	
+	public boolean isRetourne() {
+		return false;
+	}
+    
     public abstract void verifier() ;
     public abstract String toMIPS() ;
 

@@ -57,7 +57,6 @@ espace = {finDeLigne}  | [ \t\f]
 "non"                	{ return symbol(CodesLexicaux.NON); }
 "programme"			{ return symbol(CodesLexicaux.PROGRAMME); }
 "entier"				{ return symbol(CodesLexicaux.ENTIER); }
-"fonction"				{ return symbol(CodesLexicaux.FONCTION); }
 "debut"				{ return symbol(CodesLexicaux.DEBUT); }
 "fin"				{ return symbol(CodesLexicaux.FIN); }
 "ecrire"				{ return symbol(CodesLexicaux.ECR); }
@@ -69,7 +68,9 @@ espace = {finDeLigne}  | [ \t\f]
 "sinon"                  { return symbol(CodesLexicaux.SINON); }
 "fsi"                    { return symbol(CodesLexicaux.FSI); }
 "lire"                   { return symbol(CodesLexicaux.LIRE); }
-"retourne"                   { return symbol(CodesLexicaux.RETOURNE); }
+"fonction"				 { return symbol(CodesLexicaux.FONCTION); }
+"retourne"				 { return symbol(CodesLexicaux.RETOURNE); }
+
 
 "("                	{ return symbol(CodesLexicaux.PAROUV); }
 ")"                	{ return symbol(CodesLexicaux.PARFER); }

@@ -9,6 +9,7 @@ import yal.arbre.BlocDInstructions;
 import yal.arbre.Programme;
 import yal.arbre.expression.Expression;
 import yal.arbre.expression.IDF;
+import yal.arbre.expression.Appel;
 import yal.arbre.expression.binaire.arithmetique.Div;
 import yal.arbre.expression.binaire.arithmetique.Moins;
 import yal.arbre.expression.binaire.arithmetique.Mult;
@@ -31,8 +32,11 @@ import yal.arbre.instruction.EcrireString;
 import yal.arbre.instruction.EcrireVar;
 import yal.arbre.instruction.Instruction;
 import yal.arbre.instruction.Lire;
+import yal.arbre.instruction.Retourne;
 import yal.exceptions.AnalyseSyntaxiqueException;
+import yal.outils.tableDesSymboles.EntreeProg;
 import yal.outils.tableDesSymboles.EntreeVar;
+import yal.outils.tableDesSymboles.SymboleProg;
 import yal.outils.tableDesSymboles.SymboleVar;
 import yal.outils.tableDesSymboles.TableDesSymboles;
 
@@ -99,7 +103,7 @@ parser code {:
 /* Terminals (tokens returned by the scanner).  */
 
 terminal Symbol    POINTVIRGULE, PLUS, MOINS, MULT, DIV, PAROUV, PARFER ;
-terminal Symbol    SUP, INF, EGALEGAL, DIFF, ET, OU, NON, EGAL, PROGRAMME, ENTIER, FONCTION, DEBUT, FIN, ECR, RETOURNE;
+terminal Symbol    SUP, INF, EGALEGAL, DIFF, ET, OU, NON, EGAL, PROGRAMME, ENTIER, DEBUT, FIN, ECR, FONCTION, RETOURNE;
 terminal Symbol    TANTQUE, REPETER, FINTANTQUE, SI, ALORS, SINON, FSI, LIRE;
 terminal String    CONSTANTECHAINE, CONSTANTEINT, CONSTANTEBOOL, IDF;
    
@@ -109,13 +113,13 @@ non terminal ArbreAbstrait PROG ;
 non terminal BlocDInstructions LINSTR;
 non terminal Expression EXPR, CSTE ;
 non terminal Affectation AFFECT;
-non terminal DECL, DECL_VAR, DECL_VARS, DECL_FONC, PARAMETRE, PARAMETRE_LIST;
+non terminal LDECL, DECL, DECL_VAR, DECL_FONC, PARAM;
 non terminal Instruction INSTR;
 non terminal Ecrire ECRIRE;
 non terminal Lire LECTURE;
 non terminal Boucle BOUCLE;
 non terminal Condition CONDITION;
-non terminal Retour RETOURNER;
+non terminal Retourne RETOUR;
 
 precedence left OU ;
 precedence left ET ;
@@ -129,7 +133,7 @@ precedence left NON ;
  
 start with PROG ;
 
-PROG    ::=    	PROGRAMME IDF DEBUT DECL LINSTR:bi FIN
+PROG    ::=    	PROGRAMME IDF DEBUT LDECL LINSTR:bi FIN
 				{:	Programme p = new Programme(bileft+1);
 					p.ajouterBloc(bi);
 					RESULT = p; :}
@@ -139,39 +143,25 @@ PROG    ::=    	PROGRAMME IDF DEBUT DECL LINSTR:bi FIN
 					RESULT = p; :}
 				;
 
-		
-DECL    ::=     DECL_VARS
-		|       DECL  DECL_FONC
+LDECL    ::=    LDECL  DECL
+		|		DECL
+				;
+				
+DECL 	 ::=	DECL_VAR
 		|		DECL_FONC
 				;
 
-DECL_VARS ::= DECL_VARS DECL_VAR 
-		  | 	DECL_VAR
-		  		;
-
-PARAMETRE ::=	PAROUV PARFER 
-				{:  :}
-		|		PAROUV ENTIER IDF PARAMETRE_LIST PARFER
-				{:  :}	
-				;
-				
-PARAMETRE_LIST    ::=     PARAMETRE_LIST POINTVIRGULE ENTIER IDF
-						  {:  :}
-					|
-						  POINTVIRGULE ENTIER IDF
-						  {:  :}
-						  ;
-		
 DECL_VAR ::=	ENTIER IDF:i POINTVIRGULE
 				{: TableDesSymboles.getInstance().ajouter(new EntreeVar(i, ileft+1), new SymboleVar(),ileft+1) ; :}
 				;
-
-DECL_FONC ::=	FONCTION IDF PARAMETRE DEBUT DECL_VARS LINSTR:bi FIN
-				{:	 :}
-		|		FONCTION IDF PARAMETRE DEBUT LINSTR:bi FIN
-				{:	:}
+	
+DECL_FONC ::=	FONCTION IDF:i PARAM DEBUT LINSTR:bloc FIN
+				{: TableDesSymboles.getInstance().ajouter(new EntreeProg(i,bloc,ileft +1),new SymboleProg(), ileft+1) ; :}
 				;
-				
+
+PARAM	::=		PAROUV PARFER
+				; 
+			
 LINSTR  ::=     LINSTR:bi INSTR:i
 				{:  bi.ajouter(i);
 					RESULT = bi;   :}
@@ -180,6 +170,7 @@ LINSTR  ::=     LINSTR:bi INSTR:i
 					bi.ajouter(i);
 					RESULT = bi; :}
 				;
+
 		
 INSTR   ::=     AFFECT:a 
                 {: RESULT = a ; :}
@@ -191,9 +182,13 @@ INSTR   ::=     AFFECT:a
                 {: RESULT = l ; :}                
         |       CONDITION:c       
                 {: RESULT = c ; :}
-        |        RETOURNER:r
-                {: RESULT = r ; :}                 
+        |		RETOUR:r
+        		{: RESULT = r ; :}
                 ;
+
+RETOUR ::=	RETOURNE EXPR:e POINTVIRGULE
+				{: RESULT = new Retourne(e, eleft + 1) ; :}
+				;
 
 LECTURE ::=     LIRE IDF:i POINTVIRGULE
                 {: RESULT = new Lire(new IDF(i,ileft), ileft); :}
@@ -276,6 +271,9 @@ EXPR    ::=     EXPR:g  PLUS  EXPR:d
         		IDF:i
         		{: RESULT = new IDF(i, ileft + 1) ;  :}
         |
+        		IDF:i PAROUV PARFER
+        		{: RESULT = new Appel(new IDF(i,ileft+1), ileft +1) ; :}
+        |		
                 CSTE:c
                 {: RESULT = c ; :}
         |

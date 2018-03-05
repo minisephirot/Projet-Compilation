@@ -1,0 +1,19 @@
+//Erreur branche sans retourne
+
+programme essai debut
+
+fonction test() debut
+	ecrire "salut";
+	si a == vrai alors
+		ecrire "2";
+		retourne 3;
+	sinon
+		ecrire "4";
+	fsi
+fin 
+
+entier test;
+
+ecrire "encore";
+
+fin

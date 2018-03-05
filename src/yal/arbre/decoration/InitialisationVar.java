@@ -18,7 +18,7 @@ public class InitialisationVar extends ArbreAbstrait {
 
 	@Override
 	public void verifier() {
-		// Rien a tester
+		//Rien a vérifier
 	}
 
 	@Override

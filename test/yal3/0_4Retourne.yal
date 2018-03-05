@@ -1,0 +1,13 @@
+//Erreur branche sans retourne
+
+programme essai debut
+
+fonction test() debut
+	ecrire "salut";
+fin 
+
+entier test;
+
+ecrire "encore";
+
+fin

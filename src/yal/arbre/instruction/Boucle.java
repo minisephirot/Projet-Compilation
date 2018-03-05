@@ -29,6 +29,11 @@ public class Boucle extends Instruction {
 	}
 
 	@Override
+	public boolean isRetourne() {
+		return bi.verifierRetourne();
+	}
+	
+	@Override
 	public String toMIPS() {
 		// Demande une étiquette
 		int indexEtiquette = EtiquetteFactory.getInstance().getIndexTant();
