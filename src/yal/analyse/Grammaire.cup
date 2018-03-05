@@ -150,7 +150,7 @@ DECL    ::=     DECL  DECL_VAR
 
 PARAMETRE ::=	PAROUV PARFER 
 				{:  :}
-		|		PAROUV ENTIER IDF POINTVIRGULE PARAMETRE_LIST PARFER
+		|		PAROUV ENTIER IDF PARAMETRE_LIST PARFER
 				{:  :}	
 				;
 				
@@ -208,7 +208,7 @@ AFFECT  ::=     IDF:idf EGAL EXPR:e POINTVIRGULE
 				{: RESULT = new Affectation(new IDF(idf, eleft + 1), e, eleft +1); :}
 				;
 
-RETOURNER  ::=     RETOURNE EXPR
+RETOURNER  ::=     RETOURNE EXPR POINTVIRGULE
 				{:  :}
 				;
 				
