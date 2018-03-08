@@ -7,11 +7,11 @@ public class SymboleVar extends Symbole {
 	private Expression exp;
 	
 	public SymboleVar() {
-		pos = TableDesSymboles.getInstance().getTailleZoneVariable();
+		pos = TableDesSymboles.getInstance().getCourant().getTailleZoneVariable();
 	}
 	
 	public SymboleVar(Expression e) {
-		pos = TableDesSymboles.getInstance().getTailleZoneVariable();
+		pos = TableDesSymboles.getInstance().getCourant().getTailleZoneVariable();
 		exp = e;
 	}
 	

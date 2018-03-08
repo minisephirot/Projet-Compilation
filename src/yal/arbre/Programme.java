@@ -1,33 +1,26 @@
 package yal.arbre;
 
-import java.util.ArrayList;
-
 import yal.outils.EtiquetteFactory;
+import yal.outils.tableDesSymboles.Dictionnaire;
 import yal.outils.tableDesSymboles.TableDesSymboles;
 
 public class Programme extends ArbreAbstrait {
 	
-	private ArrayList<BlocDInstructions> listeBlocs;
-
-	public Programme(int no) {
-		super(no);
-		listeBlocs = new ArrayList<>();
-	}
+	private BlocDInstructions bloc;
+	private Dictionnaire dicpropre;
 	
-	public void ajouterBloc(BlocDInstructions a) {
-		listeBlocs.add(a);
+	public Programme(int no, BlocDInstructions bloc) {
+		super(no);
+		this.bloc = bloc;
+		this.dicpropre =  TableDesSymboles.getInstance().getCourant();
 	}
 
 	@Override
 	public void verifier() {
-		
 		// Décore les bloc avec la gestion des variables
 		// Appelle Verifier sur tous les blocs
-		for (BlocDInstructions blocDInstructions : listeBlocs) {
-			TableDesSymboles.getInstance().decorerArbre(blocDInstructions);
-			blocDInstructions.verifier();
-		}
-		
+		bloc.verifier();
+		this.dicpropre.decorerArbre(this.bloc);
 	}
 
 	@Override
@@ -43,9 +36,7 @@ public class Programme extends ArbreAbstrait {
 	    sb.append("move $s7, $sp\n");	 
 
 		// Ajoute le toMips de tous les blocs d'instruction
-		for (ArbreAbstrait ArbreAbstrait : listeBlocs) {
-			sb.append(ArbreAbstrait.toMIPS());
-		}
+	    this.bloc.toMIPS();
 		
 	    // La fin pour quitter proprement le programme
 	    sb.append("end:\n");	 

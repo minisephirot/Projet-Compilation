@@ -1,5 +1,6 @@
 package yal.outils.tableDesSymboles;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -14,77 +15,65 @@ public class TableDesSymboles {
 	 * Instance du singleton
 	 */
 	private static TableDesSymboles instance = new TableDesSymboles();
-	
+
 	/*
-	 * Hashmap stoquant nos entrées
+	 * Arraylist stoquant nos dictionnaires
 	 */
-	private HashMap<Entree,Symbole> TDS; 
-	
+	private ArrayList<Dictionnaire> TDS; 
+
 	/*
-	 * Initialise la hashmap des entrées -> symboles
+	 *  Dictionnaire courant
+	 */
+	private Dictionnaire dcourant;
+
+	/*
+	 *  Dictionnaire principal (le "main")
+	 */
+	private Dictionnaire dprincipal;
+
+	/*
+	 * Initialise l'Arraylist
 	 */
 	private TableDesSymboles() {
-		this.TDS = new HashMap<Entree,Symbole>();
+		this.TDS = new ArrayList<Dictionnaire>();
+		Dictionnaire d = new Dictionnaire();
+		this.TDS.add(d);
+		this.dprincipal = d;
 	};
-	
+
 	/*
-	 * Ajoute à la hashmap la paire (entrées -> symboles) et vérifie si il y a 
-	 * une double declaration ou une incompatibilté type/expression
+	 * Ajoute à l'Arraylist un dictionnaire dans le cas d'une entree dans un bloc 
+	 * et le definies comme le dictionnaire courant
+	 * true = parcours/verification des ID du dictionnaires
+	 * false = on fais que créer des dictionnaires
 	 */
-	public void ajouter(Entree e, Symbole s, int noligne) {
-		// Vérifie si on ne fait pas une double déclaration
-		if (this.TDS.containsKey(e)) {
-			String type = "Variable";
-			if(e instanceof EntreeProg)
-				type = "Fonction";
-			ListeErreursSemantiques.getInstance().addErreur("Ligne "+noligne+" : " + type + " \"" + e.getIdf() + "\" déjà déclarée.");
+	public void entreeBloc(boolean b ) {
+		if (b){
+			
+		}else{
+			Dictionnaire d = new Dictionnaire();
+			this.TDS.add(d);
+			this.dcourant = d;
 		}
-		this.TDS.put(e, s);
 	}
-	
+
 	/*
-	 * Booleen pour throw des erreurs de double déclaration ou de non déclaration
+	 * Sachant que on ne peux pas declarer de fonction dans une fonction, on aura toujours des programmes
+	 * de profondeur 0 ou 1 la sortie d'un bloc amène toujours dans le programme principal (ou la fin du prog)
 	 */
-	public boolean contains(Entree e){
-		return this.TDS.containsKey(e);
+	public void sortieBloc(){
+		this.dcourant = this.dprincipal;
 	}
-	
+
 	/*
-	 * Getter du symbole associé à la clef
+	 * Retourne le dictionnaire courant
 	 */
-	public Symbole identifier(Entree e){
-		if (!contains(e)) {
-			ListeErreursSemantiques.getInstance().addErreur("Ligne " + e.getNoLigne() + " : Variable \"" + e.getIdf() + "\" non déclarée.");
-			return null;
-		}
-		return this.TDS.get(e);
+	public Dictionnaire getCourant(){
+		return this.dcourant;
 	}
-	
-	/*
-	 *  return l'empilement max de la pile de variables
-	 */
-	public int getTailleZoneVariable(){
-		return TDS.size() * -4;
-	}
-	
+
 	public static TableDesSymboles getInstance() {
 		return instance;
 	}
-	
-	/**
-	 * Ajoute le décalage et les initialisations des variables
-	 * @param bi Le bloc a decorer
-	 */
-	public void decorerArbre(BlocDInstructions bi) {
-		// Initialise toutes les variables à 0
-		Iterator<Entree> it = TDS.keySet().iterator();
-		while (it.hasNext()) {
-			Entree tmp = it.next();
-			tmp.verifier();
-			bi.ajouterDebut(new InitialisationVar(0, tmp));
-		}
-		// Ajoute le déclage dans $sp
-		bi.ajouterDebut(new AllocationVar(0, getTailleZoneVariable()));
-	}
-	
+
 }
