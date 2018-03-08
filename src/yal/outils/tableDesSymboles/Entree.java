@@ -31,9 +31,6 @@ public abstract class Entree {
 		return "int";
 	}
 	
-	public abstract void verifierRetourne();
-	public abstract void verifier();
-	
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == this) return true;

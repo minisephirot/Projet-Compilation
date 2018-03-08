@@ -49,7 +49,6 @@ public class Dictionnaire {
 	 */
 	public Symbole identifier(Entree e){
 		if (!contains(e)) {
-			ListeErreursSemantiques.getInstance().addErreur("Ligne " + e.getNoLigne() + " : Variable \"" + e.getIdf() + "\" non déclarée.");
 			return null;
 		}
 		return this.TDS.get(e);
@@ -71,7 +70,6 @@ public class Dictionnaire {
 		Iterator<Entree> it = TDS.keySet().iterator();
 		while (it.hasNext()) {
 			Entree tmp = it.next();
-			tmp.verifier();
 			bi.ajouterDebut(new InitialisationVar(0, tmp));
 		}
 		// Ajoute le déclage dans $sp

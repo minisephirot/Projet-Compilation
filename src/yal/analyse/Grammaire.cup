@@ -113,7 +113,8 @@ non terminal ArbreAbstrait PROG ;
 non terminal BlocDInstructions LINSTR;
 non terminal Expression EXPR, CSTE ;
 non terminal Affectation AFFECT;
-non terminal LDECL, DECL, DECL_VAR, DECL_FONC, PARAM;
+non terminal LDECL, DECL, DECL_VAR, PARAM;
+non terminal Fonction DECL_FONC;
 non terminal Instruction INSTR;
 non terminal Ecrire ECRIRE;
 non terminal Lire LECTURE;
@@ -150,11 +151,11 @@ DECL 	 ::=	DECL_VAR
 				;
 
 DECL_VAR ::=	ENTIER IDF:i POINTVIRGULE
-				{: TableDesSymboles.getInstance().ajouter(new EntreeVar(i, ileft+1), new SymboleVar(),ileft+1) ; :}
+				{: TableDesSymboles.getInstance().getCourant().ajouter(new EntreeVar(i, ileft+1), new SymboleVar(),ileft+1) ; :}
 				;
 	
-DECL_FONC ::=	FONCTION IDF:i PARAM DEBUT LI	  NSTR:bloc FIN
-				{: TableDesSymboles.getInstance().ajouter(new EntreeProg(i,bloc,ileft +1),new SymboleProg(), ileft+1) ; :}
+DECL_FONC ::=	FONCTION IDF:i PARAM DEBUT LINSTR:bloc FIN
+				{: // a remonter new Fonction(ileft+1, i, bloc) ; :}
 				;
 
 PARAM	::=		PAROUV PARFER
