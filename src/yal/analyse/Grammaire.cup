@@ -155,7 +155,7 @@ DECL_VAR ::=	ENTIER IDF:i POINTVIRGULE
 				{: TableDesSymboles.getInstance().ajouter(new EntreeVar(i, ileft+1), new SymboleVar(),ileft+1) ; :}
 				;
 	
-DECL_FONC ::=	FONCTION IDF:i PARAM DEBUT LINSTR:bloc FIN
+DECL_FONC ::=	FONCTION IDF:i PARAM DEBUT LI	  NSTR:bloc FIN
 				{: TableDesSymboles.getInstance().ajouter(new EntreeProg(i,bloc,ileft +1),new SymboleProg(), ileft+1) ; :}
 				;
 
