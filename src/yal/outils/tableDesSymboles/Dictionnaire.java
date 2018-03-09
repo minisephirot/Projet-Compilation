@@ -1,11 +1,7 @@
 package yal.outils.tableDesSymboles;
 
 import java.util.HashMap;
-import java.util.Iterator;
 
-import yal.arbre.BlocDInstructions;
-import yal.arbre.decoration.AllocationVar;
-import yal.arbre.decoration.InitialisationVar;
 import yal.exceptions.ListeErreursSemantiques;
 
 public class Dictionnaire {
@@ -26,13 +22,13 @@ public class Dictionnaire {
 	 * Ajoute à la hashmap la paire (entrées -> symboles) et vérifie si il y a 
 	 * une double declaration ou une incompatibilté type/expression
 	 */
-	public void ajouter(Entree e, Symbole s, int noligne) {
+	public void ajouter(Entree e, Symbole s) {
 		// Vérifie si on ne fait pas une double déclaration
 		if (this.TDS.containsKey(e)) {
 			String type = "Variable";
 			if(e instanceof EntreeProg)
 				type = "Fonction";
-			ListeErreursSemantiques.getInstance().addErreur("Ligne "+noligne+" : " + type + " \"" + e.getIdf() + "\" déjà déclarée.");
+			ListeErreursSemantiques.getInstance().addErreur("Ligne " + e.getNoLigne() + " : " + type + " \"" + e.getIdf() + "\" déjà déclarée.");
 		}
 		this.TDS.put(e, s);
 	}
@@ -60,21 +56,5 @@ public class Dictionnaire {
 	public int getTailleZoneVariable(){
 		return TDS.size() * -4;
 	}
-
-	/**
-	 * Ajoute le décalage et les initialisations des variables
-	 * @param bi Le bloc a decorer
-	 */
-	public void decorerArbre(BlocDInstructions bi) {
-		// Initialise toutes les variables à 0
-		Iterator<Entree> it = TDS.keySet().iterator();
-		while (it.hasNext()) {
-			Entree tmp = it.next();
-			bi.ajouterDebut(new InitialisationVar(0, tmp));
-		}
-		// Ajoute le déclage dans $sp
-		bi.ajouterDebut(new AllocationVar(0, getTailleZoneVariable()));
-	}
-
 }
 

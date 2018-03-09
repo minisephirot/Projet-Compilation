@@ -1,11 +1,9 @@
 package yal.analyse ;
 
 import java.util.HashMap;
-
-import java.util.HashMap;
-
 import yal.arbre.ArbreAbstrait;
 import yal.arbre.BlocDInstructions;
+import yal.arbre.Fonction;
 import yal.arbre.Programme;
 import yal.arbre.expression.Expression;
 import yal.arbre.expression.IDF;
@@ -34,14 +32,9 @@ import yal.arbre.instruction.Instruction;
 import yal.arbre.instruction.Lire;
 import yal.arbre.instruction.Retourne;
 import yal.exceptions.AnalyseSyntaxiqueException;
-import yal.outils.tableDesSymboles.EntreeProg;
 import yal.outils.tableDesSymboles.EntreeVar;
-import yal.outils.tableDesSymboles.SymboleProg;
 import yal.outils.tableDesSymboles.SymboleVar;
 import yal.outils.tableDesSymboles.TableDesSymboles;
-
-
-import java_cup.runtime.*;
 
 action code {: 
              :} ;
@@ -151,7 +144,7 @@ DECL 	 ::=	DECL_VAR
 				;
 
 DECL_VAR ::=	ENTIER IDF:i POINTVIRGULE
-				{: TableDesSymboles.getInstance().getCourant().ajouter(new EntreeVar(i, ileft+1), new SymboleVar(),ileft+1) ; :}
+				{: TableDesSymboles.getInstance().ajouter(new EntreeVar(i, ileft+1), new SymboleVar()) ; :}
 				;
 	
 DECL_FONC ::=	FONCTION IDF:i PARAM DEBUT LINSTR:bloc FIN

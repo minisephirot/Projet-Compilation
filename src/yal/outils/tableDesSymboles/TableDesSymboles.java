@@ -1,12 +1,7 @@
 package yal.outils.tableDesSymboles;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 
-import yal.arbre.BlocDInstructions;
-import yal.arbre.decoration.AllocationVar;
-import yal.arbre.decoration.InitialisationVar;
 import yal.exceptions.ListeErreursSemantiques;
 
 public class TableDesSymboles {
@@ -36,12 +31,21 @@ public class TableDesSymboles {
 	 * Initialise l'Arraylist
 	 */
 	private TableDesSymboles() {
-		this.TDS = new ArrayList<Dictionnaire>();
+		this.TDS = new ArrayList<>();
 		Dictionnaire d = new Dictionnaire();
 		this.TDS.add(d);
 		this.dprincipal = d;
+		dcourant = d;
 		compteurBloc = 0;
-	};
+	}
+
+	public static TableDesSymboles getInstance() {
+		return instance;
+	}
+
+	public void ajouter(Entree e, Symbole s) {
+		dcourant.ajouter(e, s);
+	}
 
 	/*
 	 * Ajoute à l'Arraylist un dictionnaire dans le cas d'une entree dans un bloc 
@@ -75,10 +79,7 @@ public class TableDesSymboles {
 		return this.dcourant;
 	}
 
-	public static TableDesSymboles getInstance() {
-		return instance;
-	}
-	
+
 
 	/**
 	 * Recherche si un identifiant existe dans le dictionnaire courant (ou dans le chef)
@@ -95,6 +96,14 @@ public class TableDesSymboles {
 			}
 		}
 		return s;
+	}
+
+	/**
+	 *
+	 * @return Le  decalage du nombre de variables du dictionnaire
+	 */
+	public int getTailleZoneVariable() {
+		return dcourant.getTailleZoneVariable();
 	}
 
 }

@@ -8,3 +8,6 @@ yal.jar
 buildPerso.xml
 buildGuillaume.xml
 *~
+
+.idea/
+*.iml

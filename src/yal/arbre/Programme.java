@@ -1,5 +1,6 @@
 package yal.arbre;
 
+import yal.arbre.decoration.AllocationVar;
 import yal.outils.EtiquetteFactory;
 import yal.outils.tableDesSymboles.Dictionnaire;
 import yal.outils.tableDesSymboles.TableDesSymboles;
@@ -7,20 +8,19 @@ import yal.outils.tableDesSymboles.TableDesSymboles;
 public class Programme extends ArbreAbstrait {
 	
 	private BlocDInstructions bloc;
-	private Dictionnaire dicpropre;
-	
+
 	public Programme(int no, BlocDInstructions bloc) {
 		super(no);
 		this.bloc = bloc;
-		this.dicpropre =  TableDesSymboles.getInstance().getCourant();
+		// Ajoute un noeud qui s'occupe du décalage des variables
+		bloc.ajouterDebut(new AllocationVar(no));
 	}
 
 	@Override
 	public void verifier() {
-		// Décore les bloc avec la gestion des variables
 		// Appelle Verifier sur tous les blocs
+		TableDesSymboles.getInstance().entreeBloc(true);
 		bloc.verifier();
-		this.dicpropre.decorerArbre(this.bloc);
 	}
 
 	@Override
@@ -36,7 +36,7 @@ public class Programme extends ArbreAbstrait {
 	    sb.append("move $s7, $sp\n");	 
 
 		// Ajoute le toMips de tous les blocs d'instruction
-	    this.bloc.toMIPS();
+	    sb.append(bloc.toMIPS());
 		
 	    // La fin pour quitter proprement le programme
 	    sb.append("end:\n");	 
