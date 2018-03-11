@@ -148,7 +148,8 @@ DECL_VAR ::=	ENTIER IDF:i POINTVIRGULE
 				;
 	
 DECL_FONC ::=	FONCTION IDF:i PARAM DEBUT LINSTR:bloc FIN
-				{: // a remonter new Fonction(ileft+1, i, bloc) ; :}
+				{:  TableDesSymboles.getInstance().ajouter(new EntreeProg(i, ileft+1), new SymboleProg()) ;
+					RESULT = new Fonction(ileft+1, i, bloc) ; :}
 				;
 
 PARAM	::=		PAROUV PARFER
@@ -194,10 +195,6 @@ ECRIRE  ::=     ECR EXPR:e POINTVIRGULE
 
 AFFECT  ::=     IDF:idf EGAL EXPR:e POINTVIRGULE
 				{: RESULT = new Affectation(new IDF(idf, eleft + 1), e, eleft +1); :}
-				;
-
-RETOURNER  ::=     RETOURNE EXPR POINTVIRGULE
-				{:  :}
 				;
 				
 BOUCLE  ::=     TANTQUE EXPR:e REPETER LINSTR:li FINTANTQUE

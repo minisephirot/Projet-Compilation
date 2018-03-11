@@ -34,7 +34,6 @@ public abstract class Entree {
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == this) return true;
-		
 		//Vérifie que les entrées sont de type var ou prog avant comparaison des idf
 		if (getClass() == obj.getClass() && ((Entree) obj).getIdf().equals(idf)) {
 			return true;

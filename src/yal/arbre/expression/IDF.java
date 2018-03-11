@@ -17,6 +17,8 @@ public class IDF extends Expression{
 
 	@Override
 	public void verifier() {
+		//Verifier la présence de l'idf pour les fonctions ? -> IDF Classe abstraire avec IDFVar & IDFProg
+		
 		// Vérifie que la variable est déclarée
 		Symbole s = TableDesSymboles.getInstance().identifier(new EntreeVar(nom, noLigne));
 		if (s != null)

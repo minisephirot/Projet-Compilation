@@ -12,14 +12,18 @@ public class Appel extends Expression {
 
 	@Override
 	public void verifier() {
-		// TODO Auto-generated method stub
-		
+		//On verifie que la fonction appellée existe
+		idf.verifier();
 	}
 
 	@Override
 	public String toMIPS() {
-		// TODO Auto-generated method stub
-		return null;
+		StringBuilder sb = new StringBuilder();
+		//Reserver l'espace pour la valeur de retour
+		sb.append("addi $sp, $sp, -4 \n");
+		//Jump ou se trouve la fonction
+		sb.append("jal "+this.idf.toString()+" \n");
+		return sb.toString();
 	}
 
 }

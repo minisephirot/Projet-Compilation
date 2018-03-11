@@ -105,5 +105,13 @@ public class TableDesSymboles {
 	public int getTailleZoneVariable() {
 		return dcourant.getTailleZoneVariable();
 	}
+	
+	/**
+	 *
+	 * @return Le numéro de bloc du dictionnaire courant
+	 */
+	public int getNbBloc() {
+		return this.compteurBloc;
+	}
 
 }
