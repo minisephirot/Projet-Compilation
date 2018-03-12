@@ -103,11 +103,11 @@ terminal String    CONSTANTECHAINE, CONSTANTEINT, CONSTANTEBOOL, IDF;
 /* Non terminals used in the grammar section.  */
 
 non terminal ArbreAbstrait PROG ;
-non terminal BlocDInstructions LINSTR;
+non terminal BlocDInstructions LINSTR, LDECL;
 non terminal Expression EXPR, CSTE ;
 non terminal Affectation AFFECT;
-non terminal LDECL, DECL, DECL_VAR, PARAM;
-non terminal Fonction DECL_FONC;
+non terminal DECL_VAR, PARAM;
+non terminal Fonction DECL_FONC, DECL;
 non terminal Instruction INSTR;
 non terminal Ecrire ECRIRE;
 non terminal Lire LECTURE;
@@ -135,12 +135,21 @@ PROG    ::=    	PROGRAMME IDF DEBUT LDECL LINSTR:bi FIN
 					RESULT = p; :}
 				;
 
-LDECL    ::=    LDECL  DECL
-		|		DECL
+LDECL    ::=    LDECL:li  DECL:d
+                {: if(d != null)
+                     li.ajouter(d);
+		   RESULT = li; :}
+		|		DECL:d
+                 {: BlocDInstructions bi = new BlocDInstructions(ileft + 1);
+		    if(d != null)
+		      li.ajouter(d);
+		    RESULT = li; :}
 				;
 				
 DECL 	 ::=	DECL_VAR
-		|		DECL_FONC
+                {: RESULT = null; :}
+		|		DECL_FONC:d
+                 {: RESULT = d; :}
 				;
 
 DECL_VAR ::=	ENTIER IDF:i POINTVIRGULE
