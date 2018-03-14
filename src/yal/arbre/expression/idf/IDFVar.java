@@ -1,5 +1,6 @@
-package yal.arbre.expression;
+package yal.arbre.expression.idf;
 
+import yal.arbre.expression.Expression;
 import yal.outils.tableDesSymboles.EntreeVar;
 import yal.outils.tableDesSymboles.Symbole;
 import yal.outils.tableDesSymboles.TableDesSymboles;

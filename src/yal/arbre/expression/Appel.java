@@ -1,12 +1,15 @@
 package yal.arbre.expression;
 
+import yal.arbre.expression.idf.IDFFonc;
+import yal.arbre.expression.idf.IDFVar;
+
 public class Appel extends Expression {
 
-	private IDFVar idf;
+	private IDFFonc idf;
 	
-	public Appel(IDFVar i,int n) {
+	public Appel(IDFFonc idfFonc,int n) {
 		super(n);
-		idf = i;
+		idf = idfFonc;
 		returnType = "int";
 	}
 

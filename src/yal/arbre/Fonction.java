@@ -1,15 +1,16 @@
 package yal.arbre;
 
+import yal.arbre.expression.idf.IDFFonc;
 import yal.exceptions.ListeErreursSemantiques;
 import yal.outils.tableDesSymboles.TableDesSymboles;
 
 public class Fonction extends ArbreAbstrait {
 
-	private String idf;
+	private IDFFonc idf;
 	private BlocDInstructions bloc;
 
 	// Ajouter une classe paramètre
-	public Fonction(int no, String idf, BlocDInstructions bloc) {
+	public Fonction(int no, IDFFonc idf, BlocDInstructions bloc) {
 		super(no);
 		this.idf = idf;
 		this.bloc = bloc;

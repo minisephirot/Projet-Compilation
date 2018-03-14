@@ -6,7 +6,6 @@ import yal.arbre.BlocDInstructions;
 import yal.arbre.Fonction;
 import yal.arbre.Programme;
 import yal.arbre.expression.Expression;
-import yal.arbre.expression.IDF;
 import yal.arbre.expression.Appel;
 import yal.arbre.expression.binaire.arithmetique.Div;
 import yal.arbre.expression.binaire.arithmetique.Moins;
@@ -20,6 +19,8 @@ import yal.arbre.expression.binaire.logique.EtLogique;
 import yal.arbre.expression.binaire.logique.OuLogique;
 import yal.arbre.expression.constante.ConstanteBool;
 import yal.arbre.expression.constante.ConstanteEntiere;
+import yal.arbre.expression.idf.IDFFonc;
+import yal.arbre.expression.idf.IDFVar;
 import yal.arbre.expression.unaire.MoinsUnaire;
 import yal.arbre.expression.unaire.NonLogique;
 import yal.arbre.instruction.Affectation;
@@ -160,7 +161,7 @@ DECL_VAR ::=	ENTIER IDF:i POINTVIRGULE
 	
 DECL_FONC ::=	FONCTION IDF:i PARAM DEBUT LINSTR:bloc FIN
 				{:  TableDesSymboles.getInstance().ajouter(new EntreeProg(i, ileft+1), new SymboleProg()) ;
-					RESULT = new Fonction(ileft+1,new VARFonc(i, ileft+1), bloc) ; :}
+					RESULT = new Fonction(ileft+1,new IDFFonc(i, ileft+1), bloc) ; :}
 				;
 
 PARAM	::=		PAROUV PARFER
