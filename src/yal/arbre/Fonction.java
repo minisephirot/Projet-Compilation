@@ -9,7 +9,7 @@ public class Fonction extends ArbreAbstrait {
 	private BlocDInstructions bloc;
 
 	// Ajouter une classe paramètre
-	protected Fonction(int no, String idf, BlocDInstructions bloc) {
+	public Fonction(int no, String idf, BlocDInstructions bloc) {
 		super(no);
 		this.idf = idf;
 		this.bloc = bloc;

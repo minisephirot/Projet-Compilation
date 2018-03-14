@@ -1,15 +1,15 @@
 package yal.arbre.instruction;
 
 import yal.arbre.expression.Expression;
-import yal.arbre.expression.IDF;
+import yal.arbre.expression.IDFVar;
 import yal.exceptions.ListeErreursSemantiques;
 
 public class Affectation extends Instruction{
 
 	private Expression exp;
-	private IDF idf;
+	private IDFVar idf;
 	
-	public Affectation(IDF idf, Expression aff, int no) {
+	public Affectation(IDFVar idf, Expression aff, int no) {
 		super(no);
 		this.exp = aff;
 		this.idf = idf;

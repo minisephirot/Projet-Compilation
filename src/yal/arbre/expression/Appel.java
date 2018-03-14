@@ -2,9 +2,9 @@ package yal.arbre.expression;
 
 public class Appel extends Expression {
 
-	private IDF idf;
+	private IDFVar idf;
 	
-	public Appel(IDF i,int n) {
+	public Appel(IDFVar i,int n) {
 		super(n);
 		idf = i;
 		returnType = "int";
