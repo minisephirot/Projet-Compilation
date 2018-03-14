@@ -17,6 +17,8 @@ public class Retourne extends Instruction {
 		if(exp.getReturnType() != "int") {
 			ListeErreursSemantiques.getInstance().addErreur("Ligne " + this.noLigne + " : Type de retour doit être un entier");
 		}
+		// On vérifie l'expression
+		exp.verifier();
 	}
 
 	@Override
@@ -26,8 +28,12 @@ public class Retourne extends Instruction {
 	
 	@Override
 	public String toMIPS() {
-		// TODO Auto-generated method stub
-		return null;
+		StringBuilder sb = new StringBuilder();
+		sb.append("#Retour de la fonction\n");
+		// Calcul la valeur du retour
+		sb.append(exp.toMIPS());
+		sb.append("lw $v0, 12($s7)");
+		return sb.toString();
 	}
 
 }

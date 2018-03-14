@@ -14,15 +14,12 @@ public class SymboleVar extends Symbole {
 		pos = TableDesSymboles.getInstance().getCourant().getTailleZoneVariable();
 		exp = e;
 	}
-	
+
+
 	public int getPos() {
 		return pos;
 	}
 
-	public void setPos(int pos) {
-		this.pos = pos;
-	}
-	
 	public String getType() {
 		if (exp == null)
 			return "int";

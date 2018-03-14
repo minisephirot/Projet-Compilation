@@ -56,12 +56,12 @@ public class TableDesSymboles {
 	public void entreeBloc(boolean parcours) {
 		if (parcours){
 			dcourant = TDS.get(compteurBloc);
-			compteurBloc++;
 		}else{
 			Dictionnaire d = new Dictionnaire();
 			this.TDS.add(d);
 			this.dcourant = d;
 		}
+		compteurBloc++;
 	}
 
 	/*
@@ -70,6 +70,7 @@ public class TableDesSymboles {
 	 */
 	public void sortieBloc() {
 		this.dcourant = this.dprincipal;
+		compteurBloc--;
 	}
 
 	/**
