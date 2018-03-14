@@ -17,7 +17,6 @@ public class Fonction extends ArbreAbstrait {
 
 		// On entre dans un nouveau bloc
 		TableDesSymboles.getInstance().entreeBloc(false);
-
 	}
 
 	@Override
@@ -49,7 +48,8 @@ public class Fonction extends ArbreAbstrait {
 		//Code vu en TD
 		//Empiler l'addresse de retour
 		sb.append("#Creation de la base de la pile \n");
-		sb.append("sw $a1,($sp) \n"); // $a1 ? Plutot $ra #laprofdevantletableau
+		// Empile la valeur de retour
+		sb.append("sw $ra,($sp) \n");
 		sb.append("addi $sp,$sp,-4 \n");
 		//Sauver la base locale de la pile (chainage dynamique)
 		sb.append("sw $s7,($sp) \n"); 
@@ -57,12 +57,11 @@ public class Fonction extends ArbreAbstrait {
 		//Empiler le n° bloc ????
 		sb.append("li $v0,"+TableDesSymboles.getInstance().getNbBloc()+"\n");
 		sb.append("sw $v0,($sp) \n");
-		sb.append("addi $sp,$sp,-4 \n");
+		sb.append("addi $sp, $sp, -4 \n");
 		//Init base locale
 		sb.append("move $s7,$sp \n");
 		//Reserver l'espace des var locales
 		sb.append("addi $sp,$sp,-4 \n");
-
 
 		//Ajout du bloc
 		sb.append("#Bloc d'instruction de la fonction "+idf+" \n");
@@ -74,7 +73,7 @@ public class Fonction extends ArbreAbstrait {
 		sb.append("sw $sp,$s7, 12 \n");
 		//Retrouver la base locale s7
 		sb.append("lw $s7, 8($s7) \n"); //8 possiblement le nb d'entier déclarés, 2 dans l'exemple
-		//Restaurer le complexe cardinal ???
+		//Restaurer le compteur ordinal
 		sb.append("lw $ra,($sp) \n");
 
 		//Ajouter le jump du $ra
