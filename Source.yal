@@ -1,0 +1,13 @@
+programme test debut
+
+entier a;
+
+fonction fonc1() debut
+	retourne 666;
+fin
+
+a = fonc1();
+
+ecrire a;
+
+fin
