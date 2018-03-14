@@ -1,12 +1,12 @@
 package yal.arbre.instruction;
 
-import yal.arbre.expression.IDF;
+import yal.arbre.expression.IDFVar;
 
 public class Lire extends Instruction {
 
-	private IDF idf;
+	private IDFVar idf;
 	
-	public Lire(IDF i, int no) {
+	public Lire(IDFVar i, int no) {
 		super(no);
 		idf = i;
 	}

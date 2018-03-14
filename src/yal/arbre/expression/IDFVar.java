@@ -4,12 +4,12 @@ import yal.outils.tableDesSymboles.EntreeVar;
 import yal.outils.tableDesSymboles.Symbole;
 import yal.outils.tableDesSymboles.TableDesSymboles;
 
-public class IDF extends Expression{
+public class IDFVar extends Expression{
 
 	private String nom;
 	private int decalage;
 	
-	public IDF(String idf, int n) {
+	public IDFVar(String idf, int n) {
 		super(n);
 		this.returnType = "int"; //Tous nos variables sont des entiers
 		nom = idf;
