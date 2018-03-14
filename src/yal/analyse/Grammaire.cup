@@ -269,7 +269,8 @@ EXPR    ::=     EXPR:g  PLUS  EXPR:d
                 NON EXPR:e
                 {: RESULT = new NonLogique(e); :}
         |
-        		IDF
+        		IDF:i
+        		{: RESULT = new IDFVar(i, ileft + 1) ; :}
         |
         		IDF:i PAROUV PARFER
         		{: RESULT = new Appel(new IDFFonc(i,ileft+1), ileft +1) ; :}
