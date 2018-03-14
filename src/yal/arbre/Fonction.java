@@ -8,6 +8,7 @@ public class Fonction extends ArbreAbstrait {
 
 	private IDFFonc idf;
 	private BlocDInstructions bloc;
+	private int nbbloc;
 
 	// Ajouter une classe paramètre
 	public Fonction(int no, IDFFonc idf, BlocDInstructions bloc) {
@@ -17,6 +18,7 @@ public class Fonction extends ArbreAbstrait {
 
 		// On entre dans un nouveau bloc
 		TableDesSymboles.getInstance().entreeBloc(false);
+		this.nbbloc = TableDesSymboles.getInstance().getNbBloc();
 	}
 
 	@Override
@@ -55,7 +57,7 @@ public class Fonction extends ArbreAbstrait {
 		sb.append("sw $s7,($sp) \n"); 
 		sb.append("addi $sp,$sp,-4 \n");
 		//Empiler le n° bloc ????
-		sb.append("li $v0,"+TableDesSymboles.getInstance().getNbBloc()+"\n");
+		sb.append("li $v0,"+this.nbbloc+"\n");
 		sb.append("sw $v0,($sp) \n");
 		sb.append("addi $sp, $sp, -4 \n");
 		//Init base locale
@@ -70,9 +72,9 @@ public class Fonction extends ArbreAbstrait {
 		//Suite du TD
 		//Restaurer le pointeur de pile
 		sb.append("#Remonte la pile \n");
-		sb.append("sw $sp,$s7, 12 \n");
+		sb.append("sw $sp,$s7, "+TableDesSymboles.getInstance().getTailleZoneVariable(nbbloc)+" \n"); //12 possiblement le nb d'entier déclarés * 4, 3 dans l'exemple
 		//Retrouver la base locale s7
-		sb.append("lw $s7, 8($s7) \n"); //8 possiblement le nb d'entier déclarés, 2 dans l'exemple
+		sb.append("lw $s7, 8($s7) \n"); 
 		//Restaurer le compteur ordinal
 		sb.append("lw $ra,($sp) \n");
 
