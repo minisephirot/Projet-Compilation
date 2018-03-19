@@ -54,8 +54,13 @@ public class Dictionnaire {
 	/*
 	 *  return l'empilement max de la pile de variables
 	 */
-	public int getTailleZoneVariable(){
-		return TDS.size() * -4;
+	public int getTailleZoneVariable() {
+		int cmpt = 0;
+		for(Map.Entry<Entree,Symbole> e : TDS.entrySet()) {
+			if (e.getKey() instanceof EntreeVar)
+				cmpt++;
+		}
+		return cmpt * -4;
 	}
 	@Override
 	public String toString() {

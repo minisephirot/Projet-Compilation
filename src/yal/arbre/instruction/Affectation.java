@@ -3,6 +3,7 @@ package yal.arbre.instruction;
 import yal.arbre.expression.Expression;
 import yal.arbre.expression.idf.IDFVar;
 import yal.exceptions.ListeErreursSemantiques;
+import yal.outils.EtiquetteFactory;
 
 public class Affectation extends Instruction{
 
@@ -30,13 +31,29 @@ public class Affectation extends Instruction{
 
 	@Override
 	public String toMIPS() {
+		String itr = EtiquetteFactory.getInstance().getItr();
+		int decalage = idf.getDecalage();
 		StringBuilder sb = new StringBuilder();
+
 		sb.append("# calcul de la valeur a affecter à " + idf.getNom() + "\n");
 		sb.append(exp.toMIPS());
-		
-		int decalage = idf.getDecalage();
-		sb.append("# sw au bon endroit\n");
-		sb.append("sw $v0, " + decalage + "($s7)\n");
+		sb.append("# emplile \n");
+		sb.append("sw $v0, 0($sp)\n");
+		sb.append("addi $sp, $sp, -4\n");
+		sb.append("# Remonte le chainage\n");
+		sb.append("move $t8, $s7 \n");
+		sb.append(itr + ": \n");
+		sb.append("lw $v0, 4($t8) \n");
+		sb.append("addi $v1, $zero, " + idf.getNoBloc() + " \n");
+		sb.append("sub $v1, $v0, $v1\n");
+		sb.append("beqz $v1, fin" + itr + "\n");
+		sb.append("lw $t8, 8($t8) \n");
+		sb.append("j " + itr + " \n");
+		sb.append("fin" + itr + ": \n");
+		sb.append("#Dépile \n");
+		sb.append("addi $sp, $sp, 4\n");
+		sb.append("lw $v0, 0($sp)\n");
+		sb.append("sw $v0, " + decalage + "($t8)\n");
 		return sb.toString();
 	}
 

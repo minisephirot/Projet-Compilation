@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class EtiquetteFactory {
 
 	private static EtiquetteFactory instance = new EtiquetteFactory();	//Instance du singleton
+	private int indexItrTrouverVariable;	//Nombre d'étiquettes pour la recherche de variable
 	private int indexSi; 			// Nombre d'étiquette si alors sinon créé
 	private int indexTant; 			// Nombre d'étiquette tantque créé
 	private int indexPrint;	// Nombre d'étiquette print créé
@@ -25,6 +26,7 @@ public class EtiquetteFactory {
 		hasDivBy0 = false;
 		hasBoolPrint = false;
 		stringsPrint = new ArrayList<String>();
+		indexItrTrouverVariable = 0;
 	};
 	
 	/**
@@ -160,4 +162,11 @@ public class EtiquetteFactory {
 		} else
 			return "";
 	}
+
+	public String getItr() {
+		String res = "itr" + indexItrTrouverVariable;
+		indexItrTrouverVariable++;
+		return res;
+	}
+
 }

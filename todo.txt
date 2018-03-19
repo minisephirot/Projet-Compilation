@@ -2,6 +2,5 @@ TODO LIST DU TOP DU TOP :
 
 -> Grammaire : Comment remplacer DECL pour prendre en compte DECL_VAR* pour fonction
 
-
 COMMANDE POUR AVOIR LE RESULTAT DIRECTEMENT
 java -jar Mars4_5.jar dec v1 yal.mips
