@@ -32,7 +32,7 @@ public class Retourne extends Instruction {
 		sb.append("#Retour de la fonction\n");
 		// Calcul la valeur du retour
 		sb.append(exp.toMIPS());
-		sb.append("lw $v0, 12($s7) \n");
+		sb.append("sw $v0, 16($s7) \n");
 		return sb.toString();
 	}
 

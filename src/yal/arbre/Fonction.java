@@ -57,9 +57,9 @@ public class Fonction extends ArbreAbstrait {
 		sb.append("addi $sp,$sp,-4 \n");
 		//Sauver la base locale de la pile (chainage dynamique)
 		sb.append("#Sauver la base locale de la pile \n");
-		sb.append("sw $s7,($sp) \n"); 
+		sb.append("sw $s7,($sp) \n");
 		sb.append("addi $sp,$sp,-4 \n");
-		//Empiler le n° bloc ????
+		//Empiler le n° bloc
 		sb.append("#Empiler le n° bloc \n");
 		sb.append("li $v0,"+this.nbbloc+"\n");
 		sb.append("sw $v0,($sp) \n");
@@ -67,20 +67,20 @@ public class Fonction extends ArbreAbstrait {
 		//Init base locale
 		sb.append("move $s7,$sp \n");
 		//Reserver l'espace des var locales
-		sb.append("addi $sp,$sp,-4 \n");
+		//sb.append("addi $sp,$sp,-4 \n");
 
 		//Ajout du bloc
 		sb.append("#Bloc d'instruction de la fonction "+idf+" \n");
 		sb.append(bloc.toMIPS());
 
-		//Suite du TD
+		//Restaurer le compteur ordinal
+		sb.append("lw $ra, 12($s7) \n");
 		//Restaurer le pointeur de pile
 		sb.append("#Remonte la pile \n");
-		sb.append("lw $sp, 12($s7) \n"); //12 possiblement le nb d'entier déclarés * 4, 3 dans l'exemple
+		sb.append("addi $sp, $s7, 16 \n");
 		//Retrouver la base locale s7
 		sb.append("lw $s7, 8($s7) \n"); 
-		//Restaurer le compteur ordinal
-		sb.append("lw $ra,($sp) \n");
+
 
 		//Ajouter le jump du $ra
 		sb.append("jr $ra \n");

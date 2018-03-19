@@ -25,6 +25,10 @@ public class Appel extends Expression {
 		sb.append("addi $sp, $sp, -4 \n");
 		//Jump ou se trouve la fonction
 		sb.append("jal "+this.idf.toString()+" \n");
+		//Met le resultat dans $v0
+		sb.append("lw $v0, ($sp)\n");
+		//Remonte la pile
+		sb.append("addi $sp, $sp, 4 \n");
 		return sb.toString();
 	}
 

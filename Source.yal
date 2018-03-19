@@ -3,7 +3,7 @@ programme test debut
 entier a;
 
 fonction fonc1() debut
-	retourne 666;
+	retourne 6660;
 fin
 
 a = fonc1();
