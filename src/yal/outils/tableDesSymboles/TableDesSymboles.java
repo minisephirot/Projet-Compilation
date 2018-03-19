@@ -60,6 +60,7 @@ public class TableDesSymboles {
 			Dictionnaire d = new Dictionnaire();
 			this.TDS.add(d);
 			this.dcourant = d;
+			
 		}
 		compteurBloc++;
 	}
@@ -69,8 +70,8 @@ public class TableDesSymboles {
 	 * de profondeur 0 ou 1 la sortie d'un bloc amène toujours dans le programme principal (ou la fin du prog)
 	 */
 	public void sortieBloc() {
-		this.dcourant = this.dprincipal;
-		compteurBloc--;
+		this.dcourant = this.dprincipal;		
+		compteurBloc--;	
 	}
 
 	/**

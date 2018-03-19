@@ -29,8 +29,8 @@ public class Boucle extends Instruction {
 	}
 
 	@Override
-	public boolean isRetourne() {
-		return bi.verifierRetourne();
+	public boolean isRetourne(boolean bloc) {
+		return bi.isRetourne(bloc);
 	}
 	
 	@Override

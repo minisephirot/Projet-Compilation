@@ -3,11 +3,29 @@ programme test debut
 entier a;
 
 fonction fonc1() debut
-	retourne 6660;
+	
+	tantque 666 < 696 repeter 
+		retourne 6;
+	fintantque
 fin
 
-a = fonc1();
+fonction fonc2() debut
+	si vrai alors
+		retourne 5;
+	fsi
+	
+	retourne 5;
+fin
+fonction df() debut
+	si vrai alors
+		retourne 18;
+	fsi
+	
+	retourne 5;
+fin
 
-ecrire a;
+ecrire fonc1();
+ecrire fonc2();
+ecrire df();
 
 fin

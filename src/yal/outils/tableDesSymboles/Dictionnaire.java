@@ -1,6 +1,7 @@
 package yal.outils.tableDesSymboles;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import yal.exceptions.ListeErreursSemantiques;
 
@@ -55,6 +56,14 @@ public class Dictionnaire {
 	 */
 	public int getTailleZoneVariable(){
 		return TDS.size() * -4;
+	}
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		for(Map.Entry<Entree,Symbole> entry : TDS.entrySet()) {
+			sb.append(entry.getKey().getIdf() + "\n");
+		}
+		return sb.toString();
 	}
 }
 

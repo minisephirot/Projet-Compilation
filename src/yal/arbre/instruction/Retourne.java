@@ -2,11 +2,13 @@ package yal.arbre.instruction;
 
 import yal.arbre.expression.Expression;
 import yal.exceptions.ListeErreursSemantiques;
+import yal.outils.EtiquetteFactory;
+import yal.outils.tableDesSymboles.TableDesSymboles;
 
 public class Retourne extends Instruction {
 
 	private Expression exp;
-	
+
 	public Retourne(Expression e,int no) {
 		super(no);
 		exp = e;
@@ -22,10 +24,12 @@ public class Retourne extends Instruction {
 	}
 
 	@Override
-	public boolean isRetourne() {
+	public boolean isRetourne(boolean isFonction) {
+		if(!isFonction)
+			ListeErreursSemantiques.getInstance().addErreur("Ligne " + this.getNoLigne() + " : Instruction de retour dans le bloc principal.");
 		return true;
 	}
-	
+
 	@Override
 	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
@@ -33,6 +37,8 @@ public class Retourne extends Instruction {
 		// Calcul la valeur du retour
 		sb.append(exp.toMIPS());
 		sb.append("sw $v0, 16($s7) \n");
+		sb.append("j sortieFonc"+EtiquetteFactory.getInstance().getNumFonc()+" \n");
+
 		return sb.toString();
 	}
 

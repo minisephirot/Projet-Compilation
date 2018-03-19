@@ -28,6 +28,7 @@ public class Programme extends ArbreAbstrait {
 	public void verifier() {
 		// Appelle Verifier sur tous les blocs
 		bloc.verifier();
+		bloc.isRetourne(false);
 	}
 
 	@Override

@@ -19,7 +19,7 @@ public abstract class ArbreAbstrait {
             return noLigne ;
     }
 	
-	public boolean isRetourne() {
+	public boolean isRetourne(boolean bloc) {
 		return false;
 	}
     

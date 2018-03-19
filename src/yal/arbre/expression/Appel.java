@@ -1,6 +1,11 @@
 package yal.arbre.expression;
 
+import com.sun.java_cup.internal.runtime.Symbol;
+
 import yal.arbre.expression.idf.IDFFonc;
+import yal.outils.tableDesSymboles.EntreeProg;
+import yal.outils.tableDesSymboles.SymboleProg;
+import yal.outils.tableDesSymboles.TableDesSymboles;
 
 public class Appel extends Expression {
 
@@ -24,7 +29,8 @@ public class Appel extends Expression {
 		//Reserver l'espace pour la valeur de retour
 		sb.append("addi $sp, $sp, -4 \n");
 		//Jump ou se trouve la fonction
-		sb.append("jal "+this.idf.toString()+" \n");
+		SymboleProg s = (SymboleProg) TableDesSymboles.getInstance().identifier(new EntreeProg(idf.getNom(), noLigne));
+		sb.append("jal fonc"+s.getNoBloc()+" \n");
 		//Met le resultat dans $v0
 		sb.append("lw $v0, ($sp)\n");
 		//Remonte la pile

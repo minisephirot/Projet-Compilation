@@ -42,11 +42,12 @@ public class BlocDInstructions extends ArbreAbstrait {
 		}
 	}
 
-	public boolean verifierRetourne() {
+	@Override
+	public boolean isRetourne(boolean bloc) {
 		boolean retourne = false;
 		for(ArbreAbstrait arbreAbstrait : listeExpr) {
-			if(arbreAbstrait.isRetourne())
-			retourne = true;
+			if(arbreAbstrait.isRetourne(bloc))
+				retourne = true;
 		}
 		
 		return retourne;
