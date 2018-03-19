@@ -3,6 +3,7 @@ package yal.arbre.expression.idf;
 import yal.arbre.expression.Expression;
 import yal.outils.tableDesSymboles.EntreeVar;
 import yal.outils.tableDesSymboles.Symbole;
+import yal.outils.tableDesSymboles.SymboleVar;
 import yal.outils.tableDesSymboles.TableDesSymboles;
 
 public class IDFVar extends Expression{
@@ -21,7 +22,7 @@ public class IDFVar extends Expression{
 		//Verifier la présence de l'idf pour les fonctions ? -> IDF Classe abstraire avec IDFVar & IDFProg
 		
 		// Vérifie que la variable est déclarée
-		Symbole s = TableDesSymboles.getInstance().identifier(new EntreeVar(nom, noLigne));
+		SymboleVar s = (SymboleVar) TableDesSymboles.getInstance().identifier(new EntreeVar(nom, noLigne));
 		if (s != null)
 			decalage = s.getPos();
 		else

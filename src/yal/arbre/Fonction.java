@@ -43,20 +43,24 @@ public class Fonction extends ArbreAbstrait {
 	@Override
 	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
+		
+		sb.append("j fin"+this.idf+"\n");
 		sb.append("#Fonction " + idf + "\n");
 		//Ajouter le label
 		sb.append(this.idf+":\n");
-
 		//Code vu en TD
 		//Empiler l'addresse de retour
 		sb.append("#Creation de la base de la pile \n");
 		// Empile la valeur de retour
+		sb.append("#Empile la valeur de retour \n");
 		sb.append("sw $ra,($sp) \n");
 		sb.append("addi $sp,$sp,-4 \n");
 		//Sauver la base locale de la pile (chainage dynamique)
+		sb.append("#Sauver la base locale de la pile \n");
 		sb.append("sw $s7,($sp) \n"); 
 		sb.append("addi $sp,$sp,-4 \n");
 		//Empiler le n° bloc ????
+		sb.append("#Empiler le n° bloc \n");
 		sb.append("li $v0,"+this.nbbloc+"\n");
 		sb.append("sw $v0,($sp) \n");
 		sb.append("addi $sp, $sp, -4 \n");
@@ -72,7 +76,7 @@ public class Fonction extends ArbreAbstrait {
 		//Suite du TD
 		//Restaurer le pointeur de pile
 		sb.append("#Remonte la pile \n");
-		sb.append("sw $sp,$s7, "+TableDesSymboles.getInstance().getTailleZoneVariable(nbbloc)+" \n"); //12 possiblement le nb d'entier déclarés * 4, 3 dans l'exemple
+		sb.append("lw $sp, 12($s7) \n"); //12 possiblement le nb d'entier déclarés * 4, 3 dans l'exemple
 		//Retrouver la base locale s7
 		sb.append("lw $s7, 8($s7) \n"); 
 		//Restaurer le compteur ordinal
@@ -80,6 +84,7 @@ public class Fonction extends ArbreAbstrait {
 
 		//Ajouter le jump du $ra
 		sb.append("jr $ra \n");
+		sb.append("fin"+this.idf+":\n");
 		return sb.toString();
 	}
 }

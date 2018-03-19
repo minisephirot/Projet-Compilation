@@ -130,8 +130,8 @@ precedence left NON ;
  
 start with PROG ;
 
-PROG    ::=    	PROGRAMME IDF DEBUT LDECL LINSTR:bi FIN
-				{:	Programme p = new Programme(bileft+1,bi);
+PROG    ::=    	PROGRAMME IDF DEBUT LDECL:di LINSTR:bi FIN
+				{:	Programme p = new Programme(bileft+1,bi,di);
 					RESULT = p; :}
 		|		PROGRAMME IDF DEBUT LINSTR:bi FIN
 				{:	Programme p = new Programme(bileft+1,bi);

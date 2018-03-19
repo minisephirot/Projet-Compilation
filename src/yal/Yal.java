@@ -30,7 +30,6 @@ public class Yal {
             
             // à écrire pour yal0
             arbre.verifier() ;
-            //System.out.println(arbre.toMIPS());
             
             // Appelle le singleton qui déclanche une erreur contentnant la liste de toutes les erreurs
             // sémantiques

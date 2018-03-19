@@ -1,7 +1,6 @@
 package yal.arbre.expression;
 
 import yal.arbre.expression.idf.IDFFonc;
-import yal.arbre.expression.idf.IDFVar;
 
 public class Appel extends Expression {
 

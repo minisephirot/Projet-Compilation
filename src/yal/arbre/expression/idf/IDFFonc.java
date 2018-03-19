@@ -2,8 +2,6 @@ package yal.arbre.expression.idf;
 
 import yal.arbre.expression.Expression;
 import yal.outils.tableDesSymboles.EntreeProg;
-import yal.outils.tableDesSymboles.EntreeVar;
-import yal.outils.tableDesSymboles.Symbole;
 import yal.outils.tableDesSymboles.TableDesSymboles;
 
 public class IDFFonc extends Expression{
@@ -29,7 +27,7 @@ public class IDFFonc extends Expression{
 
 	@Override
 	public String toMIPS() {
-		return null;
+		return "";
 	}
 	
 	@Override
