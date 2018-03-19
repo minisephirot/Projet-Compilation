@@ -1,13 +1,15 @@
-programme test debut
-
+programme Mutliplication debut
+//init var
 entier a;
+entier b;
 
-fonction a() debut
-    a = 19;
-    retourne a;
+fonction mult() debut
+	retourne a*b;
 fin
 
-ecrire a();
-ecrire a;
-
+ecrire "A * B : \nEntrez A:"; 
+lire a;
+ecrire "\nEntrez B:";
+lire b;
+ecrire mult();
 fin

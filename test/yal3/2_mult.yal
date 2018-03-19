@@ -1,0 +1,15 @@
+programme Mutliplication debut
+//init var
+entier a;
+entier b;
+
+fonction mult() debut
+	retourne a*b;
+fin
+
+ecrire "A * B : \nEntrez A:"; 
+lire a;
+ecrire "\nEntrez B:";
+lire b;
+ecrire mult();
+fin
