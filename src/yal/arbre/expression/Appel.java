@@ -32,9 +32,9 @@ public class Appel extends Expression {
 		SymboleProg s = (SymboleProg) TableDesSymboles.getInstance().identifier(new EntreeProg(idf.getNom(), noLigne));
 		sb.append("jal fonc"+s.getNoBloc()+" \n");
 		//Met le resultat dans $v0
+		sb.append("addi $sp, $sp, 4 \n");
 		sb.append("lw $v0, ($sp)\n");
 		//Remonte la pile
-		sb.append("addi $sp, $sp, 4 \n");
 		return sb.toString();
 	}
 

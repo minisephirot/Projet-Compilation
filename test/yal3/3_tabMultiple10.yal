@@ -1,0 +1,15 @@
+programme tt debut
+
+entier cmpt;
+
+fonction test() debut
+    cmpt = cmpt + 1;
+    retourne 10 * cmpt;
+fin
+
+tantque cmpt != 10 repeter
+    ecrire test();
+    ecrire "\n";
+fintantque
+
+fin
