@@ -1,0 +1,17 @@
+programme PlusOuMoins debut
+//init var
+entier test;
+entier juste;
+entier token; 
+fonction juste() debut
+	lire token;
+	ecrire token;
+	retourne token;
+fin
+
+juste = 666;
+tantque test != juste repeter
+    test = juste();
+    ecrire test;
+fintantque
+fin

@@ -11,3 +11,4 @@ buildGuillaume.xml
 .classpath
 .idea/
 *.iml
+src/META-INF/
