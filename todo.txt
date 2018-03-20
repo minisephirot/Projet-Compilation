@@ -1,7 +1,6 @@
 TODO LIST DU TOP DU TOP :
 
 -> Grammaire : Comment remplacer DECL pour prendre en compte DECL_VAR* pour fonction
--> Faire le nouveau Lire pour prendre en compte dcourant ou dprincipal
 
 COMMANDE POUR AVOIR LE RESULTAT DIRECTEMENT
 java -jar Mars4_5.jar dec v1 yal.mips

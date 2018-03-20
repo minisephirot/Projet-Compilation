@@ -58,7 +58,7 @@ public class Fonction extends ArbreAbstrait {
 		//Empiler l'addresse de retour
 		sb.append("#Creation de la base de la pile \n");
 		// Empile la valeur de retour
-		sb.append("#Empile la valeur de retour \n");
+		sb.append("#Empile l'adresse de retour \n");
 		sb.append("sw $ra,($sp) \n");
 		sb.append("addi $sp,$sp,-4 \n");
 		//Sauver la base locale de la pile (chainage dynamique)
@@ -86,7 +86,7 @@ public class Fonction extends ArbreAbstrait {
 		sb.append("lw $ra, 12($s7) \n");
 		//Restaurer le pointeur de pile
 		sb.append("#Remonte la pile \n");
-		sb.append("addi $sp, $s7, 16 \n");
+		sb.append("addi $sp, $s7, 12 \n");
 		//Retrouver la base locale s7
 		sb.append("lw $s7, 8($s7) \n"); 
 
