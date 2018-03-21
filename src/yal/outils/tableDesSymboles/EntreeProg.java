@@ -2,10 +2,14 @@ package yal.outils.tableDesSymboles;
 
 public class EntreeProg extends Entree {
 	
-	int numParam;
+	private int nbParam;
 		
-	public EntreeProg(String idf, int noLigne, int numParam) {
+	public EntreeProg(String idf, int noLigne, int nbParam) {
 		super(idf, noLigne);
-		this.numParam = numParam;
+		this.nbParam = nbParam;
+	}
+	
+	public int getNbParam() {
+		return nbParam;
 	}
 }

@@ -11,7 +11,7 @@ public class Dictionnaire {
 	 * Hashmap stoquant nos entrées
 	 */
 	private HashMap<Entree,Symbole> TDS; 
-
+	
 	/*
 	 * Initialise la hashmap des entrées -> symboles
 	 */
@@ -19,6 +19,7 @@ public class Dictionnaire {
 		this.TDS = new HashMap<Entree,Symbole>();
 	};
 
+	
 	/*
 	 * Ajoute à la hashmap la paire (entrées -> symboles) et vérifie si il y a 
 	 * une double declaration ou une incompatibilté type/expression
@@ -36,8 +37,8 @@ public class Dictionnaire {
 
 	public int getNbParam() {
 		int compteurParam = 0;
-		for(Map.Entry<Entree,Symbole> entry : TDS.entrySet()) {
-			if(entry instanceof EntreeParam)
+		for(Map.Entry<Entree,Symbole> entry : TDS.entrySet()) {			
+			if(entry.getKey() instanceof EntreeParam)
 				compteurParam++;				
 		}
 		return compteurParam;

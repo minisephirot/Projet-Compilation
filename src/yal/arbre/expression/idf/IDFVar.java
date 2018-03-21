@@ -48,6 +48,7 @@ public class IDFVar extends Expression{
 
 	@Override
 	public String toMIPS() {
+		System.out.println(getNom() + " " + decalage + " " + getNoBloc());
 		String itr = EtiquetteFactory.getInstance().getItr();
 		StringBuilder sb = new StringBuilder();
 		sb.append("# charge la variable " + nom + "\n");

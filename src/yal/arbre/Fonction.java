@@ -19,14 +19,17 @@ public class Fonction extends ArbreAbstrait {
 		this.bloc = bloc;
 
 		// On sauvegarde le numero de bloc
-		this.nbbloc = TableDesSymboles.getInstance().getBlocActuel();
+		
 		
 		int numParam = TableDesSymboles.getInstance().getNbParam();
-		
+		this.nbbloc = TableDesSymboles.getInstance().getBlocActuel();
+
 		TableDesSymboles.getInstance().sortieBloc();
 		TableDesSymboles.getInstance().ajouter(new EntreeProg(idf.getNom(), no, numParam), new SymboleProg()) ;
-	}
+		
 
+	}
+	
 	@Override
 	public void verifier() {
 		//Verifier que l'idf de la fonction n'existe déjà a été faite dans son ajout d'entreeprog au dictionnaire
@@ -80,6 +83,7 @@ public class Fonction extends ArbreAbstrait {
 
 		//Ajout du bloc
 		sb.append("#Bloc d'instruction de la fonction "+idf+" \n");
+
 		sb.append(bloc.toMIPS());
 
 		//Etique quand retour detecter

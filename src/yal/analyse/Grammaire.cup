@@ -34,7 +34,9 @@ import yal.arbre.instruction.Lire;
 import yal.arbre.instruction.Retourne;
 import yal.exceptions.AnalyseSyntaxiqueException;
 import yal.outils.tableDesSymboles.EntreeProg;
+import yal.outils.tableDesSymboles.EntreeParam;
 import yal.outils.tableDesSymboles.EntreeVar;
+import yal.outils.tableDesSymboles.SymboleParam;
 import yal.outils.tableDesSymboles.SymboleVar;
 import yal.outils.tableDesSymboles.TableDesSymboles;
 import yal.outils.tableDesSymboles.SymboleProg;
@@ -118,7 +120,7 @@ non terminal Lire LECTURE;
 non terminal Boucle BOUCLE;
 non terminal Condition CONDITION;
 non terminal Retourne RETOUR;
-non terminal int PAR_EFF, ENTIERPARAM, LPARAM, PARAM;
+non terminal Integer PAR_EFF, ENTIERPARAM, LPARAM, PARAM;
 
 precedence left OU ;
 precedence left ET ;
@@ -167,8 +169,8 @@ DECL_VAR ::=	ENTIER IDF:i POINTVIRGULE
 	
 DECL_FONC ::=	FONCTION CREERBLOC:i PARAM:cmpt DEBUT LINSTR:bloc FIN
 				{:  RESULT = new Fonction(ileft+1,new IDFFonc(i, ileft+1,cmpt), bloc) ; :}
-		|		FONCTION CREERBLOC PARAM:cmpt DEBUT LDECLV:bd LINSTR:bi FIN
-				{: RESULT = new Fonction(ileft+1,new IDFFonc(i, ileft+1,cmpt), bi, bd) ; :}
+		|		FONCTION CREERBLOC:i PARAM:cmpt DEBUT LDECLV LINSTR:bi FIN
+				{: RESULT = new Fonction(ileft+1,new IDFFonc(i, ileft+1,cmpt), bi) ; :}
 				;
 				
 CREERBLOC ::=   IDF:i
@@ -189,8 +191,8 @@ LPARAM	::=		LPARAM:cmpt POINTVIRGULE ENTIERPARAM
 				{: RESULT = 1 ; :}
 				;
 				
-ENTIERPARAM ::=	ENTIER IDF
-				{: TableDesSymboles.getInstance().ajouter(new EntreeParam(i, ileft+1), new SymboleVar()) ; :}
+ENTIERPARAM ::=	ENTIER IDF:i
+				{: TableDesSymboles.getInstance().ajouter(new EntreeParam(i, ileft+1), new SymboleVar(true)) ; :}
 				;
 			
 LINSTR  ::=     LINSTR:bi INSTR:i
@@ -299,9 +301,9 @@ EXPR    ::=     EXPR:g  PLUS  EXPR:d
         		{: RESULT = new IDFVar(i, ileft + 1) ; :}
         |
         		IDF:i PAROUV PARFER
-        		{: RESULT = new Appel(new IDFFonc(i,ileft+1), ileft +1,0) ; :}
+        		{: RESULT = new Appel(new IDFFonc(i,ileft+1,0), ileft +1,0) ; :}
         |		IDF:i PAROUV PAR_EFF:cmpteur PARFER
-        		{: RESULT = new Appel(new IDFFonc(i,ileft+1), ileft +1, cmpteur) ; :}
+        		{: RESULT = new Appel(new IDFFonc(i,ileft+1,cmpteur), ileft +1, cmpteur) ; :}
         |		
                 CSTE:c
                 {: RESULT = c ; :}

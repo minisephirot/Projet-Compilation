@@ -10,11 +10,13 @@ import yal.outils.tableDesSymboles.TableDesSymboles;
 public class Appel extends Expression {
 
 	private IDFFonc idf;
+	private int nbParam;
 	
-	public Appel(IDFFonc idfFonc,int n) {
+	public Appel(IDFFonc idfFonc,int n,int nbParam) {
 		super(n);
 		idf = idfFonc;
 		returnType = "int";
+		this.nbParam = nbParam;
 	}
 
 	@Override
@@ -29,7 +31,7 @@ public class Appel extends Expression {
 		//Reserver l'espace pour la valeur de retour
 		sb.append("addi $sp, $sp, -4 \n");
 		//Jump ou se trouve la fonction
-		SymboleProg s = (SymboleProg) TableDesSymboles.getInstance().identifier(new EntreeProg(idf.getNom(), noLigne));
+		SymboleProg s = (SymboleProg) TableDesSymboles.getInstance().identifier(new EntreeProg(idf.getNom(), noLigne, nbParam));
 		sb.append("jal fonc"+s.getNoBloc()+" \n");
 		//Met le resultat dans $v0
 		sb.append("addi $sp, $sp, 4 \n");

@@ -129,6 +129,7 @@ public class TableDesSymboles {
 	 * Création d'un nouveau bloc
 	 */
 	public void ajouterBloc() {
+		compteurBloc++;
 		Dictionnaire d = new Dictionnaire();
 		this.TDS.add(d);
 		this.dcourant = d;
@@ -151,7 +152,6 @@ public class TableDesSymboles {
 	}
 	
 	public int getBlocSuivant() {
-		compteurBloc++;
 		return compteurBloc;
 	}
 

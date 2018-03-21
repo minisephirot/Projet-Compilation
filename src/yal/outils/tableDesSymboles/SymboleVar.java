@@ -18,6 +18,11 @@ public class SymboleVar extends Symbole {
 		noBloc = TableDesSymboles.getInstance().getNbBloc();
 		exp = e;
 	}
+	
+	public SymboleVar(boolean param) {
+		pos = TableDesSymboles.getInstance().getNbParam();
+		noBloc = TableDesSymboles.getInstance().getNbBloc();
+	}
 
 
 	public int getPos() {

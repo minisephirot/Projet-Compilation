@@ -34,11 +34,14 @@ public abstract class Entree {
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == this) return true;
-		//Vérifie que les entrées sont de type var ou prog avant comparaison des idf
-		if (getClass() == obj.getClass() && ((Entree) obj).getIdf().equals(idf)) {
+		
+		if(this instanceof EntreeVar && (obj.getClass() == EntreeParam.class || obj.getClass() == EntreeVar.class  && ((Entree) obj).getIdf().equals(idf)))
 			return true;
-		} else
-			return false;
+		
+		if(this instanceof EntreeProg && obj.getClass() == EntreeProg.class && ((Entree) obj).getIdf().equals(idf) 
+				&& ((EntreeProg) obj).getNbParam() == ((EntreeProg) this).getNbParam())
+			return true;
+		return false;
 	}
 	
 	@Override

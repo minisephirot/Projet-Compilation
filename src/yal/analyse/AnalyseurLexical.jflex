@@ -46,6 +46,7 @@ espace = {finDeLigne}  | [ \t\f]
 "/"                	{ return symbol(CodesLexicaux.DIV); }
 
 ";"						{ return symbol(CodesLexicaux.POINTVIRGULE); }
+","						{ return symbol(CodesLexicaux.VIRGULE); }
 "="						{ return symbol(CodesLexicaux.EGAL); }
 "=="                    { return symbol(CodesLexicaux.EGALEGAL); }
 "!="                    { return symbol(CodesLexicaux.DIFF); }
