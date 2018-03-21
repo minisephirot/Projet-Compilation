@@ -7,17 +7,19 @@ import yal.outils.tableDesSymboles.TableDesSymboles;
 public class IDFFonc extends Expression{
 
 	private String nom;
+	private int numParam;
 
-	public IDFFonc(String idf, int n) {
+	public IDFFonc(String idf, int n, int numParam) {
 		super(n);
 		this.returnType = "int"; //Toutes nos fonctions sont des entiers
 		nom = idf;
+		this.numParam = numParam;
 	}
 
 	@Override
 	public void verifier() {
 		// Vérifie que la fonction est déclarée
-		TableDesSymboles.getInstance().identifier(new EntreeProg(nom, noLigne));
+		TableDesSymboles.getInstance().identifier(new EntreeProg(nom, noLigne,numParam));
 
 	}
 	

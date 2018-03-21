@@ -34,6 +34,15 @@ public class Dictionnaire {
 		this.TDS.put(e, s);
 	}
 
+	public int getNbParam() {
+		int compteurParam = 0;
+		for(Map.Entry<Entree,Symbole> entry : TDS.entrySet()) {
+			if(entry instanceof EntreeParam)
+				compteurParam++;				
+		}
+		return compteurParam;
+	}
+	
 	/*
 	 * Booleen pour throw des erreurs de double déclaration ou de non déclaration
 	 */

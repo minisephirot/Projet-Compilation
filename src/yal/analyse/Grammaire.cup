@@ -98,7 +98,7 @@ parser code {:
    
 /* Terminals (tokens returned by the scanner).  */
 
-terminal Symbol    POINTVIRGULE, PLUS, MOINS, MULT, DIV, PAROUV, PARFER ;
+terminal Symbol    POINTVIRGULE, VIRGULE, PLUS, MOINS, MULT, DIV, PAROUV, PARFER ;
 terminal Symbol    SUP, INF, EGALEGAL, DIFF, ET, OU, NON, EGAL, PROGRAMME, ENTIER, DEBUT, FIN, ECR, FONCTION, RETOURNE;
 terminal Symbol    TANTQUE, REPETER, FINTANTQUE, SI, ALORS, SINON, FSI, LIRE;
 terminal String    CONSTANTECHAINE, CONSTANTEINT, CONSTANTEBOOL, IDF;
@@ -109,7 +109,8 @@ non terminal ArbreAbstrait PROG ;
 non terminal BlocDInstructions LINSTR, LDECL;
 non terminal Expression EXPR, CSTE ;
 non terminal Affectation AFFECT;
-non terminal DECL_VAR, PARAM;
+non terminal String  CREERBLOC;
+non terminal DECL_VAR, LDECLV ;
 non terminal Fonction DECL_FONC, DECL;
 non terminal Instruction INSTR;
 non terminal Ecrire ECRIRE;
@@ -117,6 +118,7 @@ non terminal Lire LECTURE;
 non terminal Boucle BOUCLE;
 non terminal Condition CONDITION;
 non terminal Retourne RETOUR;
+non terminal int PAR_EFF, ENTIERPARAM, LPARAM, PARAM;
 
 precedence left OU ;
 precedence left ET ;
@@ -155,19 +157,41 @@ DECL 	 ::=	DECL_VAR
                  {: RESULT = d; :}
 				;
 
+LDECLV	::=		LDECLV DECL_VAR
+		|		DECL_VAR
+				;
+
 DECL_VAR ::=	ENTIER IDF:i POINTVIRGULE
 				{: TableDesSymboles.getInstance().ajouter(new EntreeVar(i, ileft+1), new SymboleVar()) ; :}
 				;
 	
-DECL_FONC ::=	FONCTION IDF:i 
-				{: 	TableDesSymboles.getInstance().ajouter(new EntreeProg(i, ileft+1), new SymboleProg()) ;
-					TableDesSymboles.getInstance().ajouterBloc(); :}
-				PARAM DEBUT LINSTR:bloc FIN
-				{:  RESULT = new Fonction(ileft+1,new IDFFonc(i, ileft+1), bloc) ; :}
+DECL_FONC ::=	FONCTION CREERBLOC:i PARAM:cmpt DEBUT LINSTR:bloc FIN
+				{:  RESULT = new Fonction(ileft+1,new IDFFonc(i, ileft+1,cmpt), bloc) ; :}
+		|		FONCTION CREERBLOC PARAM:cmpt DEBUT LDECLV:bd LINSTR:bi FIN
+				{: RESULT = new Fonction(ileft+1,new IDFFonc(i, ileft+1,cmpt), bi, bd) ; :}
+				;
+				
+CREERBLOC ::=   IDF:i
+				{: 	TableDesSymboles.getInstance().ajouterBloc(); 
+					RESULT = i; :}
 				;
 
+
 PARAM	::=		PAROUV PARFER
+				{: RESULT = 0; :}
+		|		PAROUV LPARAM:cmpt PARFER
+				{: RESULT = cmpt; :}
 				; 
+				
+LPARAM	::=		LPARAM:cmpt POINTVIRGULE ENTIERPARAM
+				{: RESULT = cmpt + 1; :}
+		|		ENTIERPARAM
+				{: RESULT = 1 ; :}
+				;
+				
+ENTIERPARAM ::=	ENTIER IDF
+				{: TableDesSymboles.getInstance().ajouter(new EntreeParam(i, ileft+1), new SymboleVar()) ; :}
+				;
 			
 LINSTR  ::=     LINSTR:bi INSTR:i
 				{:  bi.ajouter(i);
@@ -275,7 +299,9 @@ EXPR    ::=     EXPR:g  PLUS  EXPR:d
         		{: RESULT = new IDFVar(i, ileft + 1) ; :}
         |
         		IDF:i PAROUV PARFER
-        		{: RESULT = new Appel(new IDFFonc(i,ileft+1), ileft +1) ; :}
+        		{: RESULT = new Appel(new IDFFonc(i,ileft+1), ileft +1,0) ; :}
+        |		IDF:i PAROUV PAR_EFF:cmpteur PARFER
+        		{: RESULT = new Appel(new IDFFonc(i,ileft+1), ileft +1, cmpteur) ; :}
         |		
                 CSTE:c
                 {: RESULT = c ; :}
@@ -283,6 +309,12 @@ EXPR    ::=     EXPR:g  PLUS  EXPR:d
                 PAROUV  EXPR:e  PARFER
                 {: RESULT = e ; :}
                 ;
+
+PAR_EFF	::=		PAR_EFF:cmpteur VIRGULE EXPR
+				{: RESULT = cmpteur + 1; :}
+		|		EXPR
+				{: RESULT = 1; :}
+				;
 
 CSTE    ::=     CONSTANTEINT:e 
                 {: RESULT = new ConstanteEntiere(e, eleft+1) ; :}

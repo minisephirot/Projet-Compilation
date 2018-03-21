@@ -136,6 +136,13 @@ public class TableDesSymboles {
 	}
 	
 	/**
+	 * @return Le nombre de param du bloc
+	 */
+	public int getNbParam() {
+		return dcourant.getNbParam();
+	}
+	
+	/**
 	 * @return Le numéro de bloc dans le quel on se trouve
 	 */
 	public int getBlocActuel() {

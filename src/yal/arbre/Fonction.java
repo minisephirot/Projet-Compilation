@@ -2,7 +2,8 @@ package yal.arbre;
 
 import yal.arbre.expression.idf.IDFFonc;
 import yal.exceptions.ListeErreursSemantiques;
-import yal.outils.EtiquetteFactory;
+import yal.outils.tableDesSymboles.EntreeProg;
+import yal.outils.tableDesSymboles.SymboleProg;
 import yal.outils.tableDesSymboles.TableDesSymboles;
 
 public class Fonction extends ArbreAbstrait {
@@ -19,7 +20,11 @@ public class Fonction extends ArbreAbstrait {
 
 		// On sauvegarde le numero de bloc
 		this.nbbloc = TableDesSymboles.getInstance().getBlocActuel();
+		
+		int numParam = TableDesSymboles.getInstance().getNbParam();
+		
 		TableDesSymboles.getInstance().sortieBloc();
+		TableDesSymboles.getInstance().ajouter(new EntreeProg(idf.getNom(), no, numParam), new SymboleProg()) ;
 	}
 
 	@Override
