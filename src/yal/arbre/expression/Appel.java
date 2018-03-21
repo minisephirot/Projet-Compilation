@@ -21,8 +21,8 @@ public class Appel extends Expression {
 		super(n);
 		idf = idfFonc;
 		returnType = "int";
-		this.nbParam = nbParam;
 		this.listeexpr = expressions;
+		this.nbParam = this.listeexpr.size();
 	}
 
 	@Override
