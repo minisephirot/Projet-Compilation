@@ -79,8 +79,6 @@ public class Fonction extends ArbreAbstrait {
 		sb.append("addi $sp, $sp, -4 \n");
 		//Init base locale
 		sb.append("move $s7,$sp \n");
-		//Reserver l'espace des var locales
-		//sb.append("addi $sp,$sp,-4 \n");
 
 		//Ajout du bloc
 		sb.append("#Bloc d'instruction de la fonction "+idf+" \n");

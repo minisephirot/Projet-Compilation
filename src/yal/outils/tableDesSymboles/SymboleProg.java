@@ -6,7 +6,6 @@ public class SymboleProg extends Symbole {
 
 	public SymboleProg() {
 		noBloc = TableDesSymboles.getInstance().getNbProchainBloc();
-		System.out.println(noBloc);
 	}
 	
 	public int getNoBloc() {
