@@ -1,0 +1,19 @@
+programme Fibonachi debut
+entier n;
+
+fonction fib(entier n) debut
+si n < 2 alors 
+	retourne 1;
+fsi
+si n == 2 alors
+	retourne 1;
+sinon
+    retourne fib(n-1) + fib(n-2);
+fsi
+fin
+
+ecrire "[INPUT] Fibonachi rank : \n";
+lire n;
+ecrire "Result : ";
+ecrire fib(n);
+fin
