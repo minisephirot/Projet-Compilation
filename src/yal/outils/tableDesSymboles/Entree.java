@@ -8,8 +8,6 @@ public abstract class Entree {
 	public Entree(String i, int noLigne) {
 		idf = i;
 		this.noLigne = noLigne;
-		if (idf == null)
-		System.out.println(noLigne);
 	}
 
 	public String getIdf() {

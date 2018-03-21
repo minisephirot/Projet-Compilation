@@ -2,8 +2,6 @@ package yal.arbre.instruction;
 
 import yal.arbre.expression.Expression;
 import yal.exceptions.ListeErreursSemantiques;
-import yal.outils.EtiquetteFactory;
-import yal.outils.tableDesSymboles.TableDesSymboles;
 
 public class Retourne extends Instruction {
 

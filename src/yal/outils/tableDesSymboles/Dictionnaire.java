@@ -1,22 +1,24 @@
 package yal.outils.tableDesSymboles;
 
+import yal.exceptions.ListeErreursSemantiques;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import yal.exceptions.ListeErreursSemantiques;
 
 public class Dictionnaire {
 
 	/*
 	 * Hashmap stoquant nos entrées
 	 */
-	private HashMap<Entree,Symbole> TDS; 
+	private HashMap<Entree,Symbole> TDS;
+	private int num;
 	
 	/*
 	 * Initialise la hashmap des entrées -> symboles
 	 */
-	public Dictionnaire() {
+	public Dictionnaire(int num) {
 		this.TDS = new HashMap<Entree,Symbole>();
+		this.num = num;
 	};
 
 	
@@ -72,6 +74,14 @@ public class Dictionnaire {
 		}
 		return cmpt * -4;
 	}
+
+	/**
+	 * @return Le numéro du bloc qui correspond à ce dictionnaire
+	 */
+	public int getNum() {
+		return num;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();

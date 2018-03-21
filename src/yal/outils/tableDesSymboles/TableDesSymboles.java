@@ -1,50 +1,25 @@
 package yal.outils.tableDesSymboles;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-
 import yal.exceptions.ListeErreursSemantiques;
+
+import java.util.ArrayList;
 
 public class TableDesSymboles {
 
-	/**
-	 * Instance du singleton
-	 */
-	private static TableDesSymboles instance = new TableDesSymboles();
-
-	/**
-	 * Arraylist stoquant nos dictionnaires
-	 */
-	private ArrayList<Dictionnaire> TDS; 
-	
-	/**
-	 * ArrayList stoquant les bloc que l'on a ouvert et parcouru lors de l'entrée et la sortie d'un bloc
-	 */
-	private ArrayDeque<Integer> listeBloc;
-
-	/**
-	 *  Dictionnaire courant
-	 */
-	private Dictionnaire dcourant;
-	private int compteurBloc; // Permet de positionner le bon dictionnaire en tant que courant lors de la vérif
-	
-	/**
-	 *  Dictionnaire principal (le "main")
-	 */
-	private Dictionnaire dprincipal;
+	private static TableDesSymboles instance = new TableDesSymboles();	// Instance du singleton
+	private ArrayList<Dictionnaire> TDS;	// Stockant nos dictionnaires
+	private Dictionnaire dcourant;			// Dictionnaire courant
+	private Dictionnaire dprincipal;		// Dictionnaire principal (le "main")
 
 	/**
 	 * Initialise l'Arraylist
 	 */
 	private TableDesSymboles() {
 		this.TDS = new ArrayList<>();
-		Dictionnaire d = new Dictionnaire();
-		listeBloc = new ArrayDeque<Integer>();
-		listeBloc.add(0);
+		Dictionnaire d = new Dictionnaire(0);
 		this.TDS.add(d);
 		this.dprincipal = d;
 		dcourant = d;
-		compteurBloc = 0;
 	}
 
 	public static TableDesSymboles getInstance() {
@@ -62,8 +37,7 @@ public class TableDesSymboles {
 	 * false = on fais que créer des dictionnaires
 	 */
 	public void entreeBloc(int numBloc) {
-			dcourant = TDS.get(numBloc);
-			listeBloc.addLast(numBloc);
+		dcourant = TDS.get(numBloc);
 	}
 
 	/**
@@ -71,8 +45,7 @@ public class TableDesSymboles {
 	 * de profondeur 0 ou 1 la sortie d'un bloc amène toujours dans le programme principal (ou la fin du prog)
 	 */
 	public void sortieBloc() {
-		listeBloc.removeLast();
-		this.dcourant = TDS.get(listeBloc.getLast());		
+		dcourant = dprincipal;
 	}
 
 	/**
@@ -81,8 +54,6 @@ public class TableDesSymboles {
 	public Dictionnaire getCourant(){
 		return this.dcourant;
 	}
-
-
 
 	/**
 	 * Recherche si un identifiant existe dans le dictionnaire courant (ou dans le chef)
@@ -111,29 +82,19 @@ public class TableDesSymboles {
 	
 	/**
 	 *
-	 * @return Le  decalage du nombre de variables du dictionnaire
-	 */
-	public int getTailleZoneVariable(int index) {
-		return this.TDS.get(index).getTailleZoneVariable();
-	}
-	
-	/**
-	 *
 	 * @return Le numéro de bloc du dictionnaire courant
 	 */
 	public int getNbBloc() {
-		return this.compteurBloc;
+		return dcourant.getNum();
 	}
 	
 	/**
 	 * Création d'un nouveau bloc
 	 */
 	public void ajouterBloc() {
-		compteurBloc++;
-		Dictionnaire d = new Dictionnaire();
+		Dictionnaire d = new Dictionnaire(TDS.size());
 		this.TDS.add(d);
 		this.dcourant = d;
-		listeBloc.addLast(compteurBloc);
 	}
 	
 	/**
@@ -147,12 +108,6 @@ public class TableDesSymboles {
 	 * @return Le numéro de bloc dans le quel on se trouve
 	 */
 	public int getBlocActuel() {
-		
-		return listeBloc.getLast();
+		return dcourant.getNum();
 	}
-	
-	public int getBlocSuivant() {
-		return compteurBloc;
-	}
-
 }

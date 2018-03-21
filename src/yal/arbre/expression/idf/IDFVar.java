@@ -3,7 +3,6 @@ package yal.arbre.expression.idf;
 import yal.arbre.expression.Expression;
 import yal.outils.EtiquetteFactory;
 import yal.outils.tableDesSymboles.EntreeVar;
-import yal.outils.tableDesSymboles.Symbole;
 import yal.outils.tableDesSymboles.SymboleVar;
 import yal.outils.tableDesSymboles.TableDesSymboles;
 
@@ -15,8 +14,9 @@ public class IDFVar extends Expression{
 	
 	public IDFVar(String idf, int n) {
 		super(n);
-		this.returnType = "int"; //Tous nos variables sont des entiers
+		this.returnType = "int"; //Toutes nos variables sont des entiers
 		nom = idf;
+
 	}
 
 	@Override
@@ -48,7 +48,6 @@ public class IDFVar extends Expression{
 
 	@Override
 	public String toMIPS() {
-		System.out.println(getNom() + " " + decalage + " " + getNoBloc());
 		String itr = EtiquetteFactory.getInstance().getItr();
 		StringBuilder sb = new StringBuilder();
 		sb.append("# charge la variable " + nom + "\n");

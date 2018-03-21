@@ -27,6 +27,7 @@ public class Fonction extends ArbreAbstrait {
 		bloc.ajouterDebut(new AllocationVar(no));
 
 		TableDesSymboles.getInstance().sortieBloc();
+		// On ajoute cette fonction au dictionnaire du main car on vient de sortir du bloc
 		TableDesSymboles.getInstance().ajouter(new EntreeProg(idf.getNom(), no, numParam), new SymboleProg());
 	}
 	

@@ -1,12 +1,13 @@
 package yal.analyse ;
 
 import java.util.HashMap;
+
 import yal.arbre.ArbreAbstrait;
 import yal.arbre.BlocDInstructions;
 import yal.arbre.Fonction;
 import yal.arbre.Programme;
-import yal.arbre.expression.Expression;
 import yal.arbre.expression.Appel;
+import yal.arbre.expression.Expression;
 import yal.arbre.expression.binaire.arithmetique.Div;
 import yal.arbre.expression.binaire.arithmetique.Moins;
 import yal.arbre.expression.binaire.arithmetique.Mult;
@@ -23,23 +24,12 @@ import yal.arbre.expression.idf.IDFFonc;
 import yal.arbre.expression.idf.IDFVar;
 import yal.arbre.expression.unaire.MoinsUnaire;
 import yal.arbre.expression.unaire.NonLogique;
-import yal.arbre.instruction.Affectation;
-import yal.arbre.instruction.Boucle;
-import yal.arbre.instruction.Condition;
-import yal.arbre.instruction.Ecrire;
-import yal.arbre.instruction.EcrireString;
-import yal.arbre.instruction.EcrireVar;
-import yal.arbre.instruction.Instruction;
-import yal.arbre.instruction.Lire;
-import yal.arbre.instruction.Retourne;
+import yal.arbre.instruction.*;
 import yal.exceptions.AnalyseSyntaxiqueException;
-import yal.outils.tableDesSymboles.EntreeProg;
 import yal.outils.tableDesSymboles.EntreeParam;
 import yal.outils.tableDesSymboles.EntreeVar;
-import yal.outils.tableDesSymboles.SymboleParam;
 import yal.outils.tableDesSymboles.SymboleVar;
 import yal.outils.tableDesSymboles.TableDesSymboles;
-import yal.outils.tableDesSymboles.SymboleProg;
 
 action code {: 
              :} ;

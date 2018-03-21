@@ -33,7 +33,6 @@ public class Affectation extends Instruction{
 	public String toMIPS() {
 		String itr = EtiquetteFactory.getInstance().getItr();
 		int decalage = idf.getDecalage();
-		System.out.println(decalage + " " + idf.getNom());
 		StringBuilder sb = new StringBuilder();
 
 		sb.append("# calcul de la valeur a affecter à " + idf.getNom() + "\n");

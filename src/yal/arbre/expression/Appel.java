@@ -1,7 +1,5 @@
 package yal.arbre.expression;
 
-import com.sun.java_cup.internal.runtime.Symbol;
-
 import yal.arbre.expression.idf.IDFFonc;
 import yal.outils.tableDesSymboles.EntreeProg;
 import yal.outils.tableDesSymboles.SymboleProg;
