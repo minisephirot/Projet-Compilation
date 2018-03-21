@@ -2,6 +2,8 @@ package yal.analyse ;
 
 import java.util.HashMap;
 
+
+import java.util.ArrayList;
 import yal.arbre.ArbreAbstrait;
 import yal.arbre.BlocDInstructions;
 import yal.arbre.Fonction;
@@ -110,7 +112,8 @@ non terminal Lire LECTURE;
 non terminal Boucle BOUCLE;
 non terminal Condition CONDITION;
 non terminal Retourne RETOUR;
-non terminal Integer PAR_EFF, ENTIERPARAM, LPARAM, PARAM;
+non terminal Integer ENTIERPARAM, LPARAM, PARAM;
+non terminal ArrayList<Expression> PAR_EFF;
 
 precedence left OU ;
 precedence left ET ;
@@ -291,9 +294,9 @@ EXPR    ::=     EXPR:g  PLUS  EXPR:d
         		{: RESULT = new IDFVar(i, ileft + 1) ; :}
         |
         		IDF:i PAROUV PARFER
-        		{: RESULT = new Appel(new IDFFonc(i,ileft+1,0), ileft +1,0) ; :}
+        		{: RESULT = new Appel(new IDFFonc(i,ileft+1,0), ileft +1,new ArrayList<Expression>()) ; :}
         |		IDF:i PAROUV PAR_EFF:cmpteur PARFER
-        		{: RESULT = new Appel(new IDFFonc(i,ileft+1,cmpteur), ileft +1, cmpteur) ; :}
+        		{: RESULT = new Appel(new IDFFonc(i,ileft+1,cmpteur.size()), ileft +1, cmpteur) ; :}
         |		
                 CSTE:c
                 {: RESULT = c ; :}
@@ -302,10 +305,13 @@ EXPR    ::=     EXPR:g  PLUS  EXPR:d
                 {: RESULT = e ; :}
                 ;
 
-PAR_EFF	::=		PAR_EFF:cmpteur VIRGULE EXPR
-				{: RESULT = cmpteur + 1; :}
-		|		EXPR
-				{: RESULT = 1; :}
+PAR_EFF	::=		PAR_EFF:listefinal VIRGULE EXPR:idf
+				{: listefinal.add(idf);
+				RESULT = listefinal; :}
+		|		EXPR:idf
+				{: ArrayList<Expression> listeexpr = new ArrayList<Expression>();
+				listeexpr.add(idf);
+				RESULT = listeexpr; :}
 				;
 
 CSTE    ::=     CONSTANTEINT:e 
