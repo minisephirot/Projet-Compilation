@@ -1,5 +1,6 @@
 package yal.arbre;
 
+import yal.arbre.decoration.AllocationVar;
 import yal.arbre.expression.idf.IDFFonc;
 import yal.exceptions.ListeErreursSemantiques;
 import yal.outils.tableDesSymboles.EntreeProg;
@@ -19,15 +20,14 @@ public class Fonction extends ArbreAbstrait {
 		this.bloc = bloc;
 
 		// On sauvegarde le numero de bloc
-		
-		
 		int numParam = TableDesSymboles.getInstance().getNbParam();
 		this.nbbloc = TableDesSymboles.getInstance().getBlocActuel();
 
-		TableDesSymboles.getInstance().sortieBloc();
-		TableDesSymboles.getInstance().ajouter(new EntreeProg(idf.getNom(), no, numParam), new SymboleProg()) ;
-		
+		//Allocation des variables
+		bloc.ajouterDebut(new AllocationVar(no));
 
+		TableDesSymboles.getInstance().sortieBloc();
+		TableDesSymboles.getInstance().ajouter(new EntreeProg(idf.getNom(), no, numParam), new SymboleProg());
 	}
 	
 	@Override
