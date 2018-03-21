@@ -12,8 +12,6 @@ public class EtiquetteFactory {
 	private int indexSi; 			// Nombre d'étiquette si alors sinon créé
 	private int indexTant; 			// Nombre d'étiquette tantque créé
 	private int indexPrint;	// Nombre d'étiquette print créé
-	private int indexFonction;
-	private int numFonction;
 	private ArrayList<String> stringsPrint; // ArrayList des string a afficher
 	private boolean hasDivBy0;	//Vérifie si des divisions sont utilisées
 	private boolean hasBoolPrint;	//Vérifie si des ecrire de boolean sont utilisés
@@ -21,8 +19,6 @@ public class EtiquetteFactory {
 	private EtiquetteFactory() {
 		indexSi = 0;
 		indexPrint = 0;
-		indexFonction = 1;
-		numFonction = 0;
 		hasDivBy0 = false;
 		hasBoolPrint = false;
 		stringsPrint = new ArrayList<String>();
@@ -36,10 +32,6 @@ public class EtiquetteFactory {
 		return instance;
 	}
 
-	public int getNumFonction() {
-		numFonction++;
-		return numFonction;
-	}
 	
 	/**
 	 * @return Le nombre d'étiquettes Si générées
@@ -67,18 +59,6 @@ public class EtiquetteFactory {
 	 */
 	public void addIndexTant() {
 		indexTant++;
-	}
-	
-	/**
-	 * 
-	 * @return Le nombre de fonction
-	 */
-	public int getNumFonc() {
-		return indexFonction;
-	}
-	
-	public void addFoncNumber() {
-		indexFonction++;
 	}
 	
 	/**

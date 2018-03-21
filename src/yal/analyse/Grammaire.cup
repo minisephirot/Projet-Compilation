@@ -159,9 +159,11 @@ DECL_VAR ::=	ENTIER IDF:i POINTVIRGULE
 				{: TableDesSymboles.getInstance().ajouter(new EntreeVar(i, ileft+1), new SymboleVar()) ; :}
 				;
 	
-DECL_FONC ::=	FONCTION IDF:i PARAM DEBUT LINSTR:bloc FIN
-				{:  TableDesSymboles.getInstance().ajouter(new EntreeProg(i, ileft+1), new SymboleProg()) ;
-					RESULT = new Fonction(ileft+1,new IDFFonc(i, ileft+1), bloc) ; :}
+DECL_FONC ::=	FONCTION IDF:i 
+				{: 	TableDesSymboles.getInstance().ajouter(new EntreeProg(i, ileft+1), new SymboleProg()) ;
+					TableDesSymboles.getInstance().ajouterBloc(); :}
+				PARAM DEBUT LINSTR:bloc FIN
+				{:  RESULT = new Fonction(ileft+1,new IDFFonc(i, ileft+1), bloc) ; :}
 				;
 
 PARAM	::=		PAROUV PARFER
@@ -192,7 +194,7 @@ INSTR   ::=     AFFECT:a
                 ;
 
 RETOUR ::=	RETOURNE EXPR:e POINTVIRGULE
-				{: RESULT = new Retourne(e, eleft + 1) ; :}
+				{: RESULT = new Retourne(e, eleft + 1, TableDesSymboles.getInstance().getBlocActuel()) ; :}
 				;
 
 LECTURE ::=     LIRE IDF:i POINTVIRGULE

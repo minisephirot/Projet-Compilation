@@ -8,10 +8,12 @@ import yal.outils.tableDesSymboles.TableDesSymboles;
 public class Retourne extends Instruction {
 
 	private Expression exp;
+	private int numBloc;
 
-	public Retourne(Expression e,int no) {
+	public Retourne(Expression e,int no,int numBloc) {
 		super(no);
 		exp = e;
+		this.numBloc = numBloc;
 	}
 
 	@Override
@@ -37,7 +39,7 @@ public class Retourne extends Instruction {
 		// Calcul la valeur du retour
 		sb.append(exp.toMIPS());
 		sb.append("sw $v0, 16($s7) \n");
-		sb.append("j sortieFonc"+EtiquetteFactory.getInstance().getNumFonc()+" \n");
+		sb.append("j sortieFonc"+numBloc+" \n");
 
 		return sb.toString();
 	}

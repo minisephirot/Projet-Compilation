@@ -17,9 +17,8 @@ public class Fonction extends ArbreAbstrait {
 		this.idf = idf;
 		this.bloc = bloc;
 
-		// On entre dans un nouveau bloc
-		TableDesSymboles.getInstance().entreeBloc(false);
-		this.nbbloc = TableDesSymboles.getInstance().getNbBloc();
+		// On sauvegarde le numero de bloc
+		this.nbbloc = TableDesSymboles.getInstance().getBlocActuel();
 		TableDesSymboles.getInstance().sortieBloc();
 	}
 
@@ -30,8 +29,7 @@ public class Fonction extends ArbreAbstrait {
 		// Vérfifier la déclaration de la classe dans la TDS
 		// Identifier la fonction dans la TDS
 		// On entre dans le bon bloc
-		TableDesSymboles.getInstance().entreeBloc(true);
-
+		TableDesSymboles.getInstance().entreeBloc(nbbloc);
 		// Décorer l'arbre pour toutes les variables de la fonction
 		bloc.verifier();
 		TableDesSymboles.getInstance().sortieBloc();
@@ -50,10 +48,10 @@ public class Fonction extends ArbreAbstrait {
 	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
 
-		sb.append("j finFonc"+EtiquetteFactory.getInstance().getNumFonc()+"\n");
+		sb.append("j finFonc"+nbbloc+"\n");
 		sb.append("#Fonction " + idf + "\n");
 		//Ajouter le label
-		sb.append("fonc"+EtiquetteFactory.getInstance().getNumFonc()+":\n");
+		sb.append("fonc"+nbbloc+":\n");
 		//Code vu en TD
 		//Empiler l'addresse de retour
 		sb.append("#Creation de la base de la pile \n");
@@ -80,7 +78,7 @@ public class Fonction extends ArbreAbstrait {
 		sb.append(bloc.toMIPS());
 
 		//Etique quand retour detecter
-		sb.append("sortieFonc"+EtiquetteFactory.getInstance().getNumFonc()+":\n");
+		sb.append("sortieFonc"+nbbloc+":\n");
 		
 		//Restaurer le compteur ordinal
 		sb.append("lw $ra, 12($s7) \n");
@@ -93,9 +91,8 @@ public class Fonction extends ArbreAbstrait {
 
 		//Ajouter le jump du $ra
 		sb.append("jr $ra \n");
-		sb.append("finFonc"+EtiquetteFactory.getInstance().getNumFonc()+":\n");
+		sb.append("finFonc"+nbbloc+":\n");
 		
-		EtiquetteFactory.getInstance().addFoncNumber();
 		return sb.toString();
 	}
 }

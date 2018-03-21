@@ -1,5 +1,6 @@
 package yal.outils.tableDesSymboles;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 
 import yal.exceptions.ListeErreursSemantiques;
@@ -15,13 +16,18 @@ public class TableDesSymboles {
 	 * Arraylist stoquant nos dictionnaires
 	 */
 	private ArrayList<Dictionnaire> TDS; 
+	
+	/**
+	 * ArrayList stoquant les bloc que l'on a ouvert et parcouru lors de l'entrée et la sortie d'un bloc
+	 */
+	private ArrayDeque<Integer> listeBloc;
 
 	/**
 	 *  Dictionnaire courant
 	 */
 	private Dictionnaire dcourant;
 	private int compteurBloc; // Permet de positionner le bon dictionnaire en tant que courant lors de la vérif
-
+	
 	/**
 	 *  Dictionnaire principal (le "main")
 	 */
@@ -33,6 +39,8 @@ public class TableDesSymboles {
 	private TableDesSymboles() {
 		this.TDS = new ArrayList<>();
 		Dictionnaire d = new Dictionnaire();
+		listeBloc = new ArrayDeque<Integer>();
+		listeBloc.add(0);
 		this.TDS.add(d);
 		this.dprincipal = d;
 		dcourant = d;
@@ -53,16 +61,9 @@ public class TableDesSymboles {
 	 * true = parcours/verification des ID du dictionnaires
 	 * false = on fais que créer des dictionnaires
 	 */
-	public void entreeBloc(boolean parcours) {
-		if (parcours){
-			dcourant = TDS.get(compteurBloc);
-		}else{
-			Dictionnaire d = new Dictionnaire();
-			this.TDS.add(d);
-			this.dcourant = d;
-			
-		}
-		compteurBloc++;
+	public void entreeBloc(int numBloc) {
+			dcourant = TDS.get(numBloc);
+			listeBloc.addLast(numBloc);
 	}
 
 	/**
@@ -70,8 +71,8 @@ public class TableDesSymboles {
 	 * de profondeur 0 ou 1 la sortie d'un bloc amène toujours dans le programme principal (ou la fin du prog)
 	 */
 	public void sortieBloc() {
-		this.dcourant = this.dprincipal;		
-		compteurBloc--;	
+		listeBloc.removeLast();
+		this.dcourant = TDS.get(listeBloc.getLast());		
 	}
 
 	/**
@@ -122,6 +123,29 @@ public class TableDesSymboles {
 	 */
 	public int getNbBloc() {
 		return this.compteurBloc;
+	}
+	
+	/**
+	 * Création d'un nouveau bloc
+	 */
+	public void ajouterBloc() {
+		Dictionnaire d = new Dictionnaire();
+		this.TDS.add(d);
+		this.dcourant = d;
+		listeBloc.addLast(compteurBloc);
+	}
+	
+	/**
+	 * @return Le numéro de bloc dans le quel on se trouve
+	 */
+	public int getBlocActuel() {
+		
+		return listeBloc.getLast();
+	}
+	
+	public int getBlocSuivant() {
+		compteurBloc++;
+		return compteurBloc;
 	}
 
 }
