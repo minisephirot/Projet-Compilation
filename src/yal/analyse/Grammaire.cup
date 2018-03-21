@@ -210,7 +210,7 @@ INSTR   ::=     AFFECT:a
                 ;
 
 RETOUR ::=	RETOURNE EXPR:e POINTVIRGULE
-				{: RESULT = new Retourne(e, eleft + 1, TableDesSymboles.getInstance().getBlocActuel()) ; :}
+				{: RESULT = new Retourne(e, eleft + 1, TableDesSymboles.getInstance().getNbBlocActuel()) ; :}
 				;
 
 LECTURE ::=     LIRE IDF:i POINTVIRGULE

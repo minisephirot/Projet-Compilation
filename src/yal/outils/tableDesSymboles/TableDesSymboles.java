@@ -81,14 +81,6 @@ public class TableDesSymboles {
 	}
 	
 	/**
-	 *
-	 * @return Le numéro de bloc du dictionnaire courant
-	 */
-	public int getNbBloc() {
-		return dcourant.getNum();
-	}
-	
-	/**
 	 * Création d'un nouveau bloc
 	 */
 	public void ajouterBloc() {
@@ -107,7 +99,14 @@ public class TableDesSymboles {
 	/**
 	 * @return Le numéro de bloc dans le quel on se trouve
 	 */
-	public int getBlocActuel() {
+	public int getNbBlocActuel() {
 		return dcourant.getNum();
+	}
+
+	/**
+	 * @return Le numéro du prochain bloc qui sera crée
+	 */
+	public int getNbProchainBloc() {
+		return TDS.size() - 1;
 	}
 }

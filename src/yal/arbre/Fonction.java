@@ -21,7 +21,7 @@ public class Fonction extends ArbreAbstrait {
 
 		// On sauvegarde le numero de bloc
 		int numParam = TableDesSymboles.getInstance().getNbParam();
-		this.nbbloc = TableDesSymboles.getInstance().getBlocActuel();
+		this.nbbloc = TableDesSymboles.getInstance().getNbBlocActuel();
 
 		//Allocation des variables
 		bloc.ajouterDebut(new AllocationVar(no));
@@ -102,7 +102,7 @@ public class Fonction extends ArbreAbstrait {
 		//Ajouter le jump du $ra
 		sb.append("jr $ra \n");
 		sb.append("finFonc"+nbbloc+":\n");
-		
+
 		return sb.toString();
 	}
 }

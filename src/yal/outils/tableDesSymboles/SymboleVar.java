@@ -10,18 +10,18 @@ public class SymboleVar extends Symbole {
 	
 	public SymboleVar() {
 		pos = TableDesSymboles.getInstance().getCourant().getTailleZoneVariable();
-		noBloc = TableDesSymboles.getInstance().getNbBloc();
+		noBloc = TableDesSymboles.getInstance().getNbBlocActuel();
 	}
 	
 	public SymboleVar(Expression e) {
 		pos = TableDesSymboles.getInstance().getCourant().getTailleZoneVariable();
-		noBloc = TableDesSymboles.getInstance().getNbBloc();
+		noBloc = TableDesSymboles.getInstance().getNbBlocActuel();
 		exp = e;
 	}
 	
 	public SymboleVar(boolean param) {
 		pos = TableDesSymboles.getInstance().getNbParam();
-		noBloc = TableDesSymboles.getInstance().getNbBloc();
+		noBloc = TableDesSymboles.getInstance().getNbBlocActuel();
 	}
 
 
