@@ -32,7 +32,7 @@ public class Dictionnaire {
 			String type = "Variable";
 			if(e instanceof EntreeProg)
 				type = "Fonction";
-			ListeErreursSemantiques.getInstance().addErreur("Ligne " + e.getNoLigne() + " : " + type + " \"" + e.getIdf() + "\" déjà déclarée.");
+			ListeErreursSemantiques.getInstance().addErreur(e.getNoLigne(), type + " \"" + e.getIdf() + "\" déjà déclarée.");
 		}
 		this.TDS.put(e, s);
 	}

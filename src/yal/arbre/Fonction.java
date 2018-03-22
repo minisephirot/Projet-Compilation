@@ -48,7 +48,7 @@ public class Fonction extends ArbreAbstrait {
 	public boolean isRetourne(boolean bl) {
 		// Vérifie qu'on a bien un retourne dans le bloc
 		if(!bloc.isRetourne(true)) {
-			ListeErreursSemantiques.getInstance().addErreur("Ligne " + this.getNoLigne() + " : Fonction avec une branche sans instruction de retour.");
+			ListeErreursSemantiques.getInstance().addErreur(this.getNoLigne(), "Fonction avec une branche sans instruction de retour.");
 		}
 		return true;
 	}

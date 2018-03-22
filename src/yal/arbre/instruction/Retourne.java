@@ -17,7 +17,7 @@ public class Retourne extends Instruction {
 	@Override
 	public void verifier() {
 		if(exp.getReturnType() != "int") {
-			ListeErreursSemantiques.getInstance().addErreur("Ligne " + this.noLigne + " : Type de retour doit être un entier");
+			ListeErreursSemantiques.getInstance().addErreur(this.noLigne, "Type de retour doit être un entier");
 		}
 		// On vérifie l'expression
 		exp.verifier();
@@ -26,7 +26,7 @@ public class Retourne extends Instruction {
 	@Override
 	public boolean isRetourne(boolean isFonction) {
 		if(!isFonction)
-			ListeErreursSemantiques.getInstance().addErreur("Ligne " + this.getNoLigne() + " : Instruction de retour dans le bloc principal.");
+			ListeErreursSemantiques.getInstance().addErreur(this.getNoLigne(), "Instruction de retour dans le bloc principal.");
 		return true;
 	}
 

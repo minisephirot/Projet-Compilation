@@ -25,8 +25,10 @@ public class ListeErreursSemantiques {
 	 * Ajoute une erreur sémantique à la liste
 	 * @param erreur à ajouter
 	 */
-	public void addErreur(String erreur) {
-		listeException.append("\t");
+	public void addErreur(int noLigne, String erreur) {
+		listeException.append("\tLigne ");
+		listeException.append(noLigne);
+		listeException.append(" : ");
 		listeException.append(erreur);
 		listeException.append("\n");
 	}

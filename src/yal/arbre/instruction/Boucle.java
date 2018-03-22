@@ -22,7 +22,7 @@ public class Boucle extends Instruction {
 	@Override
 	public void verifier() {
 		if (!expr.getReturnType().equals("bool")){
-			ListeErreursSemantiques.getInstance().addErreur("Ligne " + this.noLigne + " : L'expression \"" + expr.toString() + "\" doit renvoyer un booléen.");
+			ListeErreursSemantiques.getInstance().addErreur(this.noLigne, "L'expression \"" + expr.toString() + "\" doit renvoyer un booléen.");
 		}
 		expr.verifier();
 		bi.verifier();

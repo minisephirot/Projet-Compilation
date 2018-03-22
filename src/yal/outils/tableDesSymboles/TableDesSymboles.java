@@ -65,8 +65,14 @@ public class TableDesSymboles {
 		// Si null on test dans le chef
 		if (s == null) {
 			s = dprincipal.identifier(e);
+			// Erreur on nr trouve pas l'entrée dans la TDS
 			if (s == null) {
-				ListeErreursSemantiques.getInstance().addErreur("Ligne " + e.getNoLigne() + " : Variable \"" + e.getIdf() + "\" non déclarée.");
+				if (e instanceof EntreeVar)
+					ListeErreursSemantiques.getInstance().addErreur(e.getNoLigne(),"Variable \"" + e.getIdf() + "\" non déclarée.");
+				if (e instanceof EntreeProg) {
+					EntreeProg ep = (EntreeProg)e;
+					ListeErreursSemantiques.getInstance().addErreur(e.getNoLigne(), "Fonction \"" + e.getIdf() + "\" avec " + ep.getNbParam() + " paramètre(s) non déclarée.");
+				}
 			}
 		}
 		return s;

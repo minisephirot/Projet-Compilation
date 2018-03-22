@@ -22,7 +22,7 @@ public abstract class BinaireArithmetique extends Binaire {
 		this.gauche.verifier();
 		this.droite.verifier();
 		if (!(this.gauche.getReturnType().equals("int") && this.droite.getReturnType().equals("int"))){
-			ListeErreursSemantiques.getInstance().addErreur("Ligne " + this.noLigne + " : Opération arithmetique "+ this.operateur() +" doit être appliqué sur des entiers");
+			ListeErreursSemantiques.getInstance().addErreur(this.noLigne, "Opération arithmetique "+ this.operateur() +" doit être appliqué sur des entiers");
 		}
 	}
 

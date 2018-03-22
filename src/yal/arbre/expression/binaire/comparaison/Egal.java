@@ -25,7 +25,7 @@ public class Egal extends Comparaison {
 		this.gauche.verifier();
 		this.droite.verifier();
 		if (!this.droite.getReturnType().equals(this.gauche.getReturnType())){
-			ListeErreursSemantiques.getInstance().addErreur("Ligne "+this.noLigne+" : Comparaison "+ this.operateur() +" doit être Bool avec Bool ou Int avec Int mais pas mixte");
+			ListeErreursSemantiques.getInstance().addErreur(this.noLigne, "Comparaison "+ this.operateur() +" doit être Bool avec Bool ou Int avec Int mais pas mixte");
 		}
 	}
 	

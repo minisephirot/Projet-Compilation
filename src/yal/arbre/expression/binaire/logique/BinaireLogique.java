@@ -22,7 +22,7 @@ public abstract class BinaireLogique extends Binaire {
 		this.gauche.verifier();
 		this.droite.verifier();
 		if (!(this.gauche.getReturnType().equals("bool") && this.droite.getReturnType().equals("bool"))){
-			ListeErreursSemantiques.getInstance().addErreur("Ligne " + this.noLigne + " : Opération arithmetique "+ this.operateur() +" doit être appliqué sur des booléens");
+			ListeErreursSemantiques.getInstance().addErreur(this.noLigne, "Opération arithmetique "+ this.operateur() +" doit être appliqué sur des booléens");
 		}
 	}
 }

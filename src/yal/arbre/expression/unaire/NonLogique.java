@@ -24,7 +24,7 @@ public class NonLogique extends Unaire {
 	@Override
 	public void verifier() {
 		if (!this.expression.getReturnType().equals("bool")){
-			ListeErreursSemantiques.getInstance().addErreur("Ligne " + this.noLigne + " : Non Logique doit être appliqué sur un booléen");
+			ListeErreursSemantiques.getInstance().addErreur(this.noLigne, "Non Logique doit être appliqué sur un booléen");
 		}
 	}
 	

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import yal.arbre.expression.idf.IDFFonc;
 import yal.arbre.expression.idf.IDFVar;
+import yal.exceptions.ListeErreursSemantiques;
 import yal.outils.tableDesSymboles.EntreeProg;
 import yal.outils.tableDesSymboles.EntreeVar;
 import yal.outils.tableDesSymboles.SymboleProg;
@@ -29,9 +30,13 @@ public class Appel extends Expression {
 	public void verifier() {
 		//On verifie que la fonction appellée existe
 		idf.verifier();
-		
-		//TO DO Verifier que les idf appelés existent en plus du nb de parametres
-		s = (SymboleProg) TableDesSymboles.getInstance().identifier(new EntreeProg(idf.getNom(), noLigne, nbParam));
+
+		for (Expression exp : listeexpr) {
+			exp.verifier();
+			// Les paramètres doivent être des entiers
+			if (exp.getReturnType() != "int")
+				ListeErreursSemantiques.getInstance().addErreur(noLigne, "Les paramètres de la fonction \"" + idf.getNom() + "\" doivent être des entiers");
+		}
 
 	}
 

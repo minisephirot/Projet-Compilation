@@ -24,7 +24,7 @@ public class MoinsUnaire extends Unaire {
 	@Override
 	public void verifier() {
 		if (!this.expression.getReturnType().equals("int")){
-			ListeErreursSemantiques.getInstance().addErreur("Ligne " + this.noLigne + " : Moins Unaire doit être appliqué sur un entier");
+			ListeErreursSemantiques.getInstance().addErreur(this.noLigne, "Moins Unaire doit être appliqué sur un entier");
 		}
 	}
 	

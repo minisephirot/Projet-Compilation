@@ -24,7 +24,7 @@ public class Affectation extends Instruction{
 		
 		// Vérifie si les types sont compatibles
 		if (!idf.getReturnType().equals(exp.getReturnType())) {
-			ListeErreursSemantiques.getInstance().addErreur("Ligne " + this.noLigne + " : Affectation de type \"" + exp.getReturnType() + "\" à la variable \"" + idf.getNom() + "\" de type \"" + idf.getReturnType() + "\"");
+			ListeErreursSemantiques.getInstance().addErreur(this.noLigne, "Affectation de type \"" + exp.getReturnType() + "\" à la variable \"" + idf.getNom() + "\" de type \"" + idf.getReturnType() + "\"");
 		}
 		exp.verifier();
 	}
