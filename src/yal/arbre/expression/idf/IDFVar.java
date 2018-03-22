@@ -21,8 +21,6 @@ public class IDFVar extends Expression{
 
 	@Override
 	public void verifier() {
-		//Verifier la présence de l'idf pour les fonctions ? -> IDF Classe abstraire avec IDFVar & IDFProg
-		
 		// Vérifie que la variable est déclarée
 		SymboleVar s = (SymboleVar) TableDesSymboles.getInstance().identifier(new EntreeVar(nom, noLigne));
 		if (s != null) {
@@ -48,6 +46,7 @@ public class IDFVar extends Expression{
 
 	@Override
 	public String toMIPS() {
+		System.out.println(nom + " " + decalage);
 		String itr = EtiquetteFactory.getInstance().getItr();
 		StringBuilder sb = new StringBuilder();
 		sb.append("# charge la variable " + nom + "\n");

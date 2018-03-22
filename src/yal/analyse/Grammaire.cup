@@ -157,13 +157,13 @@ LDECLV	::=		LDECLV DECL_VAR
 				;
 
 DECL_VAR ::=	ENTIER IDF:i POINTVIRGULE
-				{: TableDesSymboles.getInstance().ajouter(new EntreeVar(i, ileft+1), new SymboleVar()) ; :}
+				{: TableDesSymboles.getInstance().ajouter(new EntreeVar(i, ileft+1), new SymboleVar(false)) ; :}
 				;
 	
 DECL_FONC ::=	FONCTION CREERBLOC:i PARAM:cmpt DEBUT LINSTR:bloc FIN
 				{:  RESULT = new Fonction(ileft+1,new IDFFonc(i, ileft+1,cmpt), bloc) ; :}
 		|		FONCTION CREERBLOC:i PARAM:cmpt DEBUT LDECLV LINSTR:bi FIN
-				{: RESULT = new Fonction(ileft+1,new IDFFonc(i, ileft+1,cmpt), bi) ; :}
+				{:  RESULT = new Fonction(ileft+1,new IDFFonc(i, ileft+1,cmpt), bi) ; :}
 				;
 				
 CREERBLOC ::=   IDF:i

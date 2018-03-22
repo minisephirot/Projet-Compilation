@@ -7,25 +7,27 @@ public class SymboleVar extends Symbole {
 	private int pos;
 	private Expression exp;
 	private int noBloc;
-	
-	public SymboleVar() {
-		pos = TableDesSymboles.getInstance().getCourant().getTailleZoneVariable();
-		noBloc = TableDesSymboles.getInstance().getNbBlocActuel();
-	}
-	
-	public SymboleVar(Expression e) {
-		pos = TableDesSymboles.getInstance().getCourant().getTailleZoneVariable();
-		noBloc = TableDesSymboles.getInstance().getNbBlocActuel();
-		exp = e;
-	}
-	
-	public SymboleVar(boolean param) {
-		pos = TableDesSymboles.getInstance().getNbParam();
-		noBloc = TableDesSymboles.getInstance().getNbBlocActuel();
-	}
+	private boolean isParam;	// Si la variable correspond à une paramètre
 
+	/**
+	 * Symbole de variable
+	 * @param param si true c'est un paramètre de fonction, sinon c'est une variable simple
+	 */
+	public SymboleVar(boolean param) {
+		noBloc = TableDesSymboles.getInstance().getNbBlocActuel();
+		if (param) {
+			pos = TableDesSymboles.getInstance().getNbParam();
+		} else {
+			pos = TableDesSymboles.getInstance().getCourant().getTailleZoneVariable();
+		}
+		isParam = param;
+	}
 
 	public int getPos() {
+		// Si c'est un paramètre, il faut remonter la pile + retrouver le on emplacement
+		if (isParam) {
+			return (TableDesSymboles.getInstance().getNbParam() - pos) * 4 + 16;
+		}
 		return pos;
 	}
 

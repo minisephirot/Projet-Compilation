@@ -29,7 +29,8 @@ public class Appel extends Expression {
 	@Override
 	public void verifier() {
 		//On verifie que la fonction appellée existe
-		idf.verifier();
+		//idf.verifier();
+		s = (SymboleProg)TableDesSymboles.getInstance().identifier(new EntreeProg(idf.getNom(), noLigne, nbParam));
 
 		for (Expression exp : listeexpr) {
 			exp.verifier();
@@ -43,24 +44,12 @@ public class Appel extends Expression {
 	@Override
 	public String toMIPS() {
 		StringBuilder sb = new StringBuilder();
-		
-		//Gestion des parametres -> On empile les différentes valeures des parametres dans la base locale
-		for (Expression e : this.listeexpr){
-			if (e instanceof IDFVar){//Si c'est une variable
-				IDFVar variable = (IDFVar) e;
-				sb.append("# passage de  " + variable.getNom() + " en parametre \n");
-				SymboleVar symbvar = (SymboleVar) TableDesSymboles.getInstance().identifier(new EntreeVar(variable.getNom(),0));
-				int decalage = symbvar.getPos();
-				sb.append("# sw au bon endroit\n");
-				sb.append("sw $sp, " + decalage + "($sp)\n");
-			}else//C'est une constante (sinon ça à crash)
-			{
-				sb.append("# sw de la constante passée en parametre\n");
-				sb.append(e.toMIPS());
-				sb.append("sw $v0,($sp)\n");
-			}
-			//On décale sp dans tout les cas
-			sb.append("add $sp, $sp, " + -4 + "\n");
+
+		sb.append("# Appel de la fonction " + idf + "\n");
+		for (Expression e : this.listeexpr) {
+			sb.append(e.toMIPS());
+			sb.append("sw $v0,($sp)\n");
+			sb.append("add $sp, $sp, -4\n");
 		}
 		
 		//Reserver l'espace pour la valeur de retour
@@ -70,7 +59,8 @@ public class Appel extends Expression {
 		//Met le resultat dans $v0
 		sb.append("addi $sp, $sp, 4 \n");
 		sb.append("lw $v0, ($sp)\n");
-		//Remonte la pile
+		//Remonte la pile des paramètres
+		sb.append("add $sp, $sp, " + listeexpr.size() * 4 + "\n");
 		return sb.toString();
 	}
 

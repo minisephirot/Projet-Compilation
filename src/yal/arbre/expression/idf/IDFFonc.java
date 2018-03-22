@@ -20,7 +20,6 @@ public class IDFFonc extends Expression{
 	public void verifier() {
 		// Vérifie que la fonction est déclarée ET que il respecte le bon nb de parametres
 		TableDesSymboles.getInstance().identifier(new EntreeProg(nom, noLigne,numParam));
-
 	}
 	
 	public String getNom() {
