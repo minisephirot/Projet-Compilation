@@ -1,0 +1,17 @@
+programme tests debut
+entier demander;
+
+fonction demander(entier n) debut
+	retourne n*n ;
+fin
+
+ecrire "Entrez un chiffre :\n";
+lire demander;
+
+demander = demander(demander);
+
+ecrire "\n";
+ecrire demander;
+ecrire "\n";
+
+fin

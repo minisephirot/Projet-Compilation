@@ -1,0 +1,14 @@
+programme tests debut
+entier demander;
+
+fonction demander(entier n) debut
+	retourne n*n ;
+fin
+
+fonction demander(entier f ;entier d ;entier p) debut 
+	retourne f*f;
+fin
+
+ecrire demander(1,1);
+
+fin

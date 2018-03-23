@@ -1,0 +1,16 @@
+programme tests debut
+entier a;
+
+fonction f(entier truc; entier machin) debut
+	a = f2();
+	retourne a;
+fin
+
+fonction f2() debut
+	retourne 5;
+fin
+
+ a = f(a);
+ ecrire a;
+
+fin

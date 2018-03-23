@@ -39,6 +39,8 @@ public abstract class Entree {
 		if(this instanceof EntreeProg && obj.getClass() == EntreeProg.class && ((Entree) obj).getIdf().equals(idf) 
 				&& ((EntreeProg) obj).getNbParam() == ((EntreeProg) this).getNbParam())
 			return true;
+		if(this instanceof EntreeParam && obj.getClass() == EntreeParam.class && ((Entree) obj).getIdf().equals(idf))
+			return true;
 		return false;
 	}
 	

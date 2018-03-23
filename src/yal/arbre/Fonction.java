@@ -14,13 +14,12 @@ public class Fonction extends ArbreAbstrait {
 	private int nbbloc;
 
 	// Ajouter une classe paramètre
-	public Fonction(int no, IDFFonc idf, BlocDInstructions bloc) {
+	public Fonction(int no, IDFFonc idf, BlocDInstructions bloc, int nbParam) {
 		super(no);
 		this.idf = idf;
 		this.bloc = bloc;
 
 		// On sauvegarde le numero de bloc
-		int numParam = TableDesSymboles.getInstance().getNbParam();
 		this.nbbloc = TableDesSymboles.getInstance().getNbBlocActuel();
 
 		//Allocation des variables
@@ -28,7 +27,7 @@ public class Fonction extends ArbreAbstrait {
 
 		TableDesSymboles.getInstance().sortieBloc();
 		// On ajoute cette fonction au dictionnaire du main car on vient de sortir du bloc
-		TableDesSymboles.getInstance().ajouter(new EntreeProg(idf.getNom(), no, numParam), new SymboleProg());
+		TableDesSymboles.getInstance().ajouter(new EntreeProg(idf.getNom(), no, nbParam), new SymboleProg());
 	}
 	
 	@Override

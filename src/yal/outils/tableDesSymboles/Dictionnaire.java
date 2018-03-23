@@ -32,6 +32,8 @@ public class Dictionnaire {
 			String type = "Variable";
 			if(e instanceof EntreeProg)
 				type = "Fonction";
+			if(e instanceof EntreeParam)
+				type = "Parametre";
 			ListeErreursSemantiques.getInstance().addErreur(e.getNoLigne(), type + " \"" + e.getIdf() + "\" déjà déclarée.");
 		}
 		this.TDS.put(e, s);
