@@ -1,0 +1,52 @@
+programme PlusOuMoins debut
+//init var
+entier juste;
+entier score;
+
+fonction demander() debut
+	entier token;
+	ecrire "\nEntrez votre prix :\n";
+	lire token;
+	ecrire token;
+	retourne token;
+fin
+
+fonction plusoumoins(entier n) debut
+	si n == juste alors
+		score = score+1;
+		retourne score ;
+	fsi
+	si n > juste alors
+		ecrire " ? C'est Moins !\n";
+	fsi
+	si n < juste alors
+			ecrire " ? C'est Plus !\n";
+	fsi
+	score = score+1;
+	retourne -1;
+fin
+
+fonction boucledejeu() debut
+	entier ok;
+	entier test;
+	//Boucle de jeu
+	ok = -1;
+	tantque ok == -1 repeter
+		test = demander();
+		ok = plusoumoins(test);
+	fintantque
+	retourne score;
+
+fin
+
+ecrire "Entrez un sel :\n"; // <- petition pour ajouter rand dans yal 
+lire juste;
+
+juste = juste*666/120+42;
+score = boucledejeu();
+ecrire " ? C'est gagne en ";
+ecrire score;
+ecrire " coups !\n";
+		
+		
+fin
