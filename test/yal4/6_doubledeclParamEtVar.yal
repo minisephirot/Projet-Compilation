@@ -1,0 +1,11 @@
+programme tests debut
+entier demander;
+
+fonction demander(entier n) debut
+	entier n;
+	retourne n*n ;
+fin
+
+ecrire demander(3)+20+demander(1);
+
+fin
