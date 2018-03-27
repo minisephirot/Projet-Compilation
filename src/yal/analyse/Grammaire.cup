@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.ArrayList;
 import yal.arbre.ArbreAbstrait;
 import yal.arbre.BlocDInstructions;
-import yal.arbre.Fonction;
+import yal.arbre.*;
 import yal.arbre.Programme;
-import yal.arbre.expression.Appel;
+import yal.arbre.expression.*;
 import yal.arbre.expression.Expression;
 import yal.arbre.expression.binaire.arithmetique.Div;
 import yal.arbre.expression.binaire.arithmetique.Moins;
@@ -24,14 +24,10 @@ import yal.arbre.expression.constante.ConstanteBool;
 import yal.arbre.expression.constante.ConstanteEntiere;
 import yal.arbre.expression.idf.IDFFonc;
 import yal.arbre.expression.idf.IDFVar;
-import yal.arbre.expression.unaire.MoinsUnaire;
-import yal.arbre.expression.unaire.NonLogique;
+import yal.arbre.expression.unaire.*;
 import yal.arbre.instruction.*;
 import yal.exceptions.AnalyseSyntaxiqueException;
-import yal.outils.tableDesSymboles.EntreeParam;
-import yal.outils.tableDesSymboles.EntreeVar;
-import yal.outils.tableDesSymboles.SymboleVar;
-import yal.outils.tableDesSymboles.TableDesSymboles;
+import yal.outils.tableDesSymboles.*;
 
 action code {: 
              :} ;
@@ -92,9 +88,9 @@ parser code {:
    
 /* Terminals (tokens returned by the scanner).  */
 
-terminal Symbol    POINTVIRGULE, VIRGULE, PLUS, MOINS, MULT, DIV, PAROUV, PARFER ;
-terminal Symbol    SUP, INF, EGALEGAL, DIFF, ET, OU, NON, EGAL, PROGRAMME, ENTIER, DEBUT, FIN, ECR, FONCTION, RETOURNE;
-terminal Symbol    TANTQUE, REPETER, FINTANTQUE, SI, ALORS, SINON, FSI, LIRE;
+terminal Symbol    POINTVIRGULE, VIRGULE, PLUS, MOINS, MULT, DIV, PAROUV, PARFER, CROOUV, CROFER;
+terminal Symbol    POINT, SUP, INF, EGALEGAL, DIFF, ET, OU, NON, EGAL, PROGRAMME, ENTIER, DEBUT, FIN, ECR, FONCTION, RETOURNE;
+terminal Symbol    TANTQUE, REPETER, FINTANTQUE, SI, ALORS, SINON, FSI, LIRE, LONGUEUR;
 terminal String    CONSTANTECHAINE, CONSTANTEINT, CONSTANTEBOOL, IDF;
    
 /* Non terminals used in the grammar section.  */
@@ -104,7 +100,8 @@ non terminal BlocDInstructions LINSTR, LDECL;
 non terminal Expression EXPR, CSTE ;
 non terminal Affectation AFFECT;
 non terminal String  CREERBLOC;
-non terminal DECL_VAR, LDECLV ;
+non terminal DECL_VAR, LDECLV;
+non terminal DeclTab DECL_TAB;
 non terminal Fonction DECL_FONC, DECL;
 non terminal Instruction INSTR;
 non terminal Ecrire ECRIRE;
@@ -150,6 +147,8 @@ DECL 	 ::=	DECL_VAR
                 {: RESULT = null; :}
 		|		DECL_FONC:d
                  {: RESULT = d; :}
+        |       DECL_TAB
+                {: RESULT = null; :}
 				;
 
 LDECLV	::=		LDECLV DECL_VAR
@@ -158,6 +157,11 @@ LDECLV	::=		LDECLV DECL_VAR
 
 DECL_VAR ::=	ENTIER IDF:i POINTVIRGULE
 				{: TableDesSymboles.getInstance().ajouter(new EntreeVar(i, ileft+1), new SymboleVar(false)) ; :}
+                ;
+
+DECL_TAB ::=    ENTIER CROOUV EXPR:e CROFER IDF:i POINTVIRGULE
+                {: TableDesSymboles.getInstance().ajouter(new EntreeTab(i, ileft+1), new SymboleTab()) ;
+                   RESULT = new DeclTab(e,new IDFVar(i,ileft +1), eleft) ; :}
 				;
 	
 DECL_FONC ::=	FONCTION CREERBLOC:i PARAM:cmpt DEBUT LINSTR:bloc FIN
@@ -303,6 +307,10 @@ EXPR    ::=     EXPR:g  PLUS  EXPR:d
         |
                 PAROUV  EXPR:e  PARFER
                 {: RESULT = e ; :}
+        |       IDF:i POINT LONGUEUR
+                {: RESULT = new Longueur(new IDFVar(i,ileft+1),ileft+1); :}
+        |       IDF:i CROOUV EXPR:e CROFER
+                {: RESULT = new AppelTab(e,new IDFVar(i,ileft+1),eleft+1); :}
                 ;
 
 PAR_EFF	::=		PAR_EFF:listefinal VIRGULE EXPR:idf

@@ -12,3 +12,4 @@ buildGuillaume.xml
 .idea/
 *.iml
 src/META-INF/
+out/

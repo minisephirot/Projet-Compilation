@@ -2,11 +2,6 @@ package yal.arbre.expression.constante;
 
 import yal.arbre.expression.Expression;
 
-/**
- * 3 déc. 2015
- *
- * @author brigitte wrobel-dautcourt
- */
 
 public abstract class Constante extends Expression {
 

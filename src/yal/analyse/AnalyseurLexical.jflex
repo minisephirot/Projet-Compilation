@@ -45,6 +45,7 @@ espace = {finDeLigne}  | [ \t\f]
 "*"                	{ return symbol(CodesLexicaux.MULT); }
 "/"                	{ return symbol(CodesLexicaux.DIV); }
 
+"."						{ return symbol(CodesLexicaux.POINT); }
 ";"						{ return symbol(CodesLexicaux.POINTVIRGULE); }
 ","						{ return symbol(CodesLexicaux.VIRGULE); }
 "="						{ return symbol(CodesLexicaux.EGAL); }
@@ -71,10 +72,13 @@ espace = {finDeLigne}  | [ \t\f]
 "lire"                   { return symbol(CodesLexicaux.LIRE); }
 "fonction"				 { return symbol(CodesLexicaux.FONCTION); }
 "retourne"				 { return symbol(CodesLexicaux.RETOURNE); }
+"longueur"               { return symbol(CodesLexicaux.LONGUEUR); }
 
 
 "("                	{ return symbol(CodesLexicaux.PAROUV); }
 ")"                	{ return symbol(CodesLexicaux.PARFER); }
+"["                	{ return symbol(CodesLexicaux.CROOUV); }
+"]"                	{ return symbol(CodesLexicaux.CROFER); }
 
 {csteE}      	        { return symbol(CodesLexicaux.CONSTANTEINT, yytext()); }
 {csteB}      	        { return symbol(CodesLexicaux.CONSTANTEBOOL, yytext()); }
