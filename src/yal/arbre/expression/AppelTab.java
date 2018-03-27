@@ -21,14 +21,20 @@ public class AppelTab extends Expression {
         idf.verifier();
         exp.verifier();
         if (!exp.getReturnType().equals("int"))
-            ListeErreursSemantiques.getInstance().addErreur(noLigne, "La taille d'un tableau doit être un entier");
-
-        //Test si on est dans le bloc principal (donc expression constante)
-
+            ListeErreursSemantiques.getInstance().addErreur(noLigne, "L'indice d'un tableau doit être un entier");
     }
 
     @Override
     public String toMIPS() {
-        return null;
+        StringBuilder sb = new StringBuilder();
+        sb.append("# Evaluation du décalage dans le tableau \n");
+        sb.append(exp.toMIPS());
+        sb.append("# Empile le décalage \n");
+        sb.append("sw $v0, ($sp) \n");
+        sb.append("addi $sp, $sp, -4 \n");
+        sb.append("# Stock l'adresse dans a0 \n");
+        sb.append(" \n");
+
+        return sb.toString();
     }
 }
