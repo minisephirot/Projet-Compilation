@@ -26,7 +26,7 @@ public class IDFTab extends Expression {
 
         @Override
         public void verifierConstante() {
-            ListeErreursSemantiques.getInstance().addErreur(noLigne,"La déclaration d'un tableau dans le bloc principal doit se faire sans constante");
+            ListeErreursSemantiques.getInstance().addErreur(noLigne,"La déclaration d'un tableau dans le bloc principal doit se faire sans variable");
         }
 
         @Override
