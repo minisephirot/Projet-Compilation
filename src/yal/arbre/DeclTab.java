@@ -17,10 +17,10 @@ public class DeclTab extends ArbreAbstrait {
 
     @Override
     public void verifier() {
-        idf.verifier();
         exp.verifier();
+        exp.verifierConstante();
         if (!exp.getReturnType().equals("int"))
-            ListeErreursSemantiques.getInstance().addErreur(noLigne, "La taille d'un tableau doit être un entier");
+            ListeErreursSemantiques.getInstance().addErreur(noLigne, "L'indice d'un tableau doit être un entier");
 
         //Test si on est dans le bloc principal (donc expression constante)
 

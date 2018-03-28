@@ -18,4 +18,6 @@ public abstract class Expression extends ArbreAbstrait {
 		this.returnType = returnType;
 	}
 
+	public void verifierConstante() {};
+
 }

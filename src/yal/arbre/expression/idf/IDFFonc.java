@@ -1,6 +1,7 @@
 package yal.arbre.expression.idf;
 
 import yal.arbre.expression.Expression;
+import yal.exceptions.ListeErreursSemantiques;
 import yal.outils.tableDesSymboles.EntreeProg;
 import yal.outils.tableDesSymboles.TableDesSymboles;
 
@@ -14,6 +15,11 @@ public class IDFFonc extends Expression{
 		this.returnType = "int"; //Toutes nos fonctions sont des entiers
 		nom = idf;
 		this.numParam = numParam;
+	}
+
+	@Override
+	public void verifierConstante() {
+		ListeErreursSemantiques.getInstance().addErreur(noLigne,"La déclaration d'un tableau dans le bloc principal doit se faire sans constante");
 	}
 
 	@Override

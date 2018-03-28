@@ -95,14 +95,14 @@ terminal String    CONSTANTECHAINE, CONSTANTEINT, CONSTANTEBOOL, IDF;
    
 /* Non terminals used in the grammar section.  */
 
-non terminal ArbreAbstrait PROG ;
+non terminal ArbreAbstrait PROG, DECL ;
 non terminal BlocDInstructions LINSTR, LDECL;
 non terminal Expression EXPR, CSTE ;
 non terminal Affectation AFFECT;
 non terminal String  CREERBLOC;
 non terminal DECL_VAR, LDECLV;
 non terminal DeclTab DECL_TAB;
-non terminal Fonction DECL_FONC, DECL;
+non terminal Fonction DECL_FONC;
 non terminal Instruction INSTR;
 non terminal Ecrire ECRIRE;
 non terminal Lire LECTURE;
@@ -147,8 +147,8 @@ DECL 	 ::=	DECL_VAR
                 {: RESULT = null; :}
 		|		DECL_FONC:d
                  {: RESULT = d; :}
-        |       DECL_TAB
-                {: RESULT = null; :}
+        |       DECL_TAB:d
+                {: RESULT = d; :}
 				;
 
 LDECLV	::=		LDECLV DECL_VAR
@@ -161,7 +161,7 @@ DECL_VAR ::=	ENTIER IDF:i POINTVIRGULE
 
 DECL_TAB ::=    ENTIER CROOUV EXPR:e CROFER IDF:i POINTVIRGULE
                 {: TableDesSymboles.getInstance().ajouter(new EntreeTab(i, ileft+1), new SymboleTab()) ;
-                   RESULT = new DeclTab(e,new IDFVar(i,ileft +1), eleft) ; :}
+                   RESULT = new DeclTab(e,new IDFVar(i,ileft +1), eleft+1) ; :}
 				;
 	
 DECL_FONC ::=	FONCTION CREERBLOC:i PARAM:cmpt DEBUT LINSTR:bloc FIN
@@ -232,6 +232,8 @@ ECRIRE  ::=     ECR EXPR:e POINTVIRGULE
 
 AFFECT  ::=     IDF:idf EGAL EXPR:e POINTVIRGULE
 				{: RESULT = new Affectation(new IDFVar(idf, eleft + 1), e, eleft +1); :}
+		|       IDF:idf CROOUV EXPR:e1 CROFER EGAL EXPR:e2 POINTVIRGULE
+		        {: RESULT = new AffectationTab(new IDFVar(idf,idfleft + 1), e1, e2, e1left +1); :}
 				;
 				
 BOUCLE  ::=     TANTQUE EXPR:e REPETER LINSTR:li FINTANTQUE

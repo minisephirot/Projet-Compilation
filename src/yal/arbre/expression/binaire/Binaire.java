@@ -22,6 +22,12 @@ public abstract class Binaire extends Expression {
     public abstract String operateur() ;
 
     @Override
+    public void verifierConstante() {
+        gauche.verifierConstante();
+        droite.verifierConstante();
+    }
+
+    @Override
     public String toString() {
         return "(" + gauche + operateur() + droite + ")" ;
     }

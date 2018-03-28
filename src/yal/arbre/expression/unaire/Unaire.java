@@ -16,7 +16,12 @@ public abstract class Unaire extends Expression {
         super(expr.getNoLigne());
         expression = expr ;
     }
-    
+
+    @Override
+    public void verifierConstante() {
+        expression.verifierConstante();
+    }
+
     public abstract String operateur() ;
 
     @Override
