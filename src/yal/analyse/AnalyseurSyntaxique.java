@@ -6,13 +6,8 @@
 
 package yal.analyse;
 
-import java.util.HashMap;
-import java.util.ArrayList;
-import yal.arbre.ArbreAbstrait;
-import yal.arbre.BlocDInstructions;
 import yal.arbre.*;
-import yal.arbre.Programme;
-import yal.arbre.expression.*;
+import yal.arbre.expression.Appel;
 import yal.arbre.expression.Expression;
 import yal.arbre.expression.binaire.arithmetique.Div;
 import yal.arbre.expression.binaire.arithmetique.Moins;
@@ -28,10 +23,15 @@ import yal.arbre.expression.constante.ConstanteBool;
 import yal.arbre.expression.constante.ConstanteEntiere;
 import yal.arbre.expression.idf.IDFFonc;
 import yal.arbre.expression.idf.IDFVar;
-import yal.arbre.expression.unaire.*;
+import yal.arbre.expression.unaire.Longueur;
+import yal.arbre.expression.unaire.MoinsUnaire;
+import yal.arbre.expression.unaire.NonLogique;
 import yal.arbre.instruction.*;
 import yal.exceptions.AnalyseSyntaxiqueException;
 import yal.outils.tableDesSymboles.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /** CUP v0.11a beta 20060608 generated parser.
   * @version Wed Mar 28 11:04:43 CEST 2018

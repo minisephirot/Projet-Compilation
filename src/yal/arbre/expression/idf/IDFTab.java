@@ -2,9 +2,7 @@ package yal.arbre.expression.idf;
 
 import yal.arbre.expression.Expression;
 import yal.exceptions.ListeErreursSemantiques;
-import yal.outils.EtiquetteFactory;
 import yal.outils.tableDesSymboles.EntreeTab;
-import yal.outils.tableDesSymboles.EntreeVar;
 import yal.outils.tableDesSymboles.SymboleVar;
 import yal.outils.tableDesSymboles.TableDesSymboles;
 
@@ -58,7 +56,17 @@ public class IDFTab extends Expression {
 
         @Override
         public String toMIPS() {
-            return null;
+            StringBuilder sb = new StringBuilder();
+            sb.append("# Evaluation du décalage dans le tableau \n");
+            sb.append(exp.toMIPS());
+            sb.append("# Empile le décalage \n");
+            sb.append("sw $v0, ($sp) \n");
+            sb.append("addi $sp, $sp, -4 \n");
+            sb.append("# Stock l'adresse dans a0 \n");
+
+            sb.append(" \n");
+
+            return sb.toString();
         }
 
         @Override

@@ -1,15 +1,10 @@
 package yal.arbre.expression;
 
-import java.util.ArrayList;
-
 import yal.arbre.expression.idf.IDFFonc;
-import yal.arbre.expression.idf.IDFVar;
 import yal.exceptions.ListeErreursSemantiques;
-import yal.outils.tableDesSymboles.EntreeProg;
-import yal.outils.tableDesSymboles.EntreeVar;
 import yal.outils.tableDesSymboles.SymboleProg;
-import yal.outils.tableDesSymboles.SymboleVar;
-import yal.outils.tableDesSymboles.TableDesSymboles;
+
+import java.util.ArrayList;
 
 public class Appel extends Expression {
 
@@ -29,8 +24,8 @@ public class Appel extends Expression {
 	@Override
 	public void verifier() {
 		//On verifie que la fonction appellée existe
-		//idf.verifier();
-		s = (SymboleProg)TableDesSymboles.getInstance().identifier(new EntreeProg(idf.getNom(), noLigne, nbParam));
+		idf.verifier();
+		s = idf.getSymbole();
 
 		for (Expression exp : listeexpr) {
 			exp.verifier();

@@ -3,12 +3,14 @@ package yal.arbre.expression.idf;
 import yal.arbre.expression.Expression;
 import yal.exceptions.ListeErreursSemantiques;
 import yal.outils.tableDesSymboles.EntreeProg;
+import yal.outils.tableDesSymboles.SymboleProg;
 import yal.outils.tableDesSymboles.TableDesSymboles;
 
 public class IDFFonc extends Expression{
 
 	private String nom;
 	private int numParam;
+	private SymboleProg s;
 
 	public IDFFonc(String idf, int n, int numParam) {
 		super(n);
@@ -25,7 +27,7 @@ public class IDFFonc extends Expression{
 	@Override
 	public void verifier() {
 		// Vérifie que la fonction est déclarée ET que il respecte le bon nb de parametres
-		TableDesSymboles.getInstance().identifier(new EntreeProg(nom, noLigne,numParam));
+		s = (SymboleProg) TableDesSymboles.getInstance().identifier(new EntreeProg(nom, noLigne,numParam));
 	}
 	
 	public String getNom() {
@@ -42,4 +44,7 @@ public class IDFFonc extends Expression{
 		return getNom();
 	}
 
+	public SymboleProg getSymbole() {
+		return s;
+	}
 }

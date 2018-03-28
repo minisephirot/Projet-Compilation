@@ -1,7 +1,5 @@
 package yal.outils.tableDesSymboles;
 
-import yal.arbre.expression.Expression;
-
 public class SymboleVar extends Symbole {
 
 	private int pos;
