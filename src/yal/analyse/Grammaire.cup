@@ -160,7 +160,7 @@ DECL_VAR ::=	ENTIER IDF:i POINTVIRGULE
                 ;
 
 DECL_TAB ::=    ENTIER CROOUV EXPR:e CROFER IDF:i POINTVIRGULE
-                {: TableDesSymboles.getInstance().ajouter(new EntreeTab(i, ileft+1), new SymboleTab()) ;
+                {: TableDesSymboles.getInstance().ajouter(new EntreeTab(i, ileft+1), new SymboleVar(false)) ;
                    RESULT = new DeclTab(e,new IDFVar(i,ileft +1), eleft+1) ; :}
 				;
 	
@@ -233,7 +233,7 @@ ECRIRE  ::=     ECR EXPR:e POINTVIRGULE
 AFFECT  ::=     IDF:idf EGAL EXPR:e POINTVIRGULE
 				{: RESULT = new Affectation(new IDFVar(idf, eleft + 1), e, eleft +1); :}
 		|       IDF:idf CROOUV EXPR:e1 CROFER EGAL EXPR:e2 POINTVIRGULE
-		        {: RESULT = new AffectationTab(new IDFVar(idf,idfleft + 1), e1, e2, e1left +1); :}
+		        {: RESULT = new AffectationTab(new IDFTab(idf,e1,idfleft + 1), e2, e1left +1); :}
 				;
 				
 BOUCLE  ::=     TANTQUE EXPR:e REPETER LINSTR:li FINTANTQUE
@@ -312,7 +312,7 @@ EXPR    ::=     EXPR:g  PLUS  EXPR:d
         |       IDF:i POINT LONGUEUR
                 {: RESULT = new Longueur(new IDFVar(i,ileft+1),ileft+1); :}
         |       IDF:i CROOUV EXPR:e CROFER
-                {: RESULT = new AppelTab(e,new IDFVar(i,ileft+1),eleft+1); :}
+                {: RESULT = IDFTab(i,e,eleft+1); :}
                 ;
 
 PAR_EFF	::=		PAR_EFF:listefinal VIRGULE EXPR:idf

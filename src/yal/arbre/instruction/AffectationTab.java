@@ -8,9 +8,8 @@ import yal.exceptions.ListeErreursSemantiques;
 public class AffectationTab extends Affectation {
     private Expression indice;
 
-    public AffectationTab(IDFVar idf, Expression aff, Expression ind, int no) {
+    public AffectationTab(IDFVar idf, Expression aff, int no) {
         super(idf, aff, no);
-        indice = ind;
     }
 
     @Override

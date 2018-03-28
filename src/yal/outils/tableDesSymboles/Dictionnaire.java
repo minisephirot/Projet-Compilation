@@ -73,6 +73,8 @@ public class Dictionnaire {
 		for(Map.Entry<Entree,Symbole> e : TDS.entrySet()) {
 			if (e.getKey() instanceof EntreeVar)
 				cmpt++;
+			else if (e.getKey() instanceof EntreeTab)
+				cmpt += 2;
 		}
 		return cmpt * -4;
 	}

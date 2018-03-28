@@ -5,7 +5,6 @@ import yal.arbre.expression.Expression;
 public class SymboleVar extends Symbole {
 
 	private int pos;
-	private Expression exp;
 	private int noBloc;
 	private boolean isParam;	// Si la variable correspond à une paramètre
 
@@ -33,11 +32,5 @@ public class SymboleVar extends Symbole {
 
 	public int getNoBloc() {
 		return noBloc;
-	}
-
-	public String getType() {
-		if (exp == null)
-			return "int";
-		return exp.getReturnType();
 	}
 }

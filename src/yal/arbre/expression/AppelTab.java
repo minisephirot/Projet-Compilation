@@ -18,7 +18,7 @@ public class AppelTab extends Expression {
 
     @Override
     public void verifier() {
-        idf.verifier();
+
         exp.verifier();
         if (!exp.getReturnType().equals("int"))
             ListeErreursSemantiques.getInstance().addErreur(noLigne, "L'indice d'un tableau doit être un entier");

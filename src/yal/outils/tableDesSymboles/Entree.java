@@ -33,7 +33,7 @@ public abstract class Entree {
 	public boolean equals(Object obj) {
 		if (obj == this) return true;
 		
-		if(this instanceof EntreeVar && (obj.getClass() == EntreeParam.class || obj.getClass() == EntreeVar.class  && ((Entree) obj).getIdf().equals(idf)))
+		if(this instanceof EntreeVar && (obj.getClass() == EntreeParam.class || obj.getClass() == EntreeVar.class || obj.getClass() == EntreeTab.class) && ((Entree) obj).getIdf().equals(idf))
 			return true;
 		
 		if(this instanceof EntreeProg && obj.getClass() == EntreeProg.class && ((Entree) obj).getIdf().equals(idf) 

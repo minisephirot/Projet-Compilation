@@ -36,6 +36,7 @@ public class IDFVar extends Expression{
 			decalage = 1; // Décalage faux car la variable n'est pas décalrée
 			noBloc = 0;
 		}
+		System.out.println(decalage);
 	}
 	
 	public String getNom() {
