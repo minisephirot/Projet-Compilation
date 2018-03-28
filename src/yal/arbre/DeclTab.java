@@ -22,6 +22,7 @@ public class DeclTab extends ArbreAbstrait {
     @Override
     public void verifier() {
         exp.verifier();
+        idf.verifier();
 
         //Test si on est dans le bloc principal (donc expression constante)
         if(TableDesSymboles.getInstance().getNbBlocActuel() == 0)
@@ -30,8 +31,7 @@ public class DeclTab extends ArbreAbstrait {
         if (!exp.getReturnType().equals("int"))
             ListeErreursSemantiques.getInstance().addErreur(noLigne, "L'indice d'un tableau doit être un entier");
 
-        SymboleVar s = (SymboleVar) TableDesSymboles.getInstance().identifier(new EntreeTab(idf.getNom(), noLigne));
-        decalage = s.getPos();
+        decalage = idf.getDecalage();
     }
 
     @Override

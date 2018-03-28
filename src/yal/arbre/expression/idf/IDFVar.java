@@ -22,7 +22,7 @@ public class IDFVar extends Expression{
 
 	@Override
 	public void verifierConstante() {
-		ListeErreursSemantiques.getInstance().addErreur(noLigne,"La déclaration d'un tableau dans le bloc principal doit se faire sans constante");
+		ListeErreursSemantiques.getInstance().addErreur(noLigne,"La déclaration d'un tableau dans le bloc principal doit se faire sans variable");
 	}
 
 	@Override
@@ -36,7 +36,6 @@ public class IDFVar extends Expression{
 			decalage = 1; // Décalage faux car la variable n'est pas décalrée
 			noBloc = 0;
 		}
-		System.out.println(decalage);
 	}
 	
 	public String getNom() {
