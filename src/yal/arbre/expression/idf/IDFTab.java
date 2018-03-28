@@ -64,23 +64,29 @@ public class IDFTab extends Expression {
             sb.append("# Evaluation de l'indice \n");
             sb.append(indice.toMIPS());
 
-            sb.append("# Multiplication par l'enjambée \n");
-            sb.append("addi, $t8, $zero, -4 \n");
-            sb.append("mult $v0, $t8\n");
-            sb.append("mflo $v0\n");
-
-
-
             /**********************/
             /*  Test de l'indice  */
             /**********************/
+            sb.append("#Test si l'indice est négatif");
+            sb.append("bltz $v0, indiceNeg ");
+
+            sb.append("#Test si l'indice est supérieur à la taille du tableau");
+            sb.append("#On charge la taille du tableau dans $t8");
+            sb.append("lw $t8, " + (decalage - 4) + "($sp) \n");
+            sb.append("sub $t8, $t8, $v0\n");
+            sb.append("blez $t8, overTab\n");
+
+            sb.append("# Multiplication par l'enjambée \n");
+            sb.append("addi $t8, $zero, -4 \n");
+            sb.append("mult $v0, $t8\n");
+            sb.append("mflo $v0\n");
 
             sb.append("# Empile le décalage \n");
             sb.append("sw $v0, ($sp) \n");
             sb.append("addi $sp, $sp, -4 \n");
 
             sb.append("# Cherche l'adresse d'origine du tableau \n");
-            sb.append("sw $v0, " + decalage + "($sp) \n");
+            sb.append("lw $v0, " + decalage + "($sp) \n");
 
             sb.append("# Calcul l'adresse de la case dans $v0\n");
             sb.append("addi $sp, $sp, 4\n");

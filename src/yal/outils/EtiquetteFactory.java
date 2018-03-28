@@ -15,6 +15,7 @@ public class EtiquetteFactory {
 	private ArrayList<String> stringsPrint; // ArrayList des string a afficher
 	private boolean hasDivBy0;	//Vérifie si des divisions sont utilisées
 	private boolean hasBoolPrint;	//Vérifie si des ecrire de boolean sont utilisés
+	private boolean hasTab;
 	
 	private EtiquetteFactory() {
 		indexSi = 0;
@@ -107,7 +108,48 @@ public class EtiquetteFactory {
 			addString("chaineFaux: .asciiz \"faux\"\n");
 		}
 	}
-	
+
+	/**
+	 * Met la variable à true si on utilise un tableau et génére le message d'erreur
+	 * pour le début du programme MIPS
+	 */
+	public  void setHasTab() {
+		if(!hasTab){
+			hasTab = true;
+			addString("errIndiceNeg: .asciiz \" ERREUR EXECUTION : Indice de tableau négatif interdit\\n\"\n");
+			addString("errOverTab: .asciiz \" ERREUR EXECUTION : Indice du tableau plus grand que la taille du tableau\\n\"\n");
+		}
+	}
+
+	/**
+	 * Ecrit l'appel d'erreur sur l'indice du tableau quand besoin
+	 * @return l'appel de l'erreur ou rien si pas de tableau
+	 */
+	public String ecrireTabErr() {
+		if(hasTab) {
+			StringBuilder sb = new StringBuilder();
+
+			//Ecrire l'appel de l'erreur en cas d'indice négatif
+			sb.append("# La gestion d'un indice négatif\n");
+			sb.append("indiceNeg:\n");
+			sb.append("li $v0, 4\n");
+			sb.append("la $a0, errIndiceNeg\n");
+			sb.append("syscall\n");
+			sb.append("b end\n");
+
+			//Ecrit l'appel de l'erreur en cas d'indice supérieur à la taille
+			sb.append("#La gestion d'un indice superieur à la taille du tableau\n");
+			sb.append("overTab\n");
+
+			return sb.toString();
+		} else
+			return "";
+	}
+
+	public String ecrireOverTab() {
+
+	}
+
 	/**
 	 * Ecrit les chaines de caractères à afficher
 	 * @return les chaines a écrire
