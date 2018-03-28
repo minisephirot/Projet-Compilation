@@ -6,18 +6,22 @@ import yal.outils.tableDesSymboles.EntreeTab;
 import yal.outils.tableDesSymboles.SymboleVar;
 import yal.outils.tableDesSymboles.TableDesSymboles;
 
+/**
+ * Classe qui permet de charger l'adresse d'un case du tableau dans a0
+ * Elle est utilisée par les classe AffectationTab, EcrireTab et ChercherTab
+ */
 public class IDFTab extends Expression {
 
         private String nom;
-        private Expression exp;
+        private Expression indice;
         private int decalage;
         private int noBloc;
 
-        public IDFTab(String idf,Expression e, int n) {
+        public IDFTab(String idf, Expression indice, int n) {
             super(n);
             this.returnType = "int"; //Toutes nos variables sont des entiers
             nom = idf;
-            exp = e;
+            this.indice = indice;
         }
 
         @Override
@@ -36,8 +40,8 @@ public class IDFTab extends Expression {
                 decalage = 1; // Décalage faux car la variable n'est pas décalrée
                 noBloc = 0;
             }
-            exp.verifier();
-            if (!exp.getReturnType().equals("int"))
+            indice.verifier();
+            if (!indice.getReturnType().equals("int"))
                 ListeErreursSemantiques.getInstance().addErreur(noLigne, "L'indice d'un tableau doit être un entier");
 
         }
@@ -57,14 +61,35 @@ public class IDFTab extends Expression {
         @Override
         public String toMIPS() {
             StringBuilder sb = new StringBuilder();
-            sb.append("# Evaluation du décalage dans le tableau \n");
-            sb.append(exp.toMIPS());
+            sb.append("# Evaluation de l'indice \n");
+            sb.append(indice.toMIPS());
+
+            sb.append("# Multiplication par l'enjambée \n");
+            sb.append("addi, $t8, $zero, -4 \n");
+            sb.append("mult $v0, $t8\n");
+            sb.append("mflo $v0\n");
+
+
+
+            /**********************/
+            /*  Test de l'indice  */
+            /**********************/
+
             sb.append("# Empile le décalage \n");
             sb.append("sw $v0, ($sp) \n");
             sb.append("addi $sp, $sp, -4 \n");
-            sb.append("# Stock l'adresse dans a0 \n");
 
-            sb.append(" \n");
+            sb.append("# Cherche l'adresse d'origine du tableau \n");
+            sb.append("sw $v0, " + decalage + "($sp) \n");
+
+            sb.append("# Calcul l'adresse de la case dans $v0\n");
+            sb.append("addi $sp, $sp, 4\n");
+            sb.append("lw $t8, 0($sp)\n");
+            sb.append("addi $a0, $v0, $t8\n");
+
+            sb.append("# Empile l'adresse \n");
+            sb.append("sw $v0, ($sp) \n");
+            sb.append("addi $sp, $sp, -4 \n");
 
             return sb.toString();
         }

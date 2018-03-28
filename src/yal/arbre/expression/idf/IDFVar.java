@@ -55,7 +55,7 @@ public class IDFVar extends Expression{
 	public String toMIPS() {
 		String itr = EtiquetteFactory.getInstance().getItr();
 		StringBuilder sb = new StringBuilder();
-		sb.append("# charge la variable " + nom + "\n");
+		sb.append("# Charge la variable " + nom + "\n");
 		sb.append("move $t8, $s7 \n");
 		sb.append(itr + ": \n");
 		sb.append("lw $v0, 4($t8) \n");
