@@ -148,7 +148,7 @@ DECL_VAR ::=	ENTIER IDF:i POINTVIRGULE
 
 DECL_TAB ::=    ENTIER CROOUV EXPR:e CROFER IDF:i POINTVIRGULE
                 {: TableDesSymboles.getInstance().ajouter(new EntreeTab(i, ileft+1), new SymboleVar(false)) ;
-                   RESULT = new DeclTab(e,new IDFVar(i,ileft +1), eleft+1) ; :}
+                   RESULT = new DeclTab(e,i, eleft+1) ; :}
 				;
 	
 DECL_FONC ::=	FONCTION CREERBLOC:i PARAM:cmpt DEBUT LINSTR:bloc FIN

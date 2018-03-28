@@ -117,6 +117,7 @@ public class EtiquetteFactory {
 		if(!hasTab){
 			hasTab = true;
 			addString("errIndiceNeg: .asciiz \" ERREUR EXECUTION : Indice de tableau négatif interdit\\n\"\n");
+			addString("errIndiceNegNul: .asciiz \" ERREUR EXECUTION : Indice de tableau négatif ou nul interdit dans la déclaration\\n\"\n");
 			addString("errOverTab: .asciiz \" ERREUR EXECUTION : Indice du tableau plus grand que la taille du tableau\\n\"\n");
 		}
 	}
@@ -137,17 +138,25 @@ public class EtiquetteFactory {
 			sb.append("syscall\n");
 			sb.append("b end\n");
 
+			//Ecrire l'appel de l'erreur en cas d'indice négatif ou nul dans la declaration
+			sb.append("# La gestion d'un indice négatif ou nul dans la declaration\n");
+			sb.append("indiceNegNul:\n");
+			sb.append("li $v0, 4\n");
+			sb.append("la $a0, errIndiceNegNul\n");
+			sb.append("syscall\n");
+			sb.append("b end\n");
+			
 			//Ecrit l'appel de l'erreur en cas d'indice supérieur à la taille
 			sb.append("#La gestion d'un indice superieur à la taille du tableau\n");
-			sb.append("overTab\n");
+			sb.append("overTab:\n");
+			sb.append("li $v0, 4\n");
+			sb.append("la $a0, errOverTab\n");
+			sb.append("syscall\n");
+			sb.append("b end\n");			
 
 			return sb.toString();
 		} else
 			return "";
-	}
-
-	public String ecrireOverTab() {
-
 	}
 
 	/**

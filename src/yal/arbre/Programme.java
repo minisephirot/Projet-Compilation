@@ -53,6 +53,7 @@ public class Programme extends ArbreAbstrait {
 
 		// Affiche le test de div par zéro
 		sb.append(EtiquetteFactory.getInstance().ecrireTestDiv0());
+		sb.append(EtiquetteFactory.getInstance().ecrireTabErr());
 
 		return sb.toString();
 	}

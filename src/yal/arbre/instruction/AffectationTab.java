@@ -33,7 +33,12 @@ public class AffectationTab extends Instruction {
     public String toMIPS() {
         // Ici l'adresse est déjà empilée
         StringBuilder sb = new StringBuilder();
-
+        sb.append(idf.toMIPS());
+        
+        sb.append("# On empile l'adresse de la case pour ne pas la perde (cas AffectTabTab)\n");
+        sb.append("sw $a0, ($sp)\n");
+        sb.append("addi $sp, $sp, -4 \n");
+        
         sb.append("# Calcul de l'expression \n");
         sb.append(affecation.toMIPS());
 
@@ -42,7 +47,7 @@ public class AffectationTab extends Instruction {
         sb.append("lw $a0, 0($sp)\n");
 
         sb.append("# Met la valeur dans le tableau \n");
-        sb.append("sw $v0, ($a0)");
+        sb.append("sw $v0, ($a0)\n");
 
         return sb.toString();
     }

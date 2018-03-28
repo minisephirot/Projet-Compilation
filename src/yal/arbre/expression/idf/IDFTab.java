@@ -67,13 +67,15 @@ public class IDFTab extends Expression {
             /**********************/
             /*  Test de l'indice  */
             /**********************/
-            sb.append("#Test si l'indice est négatif");
-            sb.append("bltz $v0, indiceNeg ");
+            sb.append("#Test si l'indice est négatif ou égal à 0\n");
+            sb.append("bltz $v0, indiceNeg \n");
 
-            sb.append("#Test si l'indice est supérieur à la taille du tableau");
-            sb.append("#On charge la taille du tableau dans $t8");
-            sb.append("lw $t8, " + (decalage - 4) + "($sp) \n");
+            sb.append("#Test si l'indice est supérieur à la taille du tableau\n");
+            sb.append("#On charge la taille du tableau dans $t8\n");
+            sb.append("lw $t8, " + (decalage - 4) + "($s7) \n");
+            sb.append("#Différence de la taille du tableau et de l'indice\n");
             sb.append("sub $t8, $t8, $v0\n");
+            sb.append("#Si la différence est inférieur ou égal à 0 on jump à l'erreur\n");
             sb.append("blez $t8, overTab\n");
 
             sb.append("# Multiplication par l'enjambée \n");
@@ -86,17 +88,15 @@ public class IDFTab extends Expression {
             sb.append("addi $sp, $sp, -4 \n");
 
             sb.append("# Cherche l'adresse d'origine du tableau \n");
-            sb.append("lw $v0, " + decalage + "($sp) \n");
+            sb.append("lw $v0, " + decalage + "($s7) \n");
 
             sb.append("# Calcul l'adresse de la case dans $v0\n");
             sb.append("addi $sp, $sp, 4\n");
             sb.append("lw $t8, 0($sp)\n");
-            sb.append("addi $a0, $v0, $t8\n");
+            sb.append("add $a0, $v0, $t8\n");
 
-            sb.append("# Empile l'adresse \n");
-            sb.append("sw $v0, ($sp) \n");
-            sb.append("addi $sp, $sp, -4 \n");
-
+            sb.append("# Charge la valeur de la case du tableau dans $v0\n");
+            sb.append("lw $v0, ($a0) \n");
             return sb.toString();
         }
 
