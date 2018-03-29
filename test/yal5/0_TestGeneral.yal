@@ -1,0 +1,31 @@
+programme Fibonachi debut
+fonction a () debut
+    entier[8] bi;
+    i = 0;
+    tantque i < ab.longueur repeter
+        ab[i] = i;
+        ecrire ab[i];
+        i = i + 1;
+    fintantque
+    ecrire "\n";
+    ecrire b();
+    retourne 1;
+fin
+
+fonction b() debut
+    entier i;
+    i = 0;
+    ecrire i;
+    ecrire ab.longueur;
+    tantque i < ab.longueur repeter
+        ab[i] = i;
+        ecrire ab[i];
+        i = i + 1;
+    fintantque
+    retourne 2;
+fin
+entier i;
+entier[5] ab;
+ecrire a();
+
+fin
