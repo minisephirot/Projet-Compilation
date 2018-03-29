@@ -92,7 +92,7 @@ public class EtiquetteFactory {
 	public void setIndexDiv0() {
 		if (!hasDivBy0) {
 			this.hasDivBy0 = true;
-			addString("errDiv0: .asciiz \" ERREUR EXECUTION : Division par 0 interdite\\n\"\n");
+			addString("errDiv0: .asciiz \" \\nERREUR EXECUTION : Division par 0 interdite\\n\"\n");
 		}
 	}
 	
@@ -116,9 +116,9 @@ public class EtiquetteFactory {
 	public  void setHasTab() {
 		if(!hasTab){
 			hasTab = true;
-			addString("errIndiceNeg: .asciiz \" ERREUR EXECUTION : Indice de tableau négatif interdit\\n\"\n");
-			addString("errIndiceNegNul: .asciiz \" ERREUR EXECUTION : Indice de tableau négatif ou nul interdit dans la déclaration\\n\"\n");
-			addString("errOverTab: .asciiz \" ERREUR EXECUTION : Indice du tableau plus grand que la taille du tableau\\n\"\n");
+			addString("errIndiceNeg: .asciiz \" \\nERREUR EXECUTION : Indice de tableau négatif interdit\\n\"\n");
+			addString("errIndiceNegNul: .asciiz \" \\nERREUR EXECUTION : Indice de tableau négatif ou nul interdit dans la déclaration\\n\"\n");
+			addString("errOverTab: .asciiz \" \\nERREUR EXECUTION : Indice du tableau plus grand que la taille du tableau\\n\"\n");
 		}
 	}
 

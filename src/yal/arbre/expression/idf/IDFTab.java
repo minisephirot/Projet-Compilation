@@ -44,8 +44,6 @@ public class IDFTab extends Expression {
             indice.verifier();
             if (!indice.getReturnType().equals("int"))
                 ListeErreursSemantiques.getInstance().addErreur(noLigne, "L'indice d'un tableau doit être un entier");
-
-            System.out.println(noBloc);
         }
 
         public String getNom() {
@@ -75,6 +73,11 @@ public class IDFTab extends Expression {
             sb.append("lw $t8, 8($t8) \n");
             sb.append("j " + itr + " \n");
             sb.append("fin" + itr + ": \n");
+            sb.append("# Empile l'ancienne base\n");
+            sb.append("sw $s7, ($sp)\n");
+            sb.append("addi $sp, $sp, -4 \n");
+            sb.append("# On remplace la base actuelle par la base de la variable \n");
+            sb.append("move $s7, $t8\n");
 
 
             sb.append("# Evaluation de l'indice du tableau " + nom + " \n");
@@ -113,6 +116,11 @@ public class IDFTab extends Expression {
 
             sb.append("# Charge la valeur de la case du tableau dans $v0\n");
             sb.append("lw $v0, ($a0) \n");
+
+            sb.append("# Depile et restaure la base\n");
+            sb.append("addi $sp, $sp, 4\n");
+            sb.append("lw $t8, 0($sp)\n");
+            sb.append("move $s7, $t8\n");
             return sb.toString();
         }
 

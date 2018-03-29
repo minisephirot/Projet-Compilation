@@ -310,7 +310,7 @@ EXPR    ::=     EXPR:g  PLUS  EXPR:d
                 PAROUV  EXPR:e  PARFER
                 {: RESULT = e ; :}
         |       IDF:i POINT LONGUEUR
-                {: RESULT = new Longueur(new IDFVar(i,ileft+1),ileft+1); :}
+                {: RESULT = new Longueur(new IDFTab(i,new ConstanteEntiere("0",ileft+1),ileft+1),ileft+1); :}
         |       IDF:i CROOUV EXPR:e CROFER
                 {: RESULT = new IDFTab(i,e,eleft+1); :}
                 ;
