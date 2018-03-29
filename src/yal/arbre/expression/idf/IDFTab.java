@@ -76,12 +76,22 @@ public class IDFTab extends Expression {
             sb.append("# Empile l'ancienne base\n");
             sb.append("sw $s7, ($sp)\n");
             sb.append("addi $sp, $sp, -4 \n");
-            sb.append("# On remplace la base actuelle par la base de la variable \n");
-            sb.append("move $s7, $t8\n");
+            sb.append("# Empile la nouvelle base\n");
+            sb.append("sw $t8, ($sp)\n");
+            sb.append("addi $sp, $sp, -4 \n");
+
 
 
             sb.append("# Evaluation de l'indice du tableau " + nom + " \n");
             sb.append(indice.toMIPS());
+
+            sb.append("# Depile et restaure la base\n");
+            sb.append("addi $sp, $sp, 4\n");
+            sb.append("lw $t8, 0($sp)\n");
+
+            sb.append("# On remplace la base actuelle par la base de la variable \n");
+            sb.append("move $s7, $t8\n");
+
 
             /**********************/
             /*  Test de l'indice  */

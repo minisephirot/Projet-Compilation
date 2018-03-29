@@ -70,9 +70,12 @@ public class TableDesSymboles {
 				if (e instanceof EntreeVar)
 					ListeErreursSemantiques.getInstance().addErreur(e.getNoLigne(),"Variable \"" + e.getIdf() + "\" non déclarée.");
 				if (e instanceof EntreeProg) {
-					EntreeProg ep = (EntreeProg)e;
+					EntreeProg ep = (EntreeProg) e;
 					ListeErreursSemantiques.getInstance().addErreur(e.getNoLigne(), "Fonction \"" + e.getIdf() + "\" avec " + ep.getNbParam() + " paramètre(s) non déclarée.");
 				}
+				if (e instanceof  EntreeTab)
+					ListeErreursSemantiques.getInstance().addErreur(e.getNoLigne(), "Tableau  \"" + e.getIdf() + "\" non déclarée.");
+
 			}
 		}
 		return s;

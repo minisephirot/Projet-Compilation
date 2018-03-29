@@ -41,7 +41,7 @@ public abstract class Entree {
 			return true;
 		if(this instanceof EntreeParam && obj.getClass() == EntreeParam.class && ((Entree) obj).getIdf().equals(idf))
 			return true;
-		if(this instanceof EntreeTab && obj.getClass() == EntreeTab.class && ((Entree)obj).getIdf().equals(idf))
+		if((this instanceof EntreeTab && obj.getClass() == EntreeTab.class || this instanceof EntreeTab && obj.getClass() == EntreeVar.class) && ((Entree)obj).getIdf().equals(idf))
 			return true;
 		return false;
 	}
