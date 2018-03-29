@@ -82,12 +82,12 @@ terminal String    CONSTANTECHAINE, CONSTANTEINT, CONSTANTEBOOL, IDF;
    
 /* Non terminals used in the grammar section.  */
 
-non terminal ArbreAbstrait PROG, DECL ;
-non terminal BlocDInstructions LINSTR, LDECL;
+non terminal ArbreAbstrait PROG, DECL, DECLF ;
+non terminal BlocDInstructions LINSTR, LDECL, LDECLV;
 non terminal Expression EXPR, CSTE ;
 non terminal Instruction AFFECT;
 non terminal String  CREERBLOC;
-non terminal DECL_VAR, LDECLV;
+non terminal DECL_VAR;
 non terminal DeclTab DECL_TAB;
 non terminal Fonction DECL_FONC;
 non terminal Instruction INSTR;
@@ -138,9 +138,22 @@ DECL 	 ::=	DECL_VAR
                 {: RESULT = d; :}
 				;
 
-LDECLV	::=		LDECLV DECL_VAR
-		|		DECL_VAR
+LDECLV	::=		LDECLV:li DECLF:d
+                {: if(d != null)
+                      li.ajouter(d);
+                    RESULT = li; :}
+		|		DECLF:d
+                {:  BlocDInstructions li = new BlocDInstructions(dleft + 1);
+                    if(d != null)
+                        li.ajouter(d);
+                    RESULT = li; :}
 				;
+
+DECLF   ::=     DECL_VAR
+                {: RESULT = null; :}
+        |       DECL_TAB:d
+                {: RESULT = d; :}
+                ;
 
 DECL_VAR ::=	ENTIER IDF:i POINTVIRGULE
 				{: TableDesSymboles.getInstance().ajouter(new EntreeVar(i, ileft+1), new SymboleVar(false)) ; :}
@@ -153,8 +166,8 @@ DECL_TAB ::=    ENTIER CROOUV EXPR:e CROFER IDF:i POINTVIRGULE
 	
 DECL_FONC ::=	FONCTION CREERBLOC:i PARAM:cmpt DEBUT LINSTR:bloc FIN
 				{:  RESULT = new Fonction(ileft+1,new IDFFonc(i, ileft+1,cmpt), bloc,cmpt) ; :}
-		|		FONCTION CREERBLOC:i PARAM:cmpt DEBUT LDECLV LINSTR:bi FIN
-				{:  RESULT = new Fonction(ileft+1,new IDFFonc(i, ileft+1,cmpt), bi,cmpt) ; :}
+		|		FONCTION CREERBLOC:i PARAM:cmpt DEBUT LDECLV:di LINSTR:bi FIN
+				{:  RESULT = new Fonction(ileft+1,new IDFFonc(i, ileft+1,cmpt),bi,di,cmpt) ; :}
 				;
 				
 CREERBLOC ::=   IDF:i

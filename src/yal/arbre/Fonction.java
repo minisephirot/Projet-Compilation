@@ -29,6 +29,22 @@ public class Fonction extends ArbreAbstrait {
 		// On ajoute cette fonction au dictionnaire du main car on vient de sortir du bloc
 		TableDesSymboles.getInstance().ajouter(new EntreeProg(idf.getNom(), no, nbParam), new SymboleProg());
 	}
+	public Fonction(int no, IDFFonc idf, BlocDInstructions blocDInstructions,BlocDInstructions blocDeDeclaration, int nbParam) {
+		super(no);
+		this.idf = idf;
+		this.bloc = blocDeDeclaration;
+		bloc.ajouter(blocDInstructions);
+
+		// On sauvegarde le numero de bloc
+		this.nbbloc = TableDesSymboles.getInstance().getNbBlocActuel();
+
+		//Allocation des variables
+		bloc.ajouterDebut(new AllocationVar(no));
+
+		TableDesSymboles.getInstance().sortieBloc();
+		// On ajoute cette fonction au dictionnaire du main car on vient de sortir du bloc
+		TableDesSymboles.getInstance().ajouter(new EntreeProg(idf.getNom(), no, nbParam), new SymboleProg());
+	}
 	
 	@Override
 	public void verifier() {
