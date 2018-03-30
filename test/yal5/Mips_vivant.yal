@@ -1,0 +1,25 @@
+programme tests debut
+entier a;
+
+fonction boucler() debut
+	entier i;
+	tantque i != 100 repeter
+		i = i+1;
+	fintantque
+	i = 0;
+	retourne 0;
+fin
+
+
+ecrire "-";
+tantque vrai repeter
+		ecrire "\b\\";
+		a = boucler();
+		ecrire "\b|";
+		a = boucler();
+		ecrire "\b/";
+		a = boucler();
+		ecrire "\b-";
+fintantque
+
+fin
