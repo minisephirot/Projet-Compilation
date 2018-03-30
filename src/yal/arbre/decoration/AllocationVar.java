@@ -29,8 +29,8 @@ public class AllocationVar extends ArbreAbstrait {
 			// On initialise toutes les variables à zéro
 			sb.append("# Init des variables à 0\n");
 			sb.append("add $v0, $zero, $zero\n");
-			for (int i = decalage; i < 0; i+=4) {
-				sb.append("lw $v0, " + i + "($s7)\n");
+			for (int i = decalage; i <= 0; i+=4) {
+				sb.append("sw $v0, " + i + "($s7)\n");
 			}
 			sb.append("add $sp, $sp, " + decalage + "\n");
 			return sb.toString();

@@ -22,7 +22,6 @@ fin
 
 fonction afficherTab() debut
     entier i;
-    i = 0;
     ecrire "Tableau :\n";
 
     tantque i < tab.longueur repeter
@@ -39,7 +38,6 @@ fin
 fonction triABulle () debut
     entier i;
     entier j;
-    j = 0;
     i = tab.longueur - 1;
 
     tantque i > 0 repeter
