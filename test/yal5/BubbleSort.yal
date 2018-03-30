@@ -1,0 +1,80 @@
+programme BubbleSort debut
+entier sel;
+entier retour;
+
+entier[6] tab;
+
+fonction creerNbAlea () debut
+    entier nbAlea;
+    nbAlea = sel*666/120-56;
+    sel = -sel/4 + 8;
+    retourne nbAlea;
+fin
+
+fonction switch (entier m; entier n) debut
+    entier tmp;
+    tmp = tab[m];
+    tab[m] = tab[n];
+    tab[n] = tmp;
+
+    retourne 0;
+fin
+
+fonction afficherTab() debut
+    entier i;
+    i = 0;
+    ecrire "Tableau :\n";
+
+    tantque i < tab.longueur repeter
+        ecrire " | ";
+        ecrire tab[i];
+        i = i + 1;
+    fintantque
+    ecrire " |\n";
+
+    retourne 0;
+
+fin
+
+fonction triABulle () debut
+    entier i;
+    entier j;
+    j = 0;
+    i = tab.longueur - 1;
+
+    tantque i > 0 repeter
+        tantque j < i repeter
+            si tab[j+1]  < tab[j] alors
+                retour = switch(j+1,j);
+            fsi
+            j = j + 1;
+        fintantque
+        i = i - 1;
+        j = 0;
+    fintantque
+
+    retourne 0;
+fin
+
+fonction creerTableau () debut
+
+    entier i;
+
+    tantque i < tab.longueur repeter
+        tab[i] = creerNbAlea();
+        i = i + 1;
+    fintantque
+
+    retour = afficherTab();
+    retour = triABulle();
+    retour = afficherTab();
+
+    retourne 0;
+fin
+
+ecrire "Entrez un sel :\n";
+lire sel;
+
+retour = creerTableau();
+
+fin
